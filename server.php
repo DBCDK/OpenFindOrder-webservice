@@ -454,23 +454,41 @@ class OFO_solr {
     return $orders;
   }
 
-  /**\brief
-   * Fetch branches for the agency and check against requesterAgencyId or responderAgencyId 
-   * @param; request parameters as xml-object
-   * return; FALSE if requesterAgencyId or responderAgencyId contains non-valid agency
+  /**\brief Expands one or more library object to the corresponding branch objects
+   * 
+   * @agencies; zero or more agencies
+   * return; array of objects contaning all branch-ids in $agencies
    */
-  private function check_agency_consistency(&$param) {
-    $agency = $this->strip_agency($param->agency->_value);
-    $url = sprintf($this->agency_url, $agency);
+  private function expand_library($agencies) {
+    $ret = $libs = array();
+    if ($agencies) {
+      if (!is_array($agencies)) {
+        $help[]->_value = $agencies->_value;
+        $agencies = $help;
+      }
+      foreach ($agencies as $agency) {
+        $libs = array_merge($libs, $this->fetch_library_list($agency->_value));
+      }
+      foreach (array_unique($libs) as $lib) {
+        $ret[]->_value = $lib;
+      }
+    }
+    return $ret;
+  }
+
+  /**\brief Expands one or more libraries using openagency::pickupAgencyList
+   * 
+   * @agency; agency to fetch pickupAgencyList for
+   * return; array of branch-ids in agency
+   */
+  private function fetch_library_list($agency) {
+    $libs = array();
+    $url = sprintf($this->agency_url, $this->strip_agency($agency));
     $res = unserialize($this->curl->get($url));
     if ($res && $res->pickupAgencyListResponse->_value->library) {
       foreach ($res->pickupAgencyListResponse->_value->library[0]->_value->pickupAgency as $sublib) {
         $libs[] = $sublib->_value->branchId->_value;
       }
-      if ($param->requesterAgencyId) 
-        return $this->check_in_list($libs, $param->requesterAgencyId, 'requester_not_in_agency');
-      else
-        return $this->check_in_list($libs, $param->responderAgencyId, 'responder_not_in_agency');
     }
     else {
       $curl_status = $this->curl->get_status();
@@ -478,7 +496,22 @@ class OFO_solr {
                           ' http: ' . $curl_status['http_code'] . 
                           ' errno: ' . $curl_status['errno'] . 
                           ' error: ' . $curl_status['error']);
-      return 'cannot_find_agency';
+    }
+    return $libs;
+  }
+
+  /**\brief
+   * Fetch branches for the agency and check against requesterAgencyId or responderAgencyId 
+   * @param; request parameters as xml-object
+   * return; FALSE if requesterAgencyId or responderAgencyId contains non-valid agency
+   */
+  private function check_agency_consistency(&$param) {
+    $libs = $this->fetch_library_list($param->agency->_value);
+    if ($libs) {
+      if ($param->requesterAgencyId) 
+        return $this->check_in_list($libs, $param->requesterAgencyId, 'requester_not_in_agency');
+      else
+        return $this->check_in_list($libs, $param->responderAgencyId, 'responder_not_in_agency');
     }
   }
 
@@ -572,6 +605,8 @@ class OFO_solr {
    *  return a solr-query string
    */
   private function set_solr_query($param) {
+    $requester = $this->expand_library($param->requesterAgencyId);
+    $responder = $this->expand_library($param->responderAgencyId);
     switch ($this->action) {
       case "findManuallyFinishedIllOrders":
         $ret = 'ordertype:inter_library_request';
@@ -581,32 +616,32 @@ class OFO_solr {
         elseif (isset($param->providerOrderState->_value)) {
           $ret .= 'AND providerorderstate:' . $param->providerOrderState->_value;
         }
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findAllOpenEndUserOrders':
         $ret = 'closed:N AND ordertype:(enduser_request OR enduser_illrequest)';
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findAllOrders':
         $ret = '';
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findAllIllOrders':
         $ret = 'ordertype:inter_library_request';
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findAllNonIllOrders':
         $ret = 'ordertype:(enduser_request OR enduser_illrequest)';
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findSpecificOrder':
@@ -617,8 +652,8 @@ class OFO_solr {
           $ret = 'ordertype:inter_library_request';
         }
         $ret = $this->add_one_par($param->orderId, 'orderid', $ret);
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findOrdersFromUser':
@@ -631,8 +666,8 @@ class OFO_solr {
         $ret = $this->add_one_par($param->userId, 'userid', $ret);
         $ret = $this->add_one_par($param->userMail, 'usermail', $ret);
         $ret = $this->add_one_par($param->userName, 'username', $ret);
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
 // Spooky ... this OR-part below has to be the last and no () around it ????
 // apparently the edismax searchHandler parse (a OR b OR c) as some list where all members should be present
@@ -643,8 +678,8 @@ class OFO_solr {
         break;
       case 'findOrdersFromUnknownUser':
         $ret = 'useridauthenticated:no';
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'bibliographicSearch':
@@ -666,34 +701,34 @@ class OFO_solr {
         break;
       case 'findOrdersWithAutoForwardReason':
         $ret = $this->add_one_par($param->autoForwardReason, 'autoforwardreason', $ret);
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findAutomatedOrders':
         $ret = 'ordertype:inter_library_request AND autoforwardresult:automated';
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findNonAutomatedOrders':
         $ret = 'autoforwardreason:non_automated';
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findOrderType':
         $ret = $this->add_one_par($param->articleDirect, 'articledirect', $ret);
         $ret = $this->add_one_par($param->kvik, 'kvik', $ret);
         $ret = $this->add_one_par($param->norfri, 'norfri', $ret);
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'getOrderStatus':
         $ret = $this->add_one_par($param->orderId, 'orderid', $ret);
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findOpenIllOrders':
@@ -705,8 +740,8 @@ class OFO_solr {
         if ($param->responderAgencyId) {
           $ret .= ' AND -providerorderstate:finished';
         }
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findClosedIllOrders':
@@ -726,22 +761,22 @@ class OFO_solr {
         if ($param->responderAgencyId) {
           $ret .= ' AND -providerorderstate:finished';
         }
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findLocalizedEndUserOrders':
         $ret = 'ordertype:enduser_request';
         $ret .= ' AND closed:' . ($this->xs_boolean($param->closed->_value) ? 'Y' : 'N');
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findNonLocalizedEndUserOrders':
         $ret = 'ordertype:enduser_illrequest';
         $ret .= ' AND closed:' . ($this->xs_boolean($param->closed->_value) ? 'Y' : 'N');
-        $ret = $this->add_one_par($param->requesterAgencyId, 'requesterid', $ret);
-        $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
       default:
