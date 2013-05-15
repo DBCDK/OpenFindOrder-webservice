@@ -799,6 +799,9 @@ class OFO_solr {
     // creationdate:[2012-03-06T00:00:00Z TO 2076-03-06T23:59:59Z]
     // creationdate:[2012-03-06T00:00:00Z TO *]
     // creationdate:[* TO 2012-03-06T00:00:00Z]
+    $ret = $this->add_one_par($param->requesterAgencyId, 'pickupagencyid', $ret);
+// search in responderid: is already done ... which is correct ???
+    $ret = $this->add_one_par($param->responderAgencyId, 'responderid', $ret);
     if ($param->fromDate->_value || $param->toDate->_value) {
       $from = $to = '*';
       if ($param->fromDate->_value) {
