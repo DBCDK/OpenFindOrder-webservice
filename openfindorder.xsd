@@ -1014,10 +1014,9 @@
 	</xs:simpleType>
 	<xs:simpleType name="autoForwardReasonType">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="autcreationdate_own"/>
-			<xs:enumeration value="candidate_aut_own"/>
+			<xs:enumeration value="delivery_before_deadline"/>
 			<xs:enumeration value="error"/>
-			<xs:enumeration value="expected_before"/>
+			<xs:enumeration value="new_for_aut_own"/>
 			<xs:enumeration value="new_for_requester"/>
 			<xs:enumeration value="new_for_responder"/>
 			<xs:enumeration value="no_delivery_date"/>
@@ -1026,6 +1025,7 @@
 			<xs:enumeration value="not_on_shelf"/>
 			<xs:enumeration value="not_possible"/>
 			<xs:enumeration value="test"/>
+			<xs:enumeration value="test_aut_own"/>
 			<xs:enumeration value="user_date_exceeded"/>
 		</xs:restriction>
 	</xs:simpleType>
