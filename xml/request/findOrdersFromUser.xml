@@ -17,6 +17,7 @@ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
   <ofo:requesterAgencyId>?</ofo:requesterAgencyId>
   <!--1 or more repetitions:-->
   <ofo:responderAgencyId>?</ofo:responderAgencyId>
+  <!--You have a CHOICE of the next 4 items at this level-->
   <ofo:userFreeText>?</ofo:userFreeText>
   <ofo:userId>?</ofo:userId>
   <ofo:userMail>?</ofo:userMail>
