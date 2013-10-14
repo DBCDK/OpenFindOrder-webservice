@@ -138,11 +138,11 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="ofo:authentication" minOccurs="0"/>
-				<xs:element ref="ofo:orderType" minOccurs="0"/>
 				<xs:choice>
 					<xs:element ref="ofo:requesterAgencyId" maxOccurs="unbounded"/>
 					<xs:element ref="ofo:responderAgencyId" maxOccurs="unbounded"/>
 				</xs:choice>
+				<xs:element ref="ofo:orderType" minOccurs="0"/>
 				<xs:choice>
 					<xs:element ref="ofo:userFreeText"/>
 					<xs:element ref="ofo:userId"/>
@@ -991,7 +991,7 @@
 	</xs:element>
 	<xs:group name="requestGeneral">
 		<xs:annotation>
-			<xs:documentation xml:lang="en">Common parameters for the service requests (requester/responder, ageny, orderSystem and date-intervals) and parameters for order counts in service requests</xs:documentation>
+			<xs:documentation xml:lang="en">Common parameters for the service requests (requester/responder, agency and date-intervals) and parameters for order counts in service requests</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element ref="ofo:agency"/>
