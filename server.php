@@ -689,6 +689,8 @@ class OFO_solr {
         //$ret = $this->add_one_par($param->issn, 'issn', $ret);  // not indexed
         // $ret = $this->add_one_par($param->mediumType, 'mediumtype', $ret);  // not indexed
         if ($param->bibliographicFreeText) {
+// also spooky here ... only titles are found, swap author and title and only authors are found
+// 2do?: split input field into author and title specific field
           $ret = $this->add_one_par($param->bibliographicFreeText, 'author', $ret, 'AND (');
           $ret = $this->add_one_par($param->bibliographicFreeText, 'title', $ret, 'OR');
         }
