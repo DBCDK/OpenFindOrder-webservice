@@ -683,6 +683,12 @@ class OFO_solr {
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'bibliographicSearch':
+        if ($param->orderType->_value == 'enduser_order') {
+          $ret = 'ordertype:(enduser_request OR enduser_illrequest)';
+        }
+        elseif ($param->orderType->_value == 'inter_library_order') {
+          $ret = 'ordertype:inter_library_request';
+        }
         $ret = $this->add_one_par($param->author, 'author', $ret);
         //$ret = $this->add_one_par($param->bibliographicRecordId, 'bibliographicrecordid', $ret);  // not indexed
         //$ret = $this->add_one_par($param->isbn, 'isbn', $ret);  // not indexed
@@ -694,7 +700,6 @@ class OFO_solr {
           $ret = $this->add_one_par($param->bibliographicFreeText, 'author', $ret, 'AND (');
           $ret = $this->add_one_par($param->bibliographicFreeText, 'title', $ret, 'OR');
         }
-        //$ret = $this->add_one_par($param->orderType, 'ordertype', $ret);
         $ret = $this->add_one_par($param->title, 'title', $ret);
         $ret = $this->add_common_pars($param, $ret);
         break;
