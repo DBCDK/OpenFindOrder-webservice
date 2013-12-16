@@ -430,7 +430,7 @@ class OFO_solr {
   public function __destruct() { }
 
   /**\brief
-   * Get orders from database.
+   * Get orders from database. If more than one orderId is specified in the request, return result in same order
    * @param; request parameters as xml-object
    * return; array of found orders
    */
@@ -440,8 +440,20 @@ class OFO_solr {
       $solr_query = $this->set_solr_query($param);
       if ($res = $this->do_solr($param, $solr_query)) {
         $this->numrows = (int) $res['response']['numFound'];
-        foreach ($res['response']['docs'] as &$doc) {
-          $orders[] = $this->extract_fields($doc, ++$start);
+        if (is_array($param->orderId)) {
+          foreach ($param->orderId as $oid) {
+            foreach ($res['response']['docs'] as &$doc) {
+               if ($oid->_value == $doc['orderid'][0]) {
+                $orders[] = $this->extract_fields($doc, ++$start);
+                break;
+              }
+            }
+          }
+        }
+        else {
+          foreach ($res['response']['docs'] as &$doc) {
+            $orders[] = $this->extract_fields($doc, ++$start);
+          }
         }
       }
       else {
