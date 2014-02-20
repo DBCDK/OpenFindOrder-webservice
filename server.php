@@ -709,7 +709,8 @@ class OFO_solr {
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'findAutomatedOrders':
-        $ret = 'ordertype:inter_library_request AND autoforwardresult:automated';
+        $order_type = ($param->orderType->_value ? $param->orderType->_value : 'inter_library_request');
+        $ret = 'ordertype:' . $order_type . ' AND autoforwardresult:automated';
         $ret = $this->add_one_par($requester, 'requesterid', $ret);
         $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
