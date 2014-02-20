@@ -22,11 +22,7 @@
 define(DEBUG_x, FALSE);
 
 require_once('OLS_class_lib/webServiceServer_class.php');
-require_once('OLS_class_lib/cql2solr_class.php');
-require_once('OLS_class_lib/oci_class.php');
 require_once('xsdparse.php');
-require_once('OLS_class_lib/memcache_class.php');
-//require_once('stat_class.php');
 
 class openFindOrder extends webServiceServer {
   //public $stat;
