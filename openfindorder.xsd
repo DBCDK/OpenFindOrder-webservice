@@ -359,6 +359,7 @@
 			<xs:sequence>
 				<xs:element ref="ofo:numberOfOrders"/>
 				<xs:element ref="ofo:order" maxOccurs="unbounded"/>
+				<xs:element ref="ofo:debugInfo"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -573,6 +574,11 @@
 	<xs:element name="dateDue" type="xs:date">
 		<xs:annotation>
 			<xs:documentation xml:lang="en">The date by which the loaned item should be returned to the responder. If the responder does not provide a due date, the system will add a due-date based on a standard.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="debugInfo" type="xs:string">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">For debug purpose</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="desiredDateDue" type="xs:date">
