@@ -77,7 +77,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /** \brif
@@ -90,7 +90,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /** \brif
@@ -103,7 +103,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /** \brief
@@ -116,7 +116,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /** \brief
@@ -129,7 +129,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /** \brief
@@ -141,7 +141,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
 
@@ -154,7 +154,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /** \brief
@@ -166,7 +166,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
 
@@ -181,7 +181,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /**\brief
@@ -195,7 +195,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /**\brief
@@ -209,7 +209,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /**\brief
@@ -223,7 +223,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /**\brief
@@ -237,7 +237,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
 */
     return $this->send_error('placeholder - request not yet defined');
   }
@@ -253,7 +253,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /**\brief
@@ -267,7 +267,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /**\brief
@@ -281,7 +281,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /**\brief
@@ -295,7 +295,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /**\brief
@@ -309,7 +309,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /**\brief
@@ -323,7 +323,7 @@ class openFindOrder extends webServiceServer {
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows);
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
   /**\brief
@@ -331,7 +331,7 @@ class openFindOrder extends webServiceServer {
    * @orders; array of orders
    * return; orders as xml-objects
    */
-  private function findOrderResponse($orders, $number_of_orders = 0) {
+  private function findOrderResponse($orders, $number_of_orders = 0, $debug_info = '') {
     $response->findOrdersResponse->_namespace = THIS_NAMESPACE;
 
     if ($orders === FALSE) {
@@ -353,6 +353,7 @@ class openFindOrder extends webServiceServer {
     } else
       $result->_value->order = $orders;
 
+    $result->_value->debugInfo->_value = $debug_info;
     return $response;
   }
 
@@ -385,6 +386,7 @@ class OFO_solr {
   public static $error;
   public static $vip_connect;
   public static $numrows;
+  public static $solr_query;
 
   private $curl;
   private $xmlfields = array();
@@ -433,8 +435,8 @@ class OFO_solr {
   public function findOrders($param) {
     $consistency = $this->check_agency_consistency($param);
     if ($consistency === TRUE) {
-      $solr_query = $this->set_solr_query($param);
-      if ($res = $this->do_solr($param, $solr_query)) {
+      $this->solr_query = $this->set_solr_query($param);
+      if ($res = $this->do_solr($param, $this->solr_query)) {
         $this->numrows = (int) $res['response']['numFound'];
         foreach ($res['response']['docs'] as &$doc) {
           $orders[] = $this->extract_fields($doc, ++$start);
