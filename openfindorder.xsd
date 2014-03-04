@@ -414,6 +414,7 @@
 				<xs:element ref="ofo:norfri" minOccurs="0"/>
 				<xs:element ref="ofo:numberOfRenewals" minOccurs="0"/>
 				<xs:element ref="ofo:orderSystem" minOccurs="0"/>
+				<xs:element ref="ofo:orderType" minOccurs="0"/>
 				<xs:element ref="ofo:originalOrderId" minOccurs="0"/>
 				<xs:element ref="ofo:pagination" minOccurs="0"/>
 				<xs:element ref="ofo:pickUpAgencyId" minOccurs="0"/>
