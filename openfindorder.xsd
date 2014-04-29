@@ -308,7 +308,7 @@
 					<xs:element ref="ofo:requesterAgencyId" maxOccurs="unbounded"/>
 					<xs:element ref="ofo:responderAgencyId" maxOccurs="unbounded"/>
 				</xs:choice>
-				<xs:element ref="ofo:orderId"/>
+				<xs:element ref="ofo:orderId" maxOccurs="unbounded"/>
 				<xs:group ref="ofo:requestGeneral"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -351,6 +351,107 @@
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="getReceiptsRequest">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">The service request for information to create an order receipt.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ofo:authentication" minOccurs="0"/>
+                <xs:choice>
+                    <xs:element ref="ofo:requesterAgencyId" maxOccurs="unbounded"/>
+                    <xs:element ref="ofo:responderAgencyId" maxOccurs="unbounded"/>
+                </xs:choice>
+                <xs:element ref="ofo:orderId"/>
+                <xs:group ref="ofo:requestGeneral"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+	<xs:element name="getReceiptsResponse">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Search result</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+			    <xs:sequence>
+				    <xs:element ref="ofo:numberOfReceipts"/>
+				    <xs:element ref="ofo:receipt" maxOccurs="unbounded"/>
+				    <xs:element ref="ofo:debugInfo"/>
+			    </xs:sequence>
+				<xs:element ref="ofo:error"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+    <xs:element name="receipt">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">The service response.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice>
+                <xs:sequence>
+                    <xs:element ref="ofo:resultPosition"/> 
+                    <xs:element ref="ofo:orderId" minOccurs="0"/>
+                    <xs:element ref="ofo:requesterId" minOccurs="0"/>
+                    <xs:element ref="ofo:articleDirect" minOccurs="0"/>
+                    <xs:element ref="ofo:articleFirstNote" minOccurs="0"/>
+                    <xs:element ref="ofo:author" minOccurs="0"/>
+                    <xs:element ref="ofo:authorOfComponent" minOccurs="0"/>
+                    <xs:element ref="ofo:autoForwardDeliverToday" minOccurs="0"/>
+                    <xs:element ref="ofo:autoForwardReason" minOccurs="0"/>
+                    <xs:element ref="ofo:bibliographicCategory" minOccurs="0"/>
+                    <xs:element ref="ofo:bibliographicRecordAgencyId" minOccurs="0"/>
+                    <xs:element ref="ofo:bibliographicRecordId" minOccurs="0"/>
+                    <xs:element ref="ofo:callNumber" minOccurs="0"/>
+                    <xs:element ref="ofo:copy" minOccurs="0"/>
+                    <xs:element ref="ofo:creationDate" minOccurs="0"/>
+                    <xs:element ref="ofo:edition" minOccurs="0"/>
+                    <xs:element ref="ofo:exactEdition" minOccurs="0"/>
+                    <xs:element ref="ofo:isbn" minOccurs="0"/>
+                    <xs:element ref="ofo:issn" minOccurs="0"/>
+                    <xs:element ref="ofo:issue" minOccurs="0"/>
+                    <xs:element ref="ofo:kvik" minOccurs="0"/>
+                    <xs:element ref="ofo:language" minOccurs="0"/>
+                    <xs:element ref="ofo:lastModification" minOccurs="0"/>
+                    <xs:element ref="ofo:latestRequesterNote" minOccurs="0"/>
+                    <xs:element ref="ofo:localHoldingsId" minOccurs="0"/>
+                    <xs:element ref="ofo:mediumType" minOccurs="0"/>
+                    <xs:element ref="ofo:needBeforeDate" minOccurs="0"/>
+                    <xs:element ref="ofo:norfri" minOccurs="0"/>
+                    <xs:element ref="ofo:orderSystem" minOccurs="0"/>
+                    <xs:element ref="ofo:orderType" minOccurs="0"/>
+                    <xs:element ref="ofo:originalOrderId" minOccurs="0"/>
+                    <xs:element ref="ofo:pagination" minOccurs="0"/>
+                    <xs:element ref="ofo:pickUpAgencyId" minOccurs="0"/>
+                    <xs:element ref="ofo:pickUpAgencySubdivision" minOccurs="0"/>
+                    <xs:element ref="ofo:placeOfPublication" minOccurs="0"/>
+                    <xs:element ref="ofo:placeOnHold" minOccurs="0"/>
+                    <xs:element ref="ofo:publicationDate" minOccurs="0"/>
+                    <xs:element ref="ofo:publicationDateOfComponent" minOccurs="0"/>
+                    <xs:element ref="ofo:publisher" minOccurs="0"/>
+                    <xs:element ref="ofo:requesterInitials" minOccurs="0"/>
+                    <xs:element ref="ofo:resendToRequesterDate" minOccurs="0"/>
+                    <xs:element ref="ofo:responderId" minOccurs="0"/>
+                    <xs:element ref="ofo:seriesTitelNumber" minOccurs="0"/>
+                    <xs:element ref="ofo:title" minOccurs="0"/>
+                    <xs:element ref="ofo:titleOfComponent" minOccurs="0"/>
+                    <xs:element ref="ofo:userAddress" minOccurs="0"/>
+                    <xs:element ref="ofo:userDateOfBirth" minOccurs="0"/>
+                    <xs:element ref="ofo:userId" minOccurs="0"/>
+                    <xs:element ref="ofo:userIdAuthenticated" minOccurs="0"/>
+                    <xs:element ref="ofo:userIdType" minOccurs="0"/>
+                    <xs:element ref="ofo:userMail" minOccurs="0"/>
+                    <xs:element ref="ofo:userName" minOccurs="0"/>
+                    <xs:element ref="ofo:userReferenceSource" minOccurs="0"/>
+                    <xs:element ref="ofo:userTelephone" minOccurs="0"/>
+                    <xs:element ref="ofo:verificationReferenceSource" minOccurs="0"/>
+                    <xs:element ref="ofo:volume" minOccurs="0"/>
+                    <xs:element ref="ofo:wantsReceipt" minOccurs="0"/>
+                    <xs:element ref="ofo:worldCatNote" minOccurs="0"/>
+                </xs:sequence>
+                <xs:element ref="ofo:error"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
 	<xs:element name="result">
 		<xs:annotation>
 			<xs:documentation xml:lang="en">Search result</xs:documentation>
@@ -707,6 +808,11 @@
 			<xs:documentation xml:lang="en">Number of orders in the search result.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="numberOfReceipts" type="xs:int">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Number of receipts in the search result.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="numberOfRenewals" type="xs:int">
 		<xs:annotation>
 			<xs:documentation xml:lang="en">The number of times item has been renewed. NCIP RenewItem Response Renewal count is optional.</xs:documentation>
@@ -1054,6 +1160,12 @@
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="mediumTypeType">
+		<xs:union memberTypes="ofo:mediumTypeEnum ofo:mediumTypeString"/>
+	</xs:simpleType>
+	<xs:simpleType name="mediumTypeString">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="mediumTypeEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="audiobook_cd"/>
 			<xs:enumeration value="audiobook_mp3"/>
@@ -1206,6 +1318,7 @@
 			<xs:enumeration value="bibsys"/>
 			<xs:enumeration value="bibliotekdk"/>
 			<xs:enumeration value="danbib"/>
+			<xs:enumeration value="dbcdatawell"/>
 			<xs:enumeration value="libris"/>
 			<xs:enumeration value="worldcat"/>
 		</xs:restriction>
