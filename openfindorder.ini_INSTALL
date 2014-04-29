@@ -7,7 +7,7 @@
 ;service_http_error = HTTP/1.1 410 Gone
 ;service_http_error = HTTP/1.0 503 Service Unavailable
 
-version = 2.2
+version = 2.3
 
 ; set only_https to accept https call only
 ;only_https = 1
@@ -49,6 +49,7 @@ soapAction[findOrdersWithAutoForwardReason] = findOrdersWithAutoForwardReasonReq
 soapAction[findOrderType] = findOrderOfTypeRequest
 soapAction[findSpecificOrder] = findSpecificOrderRequest
 soapAction[getOrderStatus] = getOrderStatusRequest
+soapAction[getReceipts] = getReceiptsRequest
 
 ; prefixes and namespaces
 default_namespace_prefix = ofo
@@ -426,6 +427,21 @@ action[getOrderStatus][] = callback
 action[getOrderStatus][] = sortKey
 action[getOrderStatus][] = start
 action[getOrderStatus][] = stepValue
+
+action[getReceipts][authentication][] = groupIdAut
+action[getReceipts][authentication][] = passwordAut
+action[getReceipts][authentication][] = userIdAut
+action[getReceipts][] = requesterAgencyId
+action[getReceipts][] = responderAgencyId
+action[getReceipts][] = orderId
+action[getReceipts][] = agency
+action[getReceipts][] = fromDate
+action[getReceipts][] = toDate
+action[getReceipts][] = outputType
+action[getReceipts][] = callback
+action[getReceipts][] = sortKey
+action[getReceipts][] = start
+action[getReceipts][] = stepValue
 
 
 ; this part is database-specific.
