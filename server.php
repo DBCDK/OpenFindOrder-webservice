@@ -313,6 +313,20 @@ class openFindOrder extends webServiceServer {
   }
 
   /**\brief
+   * The service request for the receipt of an order
+   * @param; request parameters in request-xml object
+   */
+  public function getReceipts($param) {
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+      return $this->send_error($error, 'getReceiptsResponse');
+
+    $OFO_s = new OFO_solr($this->soap_action, $this->config);
+    $orders = $OFO_s->findOrders($param);
+
+    return $this->getReceiptsResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
+  }
+
+  /**\brief
    * The service request for non-automatatically forwarded orders (general)
    *  @param; request parameters in request-xml object
    */
@@ -357,15 +371,46 @@ class openFindOrder extends webServiceServer {
     return $response;
   }
 
+  /**\brief
+   * Generate response-object from given array of orders.
+   * @receipts; array of orders
+   * return; receipts as xml-objects
+   */
+  private function getReceiptsResponse($receipts, $number_of_receipts = 0, $debug_info = '') {
+    $response->getReceiptsResponse->_namespace = THIS_NAMESPACE;
+
+    if ($receipts === FALSE) {
+      return $this->send_error('no orders found', 'getReceiptsResponse');
+    }
+
+    // empty result-set
+    if (empty($receipts))
+      return $this->send_error('no orders found', 'getReceiptsResponse');
+
+    $result = &$response->getReceiptsResponse;
+    $result->_namespace = THIS_NAMESPACE;
+    $result->_value->numberOfReceipts->_namespace = THIS_NAMESPACE;
+    $result->_value->numberOfReceipts->_value = $number_of_receipts;
+
+    if ($receipts->error) {
+      $receipts->error->_namespace = THIS_NAMESPACE;
+      $result->_value = $receipts;
+    } else
+      $result->_value->receipt = $receipts;
+
+    $result->_value->debugInfo->_value = $debug_info;
+    return $response;
+  }
+
   /** \brief
    * send errormessage as xml response-object
    */
-  private function send_error($message) {
-    $response->findOrdersResponse->_namespace = THIS_NAMESPACE;
+  private function send_error($message, $response_tag = 'findOrdersResponse') {
+    $response->$response_tag->_namespace = THIS_NAMESPACE;
 
     $error->_namespace = THIS_NAMESPACE;
     $error->_value = $message;
-    $response->findOrdersResponse->_value->error = $error;
+    $response->$response_tag->_value->error = $error;
 
     return $response;
   }
@@ -418,6 +463,8 @@ class OFO_solr {
     $this->action = $action;
     if ($this->action == 'getOrderStatus')
       $this->xmlfields = $schema->get_sequence_array('getOrderStatusResponse');
+    elseif ($this->action == 'getReceipts')
+      $this->xmlfields = $schema->get_sequence_array('receipt');
     else
       $this->xmlfields = $schema->get_sequence_array('order');
 
@@ -554,9 +601,8 @@ class OFO_solr {
         if (in_array($key, array('expectedDelivery', 'providerAnswerDate'))) {
           $value = substr($value, 0, 10);
         }
-        if ($key == 'creationDate') {
-          $value = str_replace(' ', 'T', $value);
-          if (!strpos($value, 'Z')) $value .= 'Z';
+        if ($key == 'creationDate' || $key == 'needBeforeDate') {
+          if ($p = strpos($value, 'T')) $value = substr($value, 0, $p);
         }
         $ret->_value->$key->_value = $value;
         $ret->_value->$key->_namespace = THIS_NAMESPACE;
@@ -732,6 +778,12 @@ class OFO_solr {
         $ret = $this->add_common_pars($param, $ret);
         break;
       case 'getOrderStatus':
+        $ret = $this->add_one_par($param->orderId, 'orderid', $ret);
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
+        $ret = $this->add_common_pars($param, $ret);
+        break;
+      case 'getReceipts':
         $ret = $this->add_one_par($param->orderId, 'orderid', $ret);
         $ret = $this->add_one_par($requester, 'requesterid', $ret);
         $ret = $this->add_one_par($responder, 'responderid', $ret);
