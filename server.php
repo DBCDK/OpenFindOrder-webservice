@@ -299,20 +299,6 @@ class openFindOrder extends webServiceServer {
   }
 
   /**\brief
-   * The service request for the status of an order
-   * @param; request parameters in request-xml object
-   */
-  public function getOrderStatus($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
-      return $this->send_error($error);
-
-    $OFO_s = new OFO_solr($this->soap_action, $this->config);
-    $orders = $OFO_s->findOrders($param);
-
-    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
-  }
-
-  /**\brief
    * The service request for the receipt of an order
    * @param; request parameters in request-xml object
    */
@@ -461,9 +447,7 @@ class OFO_solr {
 
     // set xml-fields
     $this->action = $action;
-    if ($this->action == 'getOrderStatus')
-      $this->xmlfields = $schema->get_sequence_array('getOrderStatusResponse');
-    elseif ($this->action == 'getReceipts')
+    if ($this->action == 'getReceipts')
       $this->xmlfields = $schema->get_sequence_array('receipt');
     else
       $this->xmlfields = $schema->get_sequence_array('order');
@@ -773,12 +757,6 @@ class OFO_solr {
         $ret = $this->add_one_par($param->articleDirect, 'articledirect', $ret);
         $ret = $this->add_one_par($param->kvik, 'kvik', $ret);
         $ret = $this->add_one_par($param->norfri, 'norfri', $ret);
-        $ret = $this->add_one_par($requester, 'requesterid', $ret);
-        $ret = $this->add_one_par($responder, 'responderid', $ret);
-        $ret = $this->add_common_pars($param, $ret);
-        break;
-      case 'getOrderStatus':
-        $ret = $this->add_one_par($param->orderId, 'orderid', $ret);
         $ret = $this->add_one_par($requester, 'requesterid', $ret);
         $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);

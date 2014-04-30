@@ -297,60 +297,6 @@
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="getOrderStatusRequest">
-		<xs:annotation>
-			<xs:documentation xml:lang="en">The service request for the status of an order.</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="ofo:authentication" minOccurs="0"/>
-				<xs:choice>
-					<xs:element ref="ofo:requesterAgencyId" maxOccurs="unbounded"/>
-					<xs:element ref="ofo:responderAgencyId" maxOccurs="unbounded"/>
-				</xs:choice>
-				<xs:element ref="ofo:orderId" maxOccurs="unbounded"/>
-				<xs:group ref="ofo:requestGeneral"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="getOrderStatusResponse">
-		<xs:annotation>
-			<xs:documentation xml:lang="en">The service response.</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:choice>
-				<xs:sequence>
-					<xs:element ref="ofo:autoForwardReason" minOccurs="0"/>
-					<xs:element ref="ofo:autoForwardResult" minOccurs="0"/>
-					<xs:element ref="ofo:autoForwardTestNote" minOccurs="0"/>
-					<xs:element ref="ofo:cancelled" minOccurs="0"/>
-					<xs:element ref="ofo:cancelledDate" minOccurs="0"/>
-					<xs:element ref="ofo:closedDate" minOccurs="0"/>
-					<xs:element ref="ofo:creationDate" minOccurs="0"/>
-					<xs:element ref="ofo:dateDue" minOccurs="0"/>
-					<xs:element ref="ofo:expectedDelivery" minOccurs="0"/>
-					<xs:element ref="ofo:lastModification" minOccurs="0"/>
-					<xs:element ref="ofo:lastRenewalDate" minOccurs="0"/>
-					<xs:element ref="ofo:latestProviderNote" minOccurs="0"/>
-					<xs:element ref="ofo:latestRequesterNote" minOccurs="0"/>
-					<xs:element ref="ofo:providerAnswer" minOccurs="0"/>
-					<xs:element ref="ofo:providerAnswerDate" minOccurs="0"/>
-					<xs:element ref="ofo:providerAnswerReason" minOccurs="0"/>
-					<xs:element ref="ofo:providerOrderState" minOccurs="0"/>
-					<xs:element ref="ofo:receivedDate" minOccurs="0"/>
-					<xs:element ref="ofo:renewed" minOccurs="0"/>
-					<xs:element ref="ofo:renewPendingDate" minOccurs="0"/>
-					<xs:element ref="ofo:requesterOrderState" minOccurs="0"/>
-					<xs:element ref="ofo:resendToRequesterDate" minOccurs="0"/>
-					<xs:element ref="ofo:resendToResponderDate" minOccurs="0"/>
-					<xs:element ref="ofo:returnedDate" minOccurs="0"/>
-					<xs:element ref="ofo:shippedDate" minOccurs="0"/>
-					<xs:element ref="ofo:shippedServiceType" minOccurs="0"/>
-				</xs:sequence>
-				<xs:element ref="ofo:error"/>
-			</xs:choice>
-		</xs:complexType>
-	</xs:element>
     <xs:element name="getReceiptsRequest">
         <xs:annotation>
             <xs:documentation xml:lang="en">The service request for information to create an order receipt.</xs:documentation>
