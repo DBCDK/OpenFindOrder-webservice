@@ -48,7 +48,6 @@ soapAction[findOrdersFromUser] = findOrdersFromUserRequest
 soapAction[findOrdersWithAutoForwardReason] = findOrdersWithAutoForwardReasonRequest
 soapAction[findOrderType] = findOrderOfTypeRequest
 soapAction[findSpecificOrder] = findSpecificOrderRequest
-soapAction[getOrderStatus] = getOrderStatusRequest
 soapAction[getReceipts] = getReceiptsRequest
 
 ; prefixes and namespaces
@@ -412,21 +411,6 @@ action[findSpecificOrder][] = callback
 action[findSpecificOrder][] = sortKey
 action[findSpecificOrder][] = start
 action[findSpecificOrder][] = stepValue
-
-action[getOrderStatus][authentication][] = groupIdAut
-action[getOrderStatus][authentication][] = passwordAut
-action[getOrderStatus][authentication][] = userIdAut
-action[getOrderStatus][] = requesterAgencyId
-action[getOrderStatus][] = responderAgencyId
-action[getOrderStatus][] = orderId
-action[getOrderStatus][] = agency
-action[getOrderStatus][] = fromDate
-action[getOrderStatus][] = toDate
-action[getOrderStatus][] = outputType
-action[getOrderStatus][] = callback
-action[getOrderStatus][] = sortKey
-action[getOrderStatus][] = start
-action[getOrderStatus][] = stepValue
 
 action[getReceipts][authentication][] = groupIdAut
 action[getReceipts][authentication][] = passwordAut

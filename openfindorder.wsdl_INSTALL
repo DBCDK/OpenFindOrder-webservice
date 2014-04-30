@@ -59,12 +59,6 @@
 	<wsdl:message name="findOrdersResponse">
 		<wsdl:part name="body" element="ofo:findOrdersResponse"/>
 	</wsdl:message>
-	<wsdl:message name="getOrderStatusRequest">
-		<wsdl:part name="body" element="ofo:getOrderStatusRequest"/>
-	</wsdl:message>
-	<wsdl:message name="getOrderStatusResponse">
-		<wsdl:part name="body" element="ofo:getOrderStatusResponse"/>
-	</wsdl:message>
 	<wsdl:message name="getReceiptsRequest">
 		<wsdl:part name="body" element="ofo:getReceiptsRequest"/>
 	</wsdl:message>
@@ -171,12 +165,6 @@
 		<wsdl:operation name="bibliographicSearch">
 			<wsdl:input message="ofow:bibliographicSearchRequest"/>
 			<wsdl:output message="ofow:findOrdersResponse"/>
-		</wsdl:operation>
-	</wsdl:portType>
-	<wsdl:portType name="getOrderStatusPortType">
-		<wsdl:operation name="getOrderStatus">
-			<wsdl:input message="ofow:getOrderStatusRequest"/>
-			<wsdl:output message="ofow:getOrderStatusResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:portType name="getReceiptsPortType">
@@ -389,18 +377,6 @@
 			</wsdl:output>
 		</wsdl:operation>
 	</wsdl:binding>
-	<wsdl:binding name="getOrderStatusSoapBinding" type="ofow:getOrderStatusPortType">
-		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getOrderStatus">
-			<soap:operation soapAction="getOrderStatus"/>
-			<wsdl:input name="getOrderStatusRequest">
-				<soap:body use="literal"/>
-			</wsdl:input>
-			<wsdl:output name="getOrderStatusResponse">
-				<soap:body use="literal"/>
-			</wsdl:output>
-		</wsdl:operation>
-	</wsdl:binding>
 	<wsdl:binding name="getReceiptsSoapBinding" type="ofow:getReceiptsPortType">
 		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
 		<wsdl:operation name="getReceipts">
@@ -463,9 +439,6 @@
 			<soap:address location="http://openfindorder.addi.dk/2.3/"/>
 		</wsdl:port>
 		<wsdl:port name="bibliographicSearchPortType" binding="ofow:bibliographicSearchSoapBinding">
-			<soap:address location="http://openfindorder.addi.dk/2.3/"/>
-		</wsdl:port>
-		<wsdl:port name="getOrderStatusPortType" binding="ofow:getOrderStatusSoapBinding">
 			<soap:address location="http://openfindorder.addi.dk/2.3/"/>
 		</wsdl:port>
 		<wsdl:port name="getReceiptsPortType" binding="ofow:getReceiptsSoapBinding">
