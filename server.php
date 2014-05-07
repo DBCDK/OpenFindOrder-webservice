@@ -577,20 +577,8 @@ class OFO_solr {
         $values = array($values);
       }
       foreach ($values as $value) {
-        if ($value && $value != '0001-01-01' && $value != 'uninitialized') {
-          if ($key !=  'placeOnHold') {
-            if ($value == 'yes' || $value == 'Y')
-              $value = 'true';
-            if ($value == 'no' || $value == 'N')
-              $value = 'false';
-          }
-          if (in_array($key, array('expectedDelivery', 'providerAnswerDate'))) {
-            $value = substr($value, 0, 10);
-          }
-          if ($key == 'creationDate' || $key == 'needBeforeDate') {
-            if ($p = strpos($value, 'T')) $value = substr($value, 0, $p);
-          }
-          $tmp->_value = $value;
+        if (self::valid_data($key, $value)) {
+          $tmp->_value = self::modify_some_data($key, $value);
           $tmp->_namespace = THIS_NAMESPACE;
           if ($key == 'pid') {
             $ret->_value->{$key}[] = $tmp;
@@ -603,6 +591,30 @@ class OFO_solr {
       }
     }
     return $ret;
+  }
+
+  private function modify_some_data($key, $val) {
+    switch ($key) {
+      case 'placeOnHold':
+        if (in_array($val, array('yes', 'Y'))) return 'true';
+        if (in_array($val, array('no', 'N'))) return 'false';
+        break;
+      case 'expectedDelivery':
+      case 'providerAnswerDate':
+        return substr($val, 0, 10);
+      case 'creationDate':
+      case 'needBeforeDate':
+        if ($p = strpos($val, 'T')) return substr($val, 0, $p);
+        break;
+    }
+    return $val;
+  }
+
+  private function valid_data($key, $val) {
+    return ($val 
+         && $val != '0001-01-01'
+         && $val != 'uninitialized'
+         && ($key != 'pidOfPrimaryObject' || substr($val, 0, 1) != 'D'));
   }
 
   private function do_solr($param, $solr_query) {
