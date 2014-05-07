@@ -369,6 +369,9 @@
                     <xs:element ref="ofo:pagination" minOccurs="0"/>
                     <xs:element ref="ofo:pickUpAgencyId" minOccurs="0"/>
                     <xs:element ref="ofo:pickUpAgencySubdivision" minOccurs="0"/>
+				    <xs:element ref="ofo:pid" minOccurs="0" maxOccurs="unbounded"/>
+				    <xs:element ref="ofo:pidOfComponent" minOccurs="0"/>
+				    <xs:element ref="ofo:pidOfPrimaryObject" minOccurs="0"/>
                     <xs:element ref="ofo:placeOfPublication" minOccurs="0"/>
                     <xs:element ref="ofo:placeOnHold" minOccurs="0"/>
                     <xs:element ref="ofo:publicationDate" minOccurs="0"/>
@@ -466,6 +469,9 @@
 				<xs:element ref="ofo:pagination" minOccurs="0"/>
 				<xs:element ref="ofo:pickUpAgencyId" minOccurs="0"/>
 				<xs:element ref="ofo:pickUpAgencySubdivision" minOccurs="0"/>
+				<xs:element ref="ofo:pid" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ofo:pidOfComponent" minOccurs="0"/>
+				<xs:element ref="ofo:pidOfPrimaryObject" minOccurs="0"/>
 				<xs:element ref="ofo:placeOfPublication" minOccurs="0"/>
 				<xs:element ref="ofo:placeOnHold" minOccurs="0"/>
 				<xs:element ref="ofo:providerAnswer" minOccurs="0"/>
@@ -812,6 +818,21 @@
 	<xs:element name="pickUpAgencySubdivision" type="xs:string">
 		<xs:annotation>
 			<xs:documentation xml:lang="en">An addition to an ISIL-number of a mobile library service point. In NCIP-messages compounded with agencyId. E.g. : 'DK-765702_Sinding' </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="pid" type="xs:string">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">ID-number for the ordered item</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="pidOfComponent" type="xs:string">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">ID-number for the component of an ordered item</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="pidOfPrimaryObject" type="xs:string">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">ID-number for the primary object of an ordered item</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="placeOfPublication" type="xs:string">
