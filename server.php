@@ -571,25 +571,35 @@ class OFO_solr {
 
     // column-names from database MUST match xml-fields for this loop to work
     // new loop to ensure roworder as defined in xml-schema
-    foreach ($this->xmlfields as $key =>$val) {
-      $value = $data[strtolower($val)];
-      if (is_array($value))
-        $value = $value[0];
-      if ($value && $value != '0001-01-01' && $value != 'uninitialized') {
-        if ($key !=  'placeOnHold') {
-          if ($value == 'yes' || $value == 'Y')
-            $value = 'true';
-          if ($value == 'no' || $value == 'N')
-            $value = 'false';
+    foreach ($this->xmlfields as $key =>$upper_key) {
+      $values = $data[strtolower($key)];
+      if (!is_array($values)) {
+        $values = array($values);
+      }
+      foreach ($values as $value) {
+        if ($value && $value != '0001-01-01' && $value != 'uninitialized') {
+          if ($key !=  'placeOnHold') {
+            if ($value == 'yes' || $value == 'Y')
+              $value = 'true';
+            if ($value == 'no' || $value == 'N')
+              $value = 'false';
+          }
+          if (in_array($key, array('expectedDelivery', 'providerAnswerDate'))) {
+            $value = substr($value, 0, 10);
+          }
+          if ($key == 'creationDate' || $key == 'needBeforeDate') {
+            if ($p = strpos($value, 'T')) $value = substr($value, 0, $p);
+          }
+          $tmp->_value = $value;
+          $tmp->_namespace = THIS_NAMESPACE;
+          if ($key == 'pid') {
+            $ret->_value->{$key}[] = $tmp;
+          } 
+          else {
+            $ret->_value->$key = $tmp;
+          } 
+          unset($tmp);
         }
-        if (in_array($key, array('expectedDelivery', 'providerAnswerDate'))) {
-          $value = substr($value, 0, 10);
-        }
-        if ($key == 'creationDate' || $key == 'needBeforeDate') {
-          if ($p = strpos($value, 'T')) $value = substr($value, 0, $p);
-        }
-        $ret->_value->$key->_value = $value;
-        $ret->_value->$key->_namespace = THIS_NAMESPACE;
       }
     }
     return $ret;
