@@ -344,6 +344,7 @@
                     <xs:element ref="ofo:authorOfComponent" minOccurs="0"/>
                     <xs:element ref="ofo:autoForwardDeliverToday" minOccurs="0"/>
                     <xs:element ref="ofo:autoForwardReason" minOccurs="0"/>
+				    <xs:element ref="ofo:autoForwardResult" minOccurs="0"/>
                     <xs:element ref="ofo:bibliographicCategory" minOccurs="0"/>
                     <xs:element ref="ofo:bibliographicRecordAgencyId" minOccurs="0"/>
                     <xs:element ref="ofo:bibliographicRecordId" minOccurs="0"/>
