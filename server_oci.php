@@ -788,7 +788,6 @@ class OFO_vip
     
 
     $libs=OFO_vip::get_library_list($agency);
-    // print_r($libs);
     if( empty($libs) )
       {
 	if( $param->requesterAgencyId->_value )
