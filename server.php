@@ -313,6 +313,34 @@ class openFindOrder extends webServiceServer {
   }
 
   /**\brief
+   * The service request for the receipt of an order
+   * @param; request parameters in request-xml object
+   */
+  public function formatReceipts($param) {
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+      return $this->send_error($error, 'getReceiptsResponse');
+
+    $OFO_s = new OFO_solr($this->soap_action, $this->config); 
+
+    if (!$receipt = json_decode($param->json->_value)) {
+      return $this->send_error('Error decoding json string', 'getReceiptsResponse');
+    }
+
+    $order->resultPosition->_value = 1;
+    $order->resultPosition->_namespace = THIS_NAMESPACE;
+    foreach ($OFO_s->xmlfields as $key => $upper_key) {
+      if ($receipt->$key) {
+        $order->$key->_value = $OFO_s->modify_some_data($key, $receipt->$key);
+        $order->$key->_namespace = THIS_NAMESPACE;
+      }
+    }
+    $orders[0]->_value = $order;
+    $orders[0]->_namespace = THIS_NAMESPACE;
+
+    return $this->getReceiptsResponse($orders, '1', '');
+  }
+
+  /**\brief
    * The service request for non-automatatically forwarded orders (general)
    *  @param; request parameters in request-xml object
    */
@@ -418,9 +446,9 @@ class OFO_solr {
   public static $vip_connect;
   public static $numrows;
   public static $solr_query;
+  public static $xmlfields = array();
 
   private $curl;
-  private $xmlfields = array();
   private $action;
   private $fields = array();
   private $solr_url;
@@ -447,7 +475,7 @@ class OFO_solr {
 
     // set xml-fields
     $this->action = $action;
-    if ($this->action == 'getReceipts')
+    if (in_array($this->action, array('getReceipts', 'formatReceipts')))
       $this->xmlfields = $schema->get_sequence_array('receipt');
     else
       $this->xmlfields = $schema->get_sequence_array('order');
@@ -481,6 +509,27 @@ class OFO_solr {
       $orders->error->_value = $consistency;
     }
     return $orders;
+  }
+
+  /**\brief 
+   * 
+   */
+  public function modify_some_data($key, $val) {
+    switch ($key) {
+      case 'placeOnHold':
+        break;
+      case 'expectedDelivery':
+      case 'providerAnswerDate':
+        return substr($val, 0, 10);
+      case 'creationDate':
+      case 'needBeforeDate':
+        if ($p = strpos($val, 'T')) return substr($val, 0, $p);
+        break;
+      default:
+        if (in_array($val, array('yes', 'Y'))) return 'true';
+        if (in_array($val, array('no', 'N'))) return 'false';
+    }
+    return $val;
   }
 
   /**\brief Expands one or more library object to the corresponding branch objects
@@ -591,24 +640,6 @@ class OFO_solr {
       }
     }
     return $ret;
-  }
-
-  private function modify_some_data($key, $val) {
-    switch ($key) {
-      case 'placeOnHold':
-        break;
-      case 'expectedDelivery':
-      case 'providerAnswerDate':
-        return substr($val, 0, 10);
-      case 'creationDate':
-      case 'needBeforeDate':
-        if ($p = strpos($val, 'T')) return substr($val, 0, $p);
-        break;
-      default:
-        if (in_array($val, array('yes', 'Y'))) return 'true';
-        if (in_array($val, array('no', 'N'))) return 'false';
-    }
-    return $val;
   }
 
   private function valid_data($key, $val) {

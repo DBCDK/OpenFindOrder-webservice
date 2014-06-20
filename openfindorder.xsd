@@ -315,7 +315,7 @@
     </xs:element>
 	<xs:element name="getReceiptsResponse">
 		<xs:annotation>
-			<xs:documentation xml:lang="en">Search result</xs:documentation>
+			<xs:documentation xml:lang="en">zero or more order receipts</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:choice>
@@ -328,6 +328,19 @@
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="formatReceiptsRequest">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">The service request format an order receipt.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ofo:authentication" minOccurs="0"/>
+                <xs:element ref="ofo:json"/>
+			    <xs:element ref="ofo:outputType" minOccurs="0"/>
+			    <xs:element ref="ofo:callback" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="receipt">
         <xs:annotation>
             <xs:documentation xml:lang="en">The service response.</xs:documentation>
@@ -694,6 +707,11 @@
 	<xs:element name="issue" type="xs:string">
 		<xs:annotation>
 			<xs:documentation xml:lang="en">Issue-number in article-requests. If volume and issue are received combined, 'Issue' is preferred.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="json" type="xs:string">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">json encoded data. Only used for formatting receipts</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="itemId" type="xs:string">
@@ -1125,6 +1143,7 @@
 			<xs:enumeration value="requester_not_in_agency"/>
 			<xs:enumeration value="responder_not_in_agency"/>
 			<xs:enumeration value="authentication_error"/>
+			<xs:enumeration value="Error decoding json string"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="mediumTypeType">
