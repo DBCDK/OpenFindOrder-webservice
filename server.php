@@ -596,8 +596,6 @@ class OFO_solr {
   private function modify_some_data($key, $val) {
     switch ($key) {
       case 'placeOnHold':
-        if (in_array($val, array('yes', 'Y'))) return 'true';
-        if (in_array($val, array('no', 'N'))) return 'false';
         break;
       case 'expectedDelivery':
       case 'providerAnswerDate':
@@ -606,6 +604,9 @@ class OFO_solr {
       case 'needBeforeDate':
         if ($p = strpos($val, 'T')) return substr($val, 0, $p);
         break;
+      default:
+        if (in_array($val, array('yes', 'Y'))) return 'true';
+        if (in_array($val, array('no', 'N'))) return 'false';
     }
     return $val;
   }
