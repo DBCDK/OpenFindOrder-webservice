@@ -1,0 +1,18 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:formatReceiptsRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <open:json>?</open:json>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+      </open:formatReceiptsRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
