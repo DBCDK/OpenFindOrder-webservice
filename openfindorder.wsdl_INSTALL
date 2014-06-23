@@ -65,8 +65,8 @@
 	<wsdl:message name="getReceiptsResponse">
 		<wsdl:part name="body" element="ofo:getReceiptsResponse"/>
 	</wsdl:message>
-	<wsdl:message name="formatReceiptsRequest">
-		<wsdl:part name="body" element="ofo:formatReceiptsRequest"/>
+	<wsdl:message name="formatReceiptRequest">
+		<wsdl:part name="body" element="ofo:formatReceiptRequest"/>
 	</wsdl:message>
 	<wsdl:portType name="openFindOrderPortType">
 		<wsdl:operation name="findAllOrders">
@@ -141,9 +141,9 @@
 			<wsdl:input message="ofow:getReceiptsRequest"/>
 			<wsdl:output message="ofow:getReceiptsResponse"/>
 		</wsdl:operation>
-		<wsdl:operation name="formatReceipts">
-			<wsdl:input message="ofow:formatReceiptsRequest"/>
-			<wsdl:output message="ofow:getReceiptsResponse"/>
+		<wsdl:operation name="formatReceipt">
+			<wsdl:input message="ofow:formatReceiptRequest"/>
+			<wsdl:output message="ofow:getReceiptResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="openFindOrderSoapBinding" type="ofow:openFindOrderPortType">
@@ -310,8 +310,8 @@
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>
-		<wsdl:operation name="formatReceipts">
-			<soap:operation soapAction="formatReceipts"/>
+		<wsdl:operation name="formatReceipt">
+			<soap:operation soapAction="formatReceipt"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>

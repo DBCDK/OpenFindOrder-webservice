@@ -328,7 +328,7 @@
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
-    <xs:element name="formatReceiptsRequest">
+    <xs:element name="formatReceiptRequest">
         <xs:annotation>
             <xs:documentation xml:lang="en">The service request format an order receipt.</xs:documentation>
         </xs:annotation>

@@ -316,7 +316,7 @@ class openFindOrder extends webServiceServer {
    * The service request for the receipt of an order
    * @param; request parameters in request-xml object
    */
-  public function formatReceipts($param) {
+  public function formatReceipt($param) {
     if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
       return $this->send_error($error, 'getReceiptsResponse');
 
@@ -475,7 +475,7 @@ class OFO_solr {
 
     // set xml-fields
     $this->action = $action;
-    if (in_array($this->action, array('getReceipts', 'formatReceipts')))
+    if (in_array($this->action, array('getReceipts', 'formatReceipt')))
       $this->xmlfields = $schema->get_sequence_array('receipt');
     else
       $this->xmlfields = $schema->get_sequence_array('order');
