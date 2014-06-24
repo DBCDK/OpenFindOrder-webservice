@@ -68,7 +68,8 @@ class openFindOrder extends webServiceServer {
   }
 
   /** \brif
-      The service 
+   *  The service request for orders which has been finished manually
+   * @param; request parameters in request-xml object.
    */
   public function findManuallyFinishedIllOrders($param) {
     if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
@@ -81,7 +82,8 @@ class openFindOrder extends webServiceServer {
   }
 
   /** \brif
-      The service 
+   *  The service request for open endUser orders
+   * @param; request parameters in request-xml object.
    */
   public function findAllOpenEndUserOrders($param) {
     if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
@@ -94,7 +96,8 @@ class openFindOrder extends webServiceServer {
   }
 
   /** \brif
-      The service request for orders on material not localized to the end user agency.
+   *  The service request for orders on material not localized to the end user agency.
+   * @param; request parameters in request-xml object.
    */
   public function findNonLocalizedEndUserOrders($param) {
     if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
@@ -107,7 +110,8 @@ class openFindOrder extends webServiceServer {
   }
 
   /** \brief
-      The service request for orders on material localized to the end user agency.
+   *  The service request for orders on material localized to the end user agency.
+   * @param; request parameters in request-xml object.
    */
   public function findLocalizedEndUserOrders($param) {
     if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
@@ -120,7 +124,8 @@ class openFindOrder extends webServiceServer {
   }
 
   /** \brief
-
+   *  The service request for closed ill orders
+   * @param; request parameters in request-xml object.
    */
   public function findClosedIllOrders($param) {
     if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
@@ -133,6 +138,8 @@ class openFindOrder extends webServiceServer {
   }
 
   /** \brief
+   *  The service request for open ill orders
+   * @param; request parameters in request-xml object.
    */
   public function findOpenIllOrders($param) {
     if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
@@ -146,6 +153,8 @@ class openFindOrder extends webServiceServer {
 
 
   /** \brief
+   *  The service request for all ill orders
+   * @param; request parameters in request-xml object.
    */
   public function findAllIllOrders($param) {
     if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
@@ -158,6 +167,8 @@ class openFindOrder extends webServiceServer {
   }
 
   /** \brief
+   *  The service request for all non ill orders
+   * @param; request parameters in request-xml object.
    */
   public function findAllNonIllOrders($param) {
     if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
@@ -327,7 +338,7 @@ class openFindOrder extends webServiceServer {
   }
 
   /**\brief
-   * The service request for the receipt of an order
+   * The service request for formatting an order receipt
    * @param; request parameters in request-xml object
    */
   public function formatReceipt($param) {
@@ -367,6 +378,8 @@ class openFindOrder extends webServiceServer {
 
     return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
+
+  /* ------------------------------- private function --------------------------------------- */
 
   /**\brief
    * Generate response-object from given array of orders.
@@ -545,6 +558,8 @@ class OFO_solr {
     }
     return $val;
   }
+
+  /* ------------------------------- private function --------------------------------------- */
 
   /**\brief Expands one or more library object to the corresponding branch objects
    * 
@@ -767,7 +782,7 @@ class OFO_solr {
         $ret = $this->add_common_pars($param, $ret);
 // Spooky ... this OR-part below has to be the last and no () around it ????
 // apparently the edismax searchHandler parse (a OR b OR c) as some list where all members should be present
-// Users are therefore encouraged/recommended to user userId, userMail and userName instead of userFreeText
+// Users are therefore encouraged/recommended to use userId, userMail and userName instead of userFreeText
         if ($uft = $param->userFreeText->_value) {
           $ret .= ($ret ? ' AND ' : '') . 'userid:"' . $uft . '" OR usermail:"' . $uft . '" OR username:"' . $uft . '"';
         }
@@ -786,10 +801,6 @@ class OFO_solr {
           $ret = 'ordertype:inter_library_request';
         }
         $ret = $this->add_one_par($param->author, 'author', $ret);
-        //$ret = $this->add_one_par($param->bibliographicRecordId, 'bibliographicrecordid', $ret);  // not indexed
-        //$ret = $this->add_one_par($param->isbn, 'isbn', $ret);  // not indexed
-        //$ret = $this->add_one_par($param->issn, 'issn', $ret);  // not indexed
-        // $ret = $this->add_one_par($param->mediumType, 'mediumtype', $ret);  // not indexed
         if ($param->bibliographicFreeText) {
 // also spooky here ... only titles are found, swap author and title and only authors are found
 // 2do?: split input field into author and title specific field
