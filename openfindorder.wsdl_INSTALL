@@ -47,6 +47,9 @@
 	<wsdl:message name="findAutomatedOrdersRequest">
 		<wsdl:part name="body" element="ofo:findAutomatedOrdersRequest"/>
 	</wsdl:message>
+	<wsdl:message name="findOwnAutomatedOrdersRequest">
+		<wsdl:part name="body" element="ofo:findNonAutomatedOrdersRequest"/>
+	</wsdl:message>
 	<wsdl:message name="findNonAutomatedOrdersRequest">
 		<wsdl:part name="body" element="ofo:findNonAutomatedOrdersRequest"/>
 	</wsdl:message>
@@ -123,6 +126,10 @@
 		</wsdl:operation>
 		<wsdl:operation name="findAutomatedOrders">
 			<wsdl:input message="ofow:findAutomatedOrdersRequest"/>
+			<wsdl:output message="ofow:findOrdersResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="findOwnAutomatedOrders">
+			<wsdl:input message="ofow:findOwnAutomatedOrdersRequest"/>
 			<wsdl:output message="ofow:findOrdersResponse"/>
 		</wsdl:operation>
 		<wsdl:operation name="findNonAutomatedOrders">
@@ -267,6 +274,15 @@
 		</wsdl:operation>
 		<wsdl:operation name="findAutomatedOrders">
 			<soap:operation soapAction="findAutomatedOrders"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findOwnAutomatedOrders">
+			<soap:operation soapAction="findOwnAutomatedOrders"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>

@@ -271,6 +271,20 @@ class openFindOrder extends webServiceServer {
   }
 
   /**\brief
+   * The service request for automatically forwarded orders (general)
+   * @param; request parameters in request-xml object.
+   */
+  public function findOwnAutomatedOrders($param) {
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+      return $this->send_error($error);
+
+    $OFO_s = new OFO_solr($this->soap_action, $this->config);
+    $orders = $OFO_s->findOrders($param);
+
+    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
+  }
+
+  /**\brief
    * The service request for orders from a specific ill-cooperation (kvik, norfri or articleDirect)
    * @param; request parameters in request-xml object.
    */
@@ -797,6 +811,13 @@ class OFO_solr {
       case 'findAutomatedOrders':
         $order_type = ($param->orderType->_value ? $param->orderType->_value : 'inter_library_request');
         $ret = 'ordertype:' . $order_type . ' AND autoforwardresult:automated';
+        $ret = $this->add_one_par($requester, 'requesterid', $ret);
+        $ret = $this->add_one_par($responder, 'responderid', $ret);
+        $ret = $this->add_common_pars($param, $ret);
+        break;
+      case 'findOwnAutomatedOrders':
+        $order_type = ($param->orderType->_value ? $param->orderType->_value : 'inter_library_request');
+        $ret = 'ordertype:' . $order_type . ' AND autoforwardresult:yes';
         $ret = $this->add_one_par($requester, 'requesterid', $ret);
         $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);
