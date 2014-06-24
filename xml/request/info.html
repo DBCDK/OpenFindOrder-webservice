@@ -8,6 +8,7 @@ Functions &amp; parameters:
   <li>findOrdersFromUnknownUser</li>
   <li>findAutomatedOrders</li>
   <li>findNonAutomatedOrders
+  <li>findOwnAutomatedOrders
     <ul>
       <li>requesterAgencyId:</li> ISIL-number of a requester agency that the agency using this service is authorized to manage orders on behalf of (or the agency itself)
       <li>responderAgencyId:</li> ISIL-number of a responder agency that the agency using this service is authorized to manage orders on behalf of (or the agency itself)
@@ -162,7 +163,8 @@ Functions &amp; parameters:
       <li>stepValue:</li> as above
     </ul>
   </li>
-  <li>getOrderStatus
+  <li>getOrderStatus</li>
+  <li>getReceipt
     <ul>
       <li>requesterAgencyId:</li> as above
       <li>responderAgencyId:</li> as above
@@ -176,6 +178,13 @@ Functions &amp; parameters:
       <li>sortKey:</li> as above
       <li>start:</li> as above
       <li>stepValue:</li> as above
+    </ul>
+  </li>
+  <li>formatReceipt
+    <ul>
+      <li>json:</li> The receipt to format json-encoded
+      <li>outputType:</li> as above
+      <li>callback:</li> as above
     </ul>
   </li>
 </ul>
