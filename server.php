@@ -828,7 +828,7 @@ class OFO_solr {
         break;
       case 'findOwnAutomatedOrders':
         $order_type = ($param->orderType->_value ? $param->orderType->_value : 'inter_library_request');
-        $ret = 'ordertype:' . $order_type . ' AND autoforwardresult:yes';
+        $ret = 'ordertype:' . $order_type . ' AND autoforwardown:yes';
         $ret = $this->add_one_par($requester, 'requesterid', $ret);
         $ret = $this->add_one_par($responder, 'responderid', $ret);
         $ret = $this->add_common_pars($param, $ret);

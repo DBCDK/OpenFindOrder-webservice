@@ -457,6 +457,7 @@
 				<xs:element ref="ofo:author" minOccurs="0"/>
 				<xs:element ref="ofo:authorOfComponent" minOccurs="0"/>
 				<xs:element ref="ofo:autoForwardDeliverToday" minOccurs="0"/>
+                <xs:element ref="ofo:autoForwardOwn" minOccurs="0"/>
 				<xs:element ref="ofo:autoForwardReason" minOccurs="0"/>
 				<xs:element ref="ofo:autoForwardResult" minOccurs="0"/>
 				<xs:element ref="ofo:autoForwardTestNote" minOccurs="0"/>
@@ -582,6 +583,11 @@
 	<xs:element name="autoForwardDeliverToday" type="xs:boolean">
 		<xs:annotation>
 			<xs:documentation xml:lang="en">Boolean that states whether ORS has found a holding library where the item is on shelf (true), or if the order has been placed where the item is not on shelf at the moment (false). For statistical purposes.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="autoForwardOwn" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Forwarded own material.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="autoForwardReason" type="ofo:autoForwardReasonType">
