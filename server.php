@@ -347,7 +347,7 @@ class openFindOrder extends webServiceServer {
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config); 
 
-    if (!$receipt = json_decode($param->json->_value)) {
+    if (!$receipt = self::xs_json_decode($param->json->_value)) {
       return $this->send_error('Error decoding json string', 'getReceiptsResponse');
     }
 
@@ -441,6 +441,20 @@ class openFindOrder extends webServiceServer {
 
     $result->_value->debugInfo->_value = $debug_info;
     return $response;
+  }
+
+  /** \brief
+   * decode a json string and change booleans to xs:boolean types
+   */
+  private function xs_json_decode($json_str) {
+    if ($obj = json_decode($json_str)) {
+      foreach ($obj as &$item) {
+        if (is_bool($item)) {
+          $item = ($item ? 'true' : 'false');
+        }
+      }
+    }
+    return $obj;
   }
 
   /** \brief
