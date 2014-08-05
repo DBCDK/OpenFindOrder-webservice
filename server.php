@@ -394,7 +394,7 @@ class openFindOrder extends webServiceServer {
     }
 
     // empty result-set
-    if (empty($orders))
+    if (empty($orders) || $orders->error)
       return $this->send_error('no orders found');
 
     $result = &$response->findOrdersResponse->_value->result;
