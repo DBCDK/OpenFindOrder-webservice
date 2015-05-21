@@ -7,14 +7,22 @@
 ;service_http_error = HTTP/1.1 410 Gone
 ;service_http_error = HTTP/1.0 503 Service Unavailable
 
+; --------------
+;version
 version = 2.5
 
+; --------------
 ; set only_https to accept https call only
 ;only_https = 1
 
-; wsdl for service
+; --------------
+; wsdl and service location for service. Used to replace __LOCATION__ in wsdl
 wsdl = openfindorder.wsdl
 
+;service location used as endpoint in the wsdl-file. If not set, the actual address/location is used
+;service_location = openfindorder.addi.dk/2.5/
+
+; --------------
 ; in_house_domain may use ?ShowInfo and use create_sample form
 ;in_house_domain = .dbc.dk
 
@@ -22,13 +30,16 @@ wsdl = openfindorder.wsdl
 ;show_samples = 1
 ;show_samples_ip_list = 127.0.0.1-127.0.0.2
 
+; --------------
 ; path to xml-examples
 xmldir = ./xml
 
+; --------------
 ; validate
 ;validate[request] = openfindorder.xsd
 ;validate[response] = openfindorder.xsd
 
+; --------------
 ; soapActions and their corresponding request structure
 ; Can be found in the wsdl but is stated here for convenience
 soapAction[bibliographicSearch] = bibliographicSearchRequest
@@ -53,6 +64,16 @@ soapAction[getOrderStatus] = getOrderStatusRequest
 soapAction[getReceipts] = getReceiptsRequest
 soapAction[formatReceipt] = formatReceiptRequest
 
+; --------------
+; url_override
+; url_override[url_command] = functionToCall
+; if start of the request equals url_command and functionToCall exists, it will be called
+; like: myservice.dk/myversion?url_command
+; functions ShowInfo, Version, HowRU, Wsdl and RegressionTest are found in the abstract service
+; if not specified, defaults to HowRU, ShowInfo, wsdl and Version
+;url_override[RegressionTest] = RegressionTest
+
+; --------------
 ; prefixes and namespaces
 default_namespace_prefix = ofo
 
@@ -64,21 +85,32 @@ xmlns[ofow] = http://oss.dbc.dk/ns/openfindorder_wsdl
 xmlns[ofo] = http://oss.dbc.dk/ns/openfindorder
 xmlns[soap] = http://schemas.xmlsoap.org/wsdl/soap
 
+; --------------
 ; schema-file
 schema=openfindorder.xsd
 
+; --------------
 ; where to find openAgency
 openagency_agency_list = http://some.server.dk/OpenAgency/?action=pickupAgencyList&agencyId=%s&libraryStatus=alle&outputType=php
 
+; --------------
 ; where to find solr indexes
 solr_order_uri = http://some.server.dk:8081/solr/select?
 
+; --------------
 connectionstring = ora_user/ora_passwd@some.server.dk
 vip = ora_user/ora_passwd@some.server.dk
 
+; --------------
 ; logfile for verbose output
 logfile = /tmp/openfindorder.log
+; logging to syslog is defined like:
+;logfile = syslog://LOG_LOCAL0
+; ident for syslog is set like where _VERSION_ is replaced by version setting above
+;syslog_id = trlog[opensearch__VERSION_]
 
+
+; --------------
 ; set verboselevel
 ;   WARNING - simple warnings
 ;   ERROR   - errors in response
@@ -94,6 +126,7 @@ verbose = WARNING+ERROR+FATAL+STAT+TIMER+TRACE+DEBUG+Z3950+OCI
 ; format for automatic timer dump %s is the soap-action used
 dump_timer = openfindorder(%s)
 
+; ==============
 
 [aaa]
 ; aaa Authentication, Access control and Accounting
@@ -123,6 +156,7 @@ aaa_ip_rights[dbc][ressource]['netpunkt.dk'] = 500
 ;aaa_cache_seconds = 3600
 ;
 
+; ==============
 
 [rest]
 ; REST parameters for SOAPAction
@@ -466,6 +500,7 @@ action[formatReceipt][] = json
 action[formatReceipt][] = outputType
 action[formatReceipt][] = callback
 
+; ==============
 
 ; this part is database-specific.
 ; map fields in databasetable(ors_order)
@@ -560,6 +595,8 @@ VOLUME=
 WANTSRECEIPT=
 WORLDCATNOTE=
 
+; ==============
+
 ; section to dump setting online
 [showinfo]
 ; make one or more line to display if ?ShowInfo is part of the url
@@ -573,6 +610,8 @@ WORLDCATNOTE=
 ;showinfo[] = aaa_credentials:    __aaa_credentials__
 ;showinfo[] = show_samples:       __show_samples__
 ;showinfo[] = </pre>
+
+; ==============
 
 [howru]
 test[] = findAllOrders&requesterAgencyId=716702&agency=716700&orderSystem=pallesgavebod
