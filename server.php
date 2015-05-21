@@ -353,6 +353,9 @@ class openFindOrder extends webServiceServer {
 
     $order->resultPosition->_value = 1;
     $order->resultPosition->_namespace = THIS_NAMESPACE;
+    self::isil_or_dnucni($receipt->pickUpAgencyId, $receipt->pickUpAgencyIdType);
+    self::isil_or_dnucni($receipt->requesterId, $receipt->requesterIdType);
+    self::isil_or_dnucni($receipt->responderId, $receipt->responderIdType);
     foreach ($OFO_s->xmlfields as $key => $upper_key) {
       if ($receipt->$key) {
         $order->$key->_value = $OFO_s->modify_some_data($key, $receipt->$key);
@@ -441,6 +444,21 @@ class openFindOrder extends webServiceServer {
 
     $result->_value->debugInfo->_value = $debug_info;
     return $response;
+  }
+
+  /**\brief
+   * set ISIL or DNUCNI as type and modify id properly
+   * @param; id
+   * @param; type
+   */
+  private function isil_or_dnucni(&$id, &$type) {
+    if (in_array($id[0], array('7', '8'))) {
+      $id = 'DK-' . $id;
+      $type = 'ISIL';
+    }
+    else {
+      $type = 'DNUCNI';
+    }
   }
 
   /** \brief
