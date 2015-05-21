@@ -452,12 +452,16 @@ class openFindOrder extends webServiceServer {
    * @param; type
    */
   private function isil_or_dnucni(&$id, &$type) {
-    if (in_array($id[0], array('7', '8'))) {
-      $id = 'DK-' . $id;
-      $type = 'ISIL';
+    $number = preg_replace('/\D/', '', $id);
+    if ((strlen($number) == 6) && in_array($number[0], array('7', '8'))) {
+      $id = 'DK-' . $number;
+      $kode = 'ISIL';
     }
     else {
-      $type = 'DNUCNI';
+      $kode = 'DNUCNI';
+    }
+    if (empty($type)) {
+      $type = $kode;
     }
   }
 
