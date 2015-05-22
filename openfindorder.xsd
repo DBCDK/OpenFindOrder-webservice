@@ -859,7 +859,7 @@
       <xs:documentation xml:lang="en">The library/branch, where the end user whishes to collect the item. PickUpAgency is always stated. See also: pickUpAgencySubdivision.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="pickUpAgencyIdType" type="tns:agencyIdType">
+  <xs:element name="pickUpAgencyIdType" type="ofo:agencyIdType">
     <xs:annotation>
       <xs:documentation xml:lang="en">Type of id for pickUpAgencyId.</xs:documentation>
     </xs:annotation>
@@ -949,7 +949,7 @@
       <xs:documentation xml:lang="en">This is the ISIL-nr of the library that sends the order. Main library/branches: requesterId can either be a main library or a branch. If the library prefers the main library, or a specific branch to be their default requesterID, the chosen branch’s/library’s ISIL-number must be declared in OpenAgency. In these cases ORS will use the chosen ISIL as the requesterId, and the actual sender as pickUpAgency. pickUpAgency always represents the users chosen library, whether it is the main library or a branch. (orderId+) requesterId is the Primary key of the order.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="requesterIdType" type="tns:agencyIdType">
+  <xs:element name="requesterIdType" type="ofo:agencyIdType">
     <xs:annotation>
       <xs:documentation xml:lang="en">Type of id for requesterId.</xs:documentation>
     </xs:annotation>
@@ -984,7 +984,7 @@
       <xs:documentation xml:lang="en">responderId is the ISIL-number of the library/agency that can provide the requested item.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="responderIdType" type="tns:agencyIdType">
+  <xs:element name="responderIdType" type="ofo:agencyIdType">
     <xs:annotation>
       <xs:documentation xml:lang="en">Type of id for responderId.</xs:documentation>
     </xs:annotation>
@@ -1147,10 +1147,10 @@
   </xs:group>
   <xs:simpleType name="agencyIdType">
     <xs:annotation>
-      <xs:documentation xml:lang="en">SIL for ISIL or DNUCNI for Danish National Union Catalogue Nonisil Identifier</xs:documentation>
+      <xs:documentation xml:lang="en">ISIL for ISIL or DNUCNI for Danish National Union Catalogue Nonisil Identifier</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:enumeration value="SIL"/>
+      <xs:enumeration value="ISIL"/>
       <xs:enumeration value="DNUCNI"/>
     </xs:restriction>
   </xs:simpleType>
@@ -1244,6 +1244,7 @@
       <xs:enumeration value="enduser_order"/>
       <xs:enumeration value="enduser_request"/>
       <xs:enumeration value="inter_library_order"/>
+      <xs:enumeration value="inter_library_request"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="outputTypeType">
