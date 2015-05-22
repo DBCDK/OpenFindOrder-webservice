@@ -1243,6 +1243,7 @@
       <xs:enumeration value="enduser_illrequest"/>
       <xs:enumeration value="enduser_order"/>
       <xs:enumeration value="enduser_request"/>
+      <xs:enumeration value="inter_library_order"/>
       <xs:enumeration value="inter_library_request"/>
     </xs:restriction>
   </xs:simpleType>
