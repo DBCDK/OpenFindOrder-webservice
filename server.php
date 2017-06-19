@@ -892,6 +892,7 @@ class OFO_solr {
       case 'findOpenIllOrders':
         $ret = 'ordertype:inter_library_request';
         $ret .= ' AND -provideranswer:*';
+        $ret .= ' AND -isshipped:Y';
         if ($param->requesterAgencyId) {
           $ret .= ' AND -requesterorderstate:finished';
         }
