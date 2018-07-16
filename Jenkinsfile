@@ -33,8 +33,8 @@ node("master") {
                 // copy files needed for docker image
                 sh """
 	                cp -r \
-	                openfindorder.wsdl \
-	                openuserinfo.xsd \
+	                openfindorder.wsdl_INSTALL \
+	                openfindorder.xsd \
 	                openfindorder.ini_INSTALL \
 	                OLS_class_lib/ \
 	                server.php \
