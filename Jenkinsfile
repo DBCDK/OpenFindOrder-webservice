@@ -9,8 +9,8 @@ def WORKSPACE = "workspace/$PRODUCT"
 // the image to use on different stages
 def ouiImage
 
-node("d8-php7-builder") {
-//node("master") {
+//node("d8-php7-builder") {
+node("master") {
     ws(WORKSPACE) {
         withEnv(["DOCKER_HOST=${DOCKER_HOST}"]) {
             stage('SVN: checkout code') {
