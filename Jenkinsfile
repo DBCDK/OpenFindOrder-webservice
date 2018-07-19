@@ -7,7 +7,7 @@ def DOCKER_REPO = 'docker-dscrum.dbc.dk'
 def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk, las@dbc.dk'
 def WORKSPACE = "workspace/$PRODUCT"
 // the image to use on different stages
-def ouiImage
+def ofoImage
 
 //node("d8-php7-builder") {
 node("master") {
@@ -39,6 +39,8 @@ node("master") {
 	                OLS_class_lib/ \
 	                server.php \
 	                xsdparse.php \
+	                orsAgency.php \
+	                orsClass.php \
 	                xml/ \
 	                docker/webservice/www/
 	                """
@@ -48,21 +50,19 @@ node("master") {
                 dir("docker/webservice") {
                     // build the image
                     //ouiImage = docker.build("docker-dscrum.dbc.dk/oui:latest")
-                    ouiImage = docker.build("${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}")
+                    ofoImage = docker.build("${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}")
                 }
             }
-            '''
+
             stage('Docker: push and cleanup') {
                 docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
-                    ouiImage.push()
+                    ofoImage.push()
                 }
 
                 sh """
                    docker rmi ${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}
                     """
             }
-            '''
         }
-
     }
 }
