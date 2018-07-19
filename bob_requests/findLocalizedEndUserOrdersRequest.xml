@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Body>
+        <findLocalizedEndUserOrdersRequest>
+            <outputType>json</outputType>
+            <profile>danbib</profile>
+            <agency>710100</agency>
+            <start>1</start>
+            <stepValue>10</stepValue>
+            <sortKey>creationDateDescending</sortKey>
+            <requesterAgencyId>710100</requesterAgencyId>
+            <closed>true</closed>
+        </findLocalizedEndUserOrdersRequest>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
