@@ -501,7 +501,7 @@ action[formatReceipt][] = json
 action[formatReceipt][] = outputType
 action[formatReceipt][] = callback
 
-; ==============
+; ============== TODO: we no longer need this section - DELETE
 
 ; this part is database-specific.
 ; map fields in databasetable(ors_order)
@@ -619,3 +619,5 @@ test[] = findAllOrders&requesterAgencyId=716702&agency=716700&orderSystem=palles
 preg_match[] = result
 error[] = ERROR findAllOrders&requesterAgencyId=716702&agency=716700&orderSystem=pallesgavebod
 
+[ORS]
+maintenance_url = @MAINTENANCE_URL@

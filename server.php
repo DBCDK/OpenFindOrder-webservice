@@ -2,7 +2,7 @@
 /**
  *
  * This file is part of Open Library System.
- * Copyright © 2009, Dansk Bibliotekscenter a/s,
+ * Copyright ï¿½ 2009, Dansk Bibliotekscenter a/s,
  * Tempovej 7-11, DK-2750 Ballerup, Denmark. CVR: 15149043
  *
  * Open Library System is free software: you can redistribute it and/or modify
@@ -17,18 +17,19 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with Open Library System.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 define(DEBUG_x, FALSE);
 
 require_once('OLS_class_lib/webServiceServer_class.php');
 require_once('xsdparse.php');
+require_once "orsClass.php";
 
 class openFindOrder extends webServiceServer {
   //public $stat;
 
   /** \brief
-      constructor; start watch; call parent's constructor
+   * constructor; start watch; call parent's constructor
    */
   public function __construct() {
     parent::__construct('openfindorder.ini');
@@ -39,7 +40,7 @@ class openFindOrder extends webServiceServer {
   }
 
   /** \brief
-      destructor: stop watch; log for statistics
+   * destructor: stop watch; log for statistics
    */
   public function __destruct() {
     $this->watch->stop('openfindorderWS');
@@ -47,8 +48,8 @@ class openFindOrder extends webServiceServer {
   }
 
   /** \brief Echos config-settings
-  *
-  */
+   *
+   */
   public function show_info() {
     echo '<pre>';
     echo 'version             ' . $this->config->get_value('version', 'setup') . '<br/>';
@@ -59,7 +60,7 @@ class openFindOrder extends webServiceServer {
 
     echo 'implemented methods:' . '<br/>';
     $methods = $this->config->get_value('soapAction', 'setup');
-    foreach ($methods as $key =>$value) {
+    foreach ($methods as $key => $value) {
       echo '    ' . $value . '<br/>';
     }
 
@@ -72,12 +73,21 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findManuallyFinishedIllOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
-    $OFO_s = new OFO_solr($this->soap_action, $this->config);
-    $orders = $OFO_s->findOrders($param);
+    $ors = new orsClass($this->soap_action, $this->config);
+    $orders = $ors->findOrders($param);
 
+    // Old way of doing it
+    //$OFO_s = new OFO_solr($this->soap_action, $this->config);
+    //$orders = $OFO_s->findOrders($param);
+
+    var_dump($orders);
+    die();
+
+    // TODO parse and return orders
     return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
@@ -86,12 +96,21 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findAllOpenEndUserOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
-    $OFO_s = new OFO_solr($this->soap_action, $this->config);
-    $orders = $OFO_s->findOrders($param);
+    // Old way of doing it
+    //$OFO_s = new OFO_solr($this->soap_action, $this->config);
+    //$orders = $OFO_s->findOrders($param);
 
+    $ors = new orsClass($this->soap_action, $this->config);
+    $orders = $ors->findOrders($param);
+
+    var_dump($orders);
+    die();
+
+    // TODO parse and return orders
     return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
   }
 
@@ -100,8 +119,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findNonLocalizedEndUserOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -114,8 +134,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findLocalizedEndUserOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -128,8 +149,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findClosedIllOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -142,8 +164,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findOpenIllOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -157,8 +180,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findAllIllOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -171,8 +195,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findAllNonIllOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -186,8 +211,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findAllOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -200,8 +226,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findSpecificOrder($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -214,8 +241,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findOrdersFromUser($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -228,8 +256,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findOrdersFromUnknownUser($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -242,14 +271,15 @@ class openFindOrder extends webServiceServer {
    *
    */
   public function findOrdersWithStatus($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
-/*
-    $OFO_s = new OFO_solr($this->soap_action, $this->config);
-    $orders = $OFO_s->findOrders($param);
+    }
+    /*
+        $OFO_s = new OFO_solr($this->soap_action, $this->config);
+        $orders = $OFO_s->findOrders($param);
 
-    return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
-*/
+        return $this->findOrderResponse($orders, $OFO_s->numrows, $OFO_s->solr_query);
+    */
     return $this->send_error('placeholder - request not yet defined');
   }
 
@@ -258,8 +288,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findOrdersWithAutoForwardReason($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -272,8 +303,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findAutomatedOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -286,8 +318,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findOwnAutomatedOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -300,8 +333,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function findOrderType($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -314,8 +348,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object
    */
   public function bibliographicSearch($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -328,8 +363,9 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object
    */
   public function getReceipts($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error, 'getReceiptsResponse');
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -342,10 +378,11 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object
    */
   public function formatReceipt($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error, 'getReceiptsResponse');
+    }
 
-    $OFO_s = new OFO_solr($this->soap_action, $this->config); 
+    $OFO_s = new OFO_solr($this->soap_action, $this->config);
 
     if (!$receipt = self::xs_json_decode($param->json->_value)) {
       return $this->send_error('Error decoding json string', 'getReceiptsResponse');
@@ -370,11 +407,12 @@ class openFindOrder extends webServiceServer {
 
   /**\brief
    * The service request for non-automatatically forwarded orders (general)
-   *  @param; request parameters in request-xml object
+   * @param; request parameters in request-xml object
    */
   public function findNonAutomatedOrders($param) {
-    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__))
+    if ($error = OFO_authentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
+    }
 
     $OFO_s = new OFO_solr($this->soap_action, $this->config);
     $orders = $OFO_s->findOrders($param);
@@ -397,8 +435,9 @@ class openFindOrder extends webServiceServer {
     }
 
     // empty result-set
-    if (empty($orders) || $orders->error)
+    if (empty($orders) || $orders->error) {
       return $this->send_error('no orders found');
+    }
 
     $result = &$response->findOrdersResponse->_value->result;
     $result->_namespace = THIS_NAMESPACE;
@@ -408,8 +447,10 @@ class openFindOrder extends webServiceServer {
     if ($orders->error) {
       $orders->error->_namespace = THIS_NAMESPACE;
       $response->findOrdersResponse->_value = $orders;
-    } else
+    }
+    else {
       $result->_value->order = $orders;
+    }
 
     $result->_value->debugInfo->_value = $debug_info;
     return $response;
@@ -428,8 +469,9 @@ class openFindOrder extends webServiceServer {
     }
 
     // empty result-set
-    if (empty($receipts))
+    if (empty($receipts)) {
       return $this->send_error('no orders found', 'getReceiptsResponse');
+    }
 
     $result = &$response->getReceiptsResponse;
     $result->_namespace = THIS_NAMESPACE;
@@ -439,8 +481,10 @@ class openFindOrder extends webServiceServer {
     if ($receipts->error) {
       $receipts->error->_namespace = THIS_NAMESPACE;
       $result->_value = $receipts;
-    } else
+    }
+    else {
       $result->_value->receipt = $receipts;
+    }
 
     $result->_value->debugInfo->_value = $debug_info;
     return $response;
@@ -503,6 +547,10 @@ $ws->handle_request();
 
 /**\brief
  * Class to handle connection to solr and correlation to xml-schema
+ *
+ *
+ * TODO delete this class when finished (class is replaced by orsClass)
+ *
  */
 class OFO_solr {
   public static $error;
@@ -523,34 +571,40 @@ class OFO_solr {
    */
   public function __construct($action, $config) {
     self::$error = null;
-    if (!$this->solr_url = $config->get_value('solr_order_uri', 'setup'))
+    if (!$this->solr_url = $config->get_value('solr_order_uri', 'setup')) {
       die('no url to order-SOLR in config-file');
-    if (!$this->agency_url = $config->get_value('openagency_agency_list', 'setup'))
+    }
+    if (!$this->agency_url = $config->get_value('openagency_agency_list', 'setup')) {
       die('no url to openAgency in config-file');
+    }
 
     // get xml schema
     $schemafile = $config->get_value('schema', 'setup');
-    if (!file_exists($schemafile))
+    if (!file_exists($schemafile)) {
       die('xsd not found: ' . $schemafile);
+    }
 
     $schema = new xml_schema();
     $schema->get_from_file($schemafile);
 
     // set xml-fields
     $this->action = $action;
-    if (in_array($this->action, array('getReceipts', 'formatReceipt')))
+    if (in_array($this->action, array('getReceipts', 'formatReceipt'))) {
       $this->xmlfields = $schema->get_sequence_array('receipt');
-    else
+    }
+    else {
       $this->xmlfields = $schema->get_sequence_array('order');
+    }
 
     $this->curl = new curl();
     $this->curl->set_option(CURLOPT_TIMEOUT, 30);
   }
 
-  public function __destruct() { }
+  public function __destruct() {
+  }
 
   /**\brief
-   * Get orders from database. 
+   * Get orders from database.
    * @param; request parameters as xml-object
    * return; array of found orders
    */
@@ -559,7 +613,7 @@ class OFO_solr {
     if ($consistency === TRUE) {
       $this->solr_query = $this->set_solr_query($param);
       if ($res = $this->do_solr($param, $this->solr_query)) {
-        $this->numrows = (int) $res['response']['numFound'];
+        $this->numrows = (int)$res['response']['numFound'];
         foreach ($res['response']['docs'] as &$doc) {
           $orders[] = $this->extract_fields($doc, ++$start);
         }
@@ -574,8 +628,8 @@ class OFO_solr {
     return $orders;
   }
 
-  /**\brief 
-   * 
+  /**\brief
+   *
    */
   public function modify_some_data($key, $val) {
     switch ($key) {
@@ -586,11 +640,17 @@ class OFO_solr {
         return substr($val, 0, 10);
       case 'creationDate':
       case 'needBeforeDate':
-        if ($p = strpos($val, 'T')) return substr($val, 0, $p);
+        if ($p = strpos($val, 'T')) {
+          return substr($val, 0, $p);
+        }
         break;
       default:
-        if (in_array($val, array('yes', 'Y'))) return 'true';
-        if (in_array($val, array('no', 'N'))) return 'false';
+        if (in_array($val, array('yes', 'Y'))) {
+          return 'true';
+        }
+        if (in_array($val, array('no', 'N'))) {
+          return 'false';
+        }
     }
     return $val;
   }
@@ -598,7 +658,7 @@ class OFO_solr {
   /* ------------------------------- private function --------------------------------------- */
 
   /**\brief Expands one or more library object to the corresponding branch objects
-   * 
+   *
    * @agencies; zero or more agencies
    * return; array of objects contaning all branch-ids in $agencies
    */
@@ -620,7 +680,7 @@ class OFO_solr {
   }
 
   /**\brief Expands one or more libraries using openagency::pickupAgencyList
-   * 
+   *
    * @agency; agency to fetch pickupAgencyList for
    * return; array of branch-ids in agency
    */
@@ -635,34 +695,38 @@ class OFO_solr {
     }
     else {
       $curl_status = $this->curl->get_status();
-      verbose::log(ERROR, 'Error getting agency: ' . $url . 
-                          ' http: ' . $curl_status['http_code'] . 
-                          ' errno: ' . $curl_status['errno'] . 
-                          ' error: ' . $curl_status['error']);
+      VerboseJson::log(ERROR, array('Error getting agency: ' => $url ,
+        ' http: ' => $curl_status['http_code'] ,
+        ' errno: ' => $curl_status['errno'] ,
+        ' error: ' => $curl_status['error'])
+      );
     }
     return $libs;
   }
 
   /**\brief
-   * Fetch branches for the agency and check against requesterAgencyId or responderAgencyId 
+   * Fetch branches for the agency and check against requesterAgencyId or responderAgencyId
    * @param; request parameters as xml-object
    * return; FALSE if requesterAgencyId or responderAgencyId contains non-valid agency
    */
   private function check_agency_consistency(&$param) {
     $libs = $this->fetch_library_list($param->agency->_value);
     if ($libs) {
-      if ($param->requesterAgencyId) 
+      if ($param->requesterAgencyId) {
         return $this->check_in_list($libs, $param->requesterAgencyId, 'requester_not_in_agency');
-      else
+      }
+      else {
         return $this->check_in_list($libs, $param->responderAgencyId, 'responder_not_in_agency');
+      }
     }
   }
 
   private function check_in_list($valid_list, $selected_list, $error_text) {
     if (is_array($selected_list)) {
       foreach ($selected_list as $sel) {
-        if ($sel->_value && !in_array($this->strip_agency($sel->_value), $valid_list))
+        if ($sel->_value && !in_array($this->strip_agency($sel->_value), $valid_list)) {
           return $error_text;
+        }
       }
     }
     else {
@@ -685,7 +749,7 @@ class OFO_solr {
 
     // column-names from database MUST match xml-fields for this loop to work
     // new loop to ensure roworder as defined in xml-schema
-    foreach ($this->xmlfields as $key =>$upper_key) {
+    foreach ($this->xmlfields as $key => $upper_key) {
       $values = $data[strtolower($key)];
       if (!is_array($values)) {
         $values = array($values);
@@ -696,10 +760,10 @@ class OFO_solr {
           $tmp->_namespace = THIS_NAMESPACE;
           if ($key == 'pid') {
             $ret->_value->{$key}[] = $tmp;
-          } 
+          }
           else {
             $ret->_value->$key = $tmp;
-          } 
+          }
           unset($tmp);
         }
       }
@@ -708,37 +772,40 @@ class OFO_solr {
   }
 
   private function valid_data($key, $val) {
-    return ($val 
-         && $val != '0001-01-01'
-         && $val != 'uninitialized'
-         && ($key != 'pidOfPrimaryObject' || substr($val, 0, 1) != 'D'));
+    return ($val
+      && $val != '0001-01-01'
+      && $val != 'uninitialized'
+      && ($key != 'pidOfPrimaryObject' || substr($val, 0, 1) != 'D'));
   }
 
   private function do_solr($param, $solr_query) {
-    if (!$start = $param->start->_value)
+    if (!$start = $param->start->_value) {
       $start = 1;
-    if (!$rows = $param->stepValue->_value)
+    }
+    if (!$rows = $param->stepValue->_value) {
       $rows = 10;
+    }
     if ($param->sortKey->_value == 'creationDateAscending') {
       $sort = '&sort=creationdate%20asc';
-    } 
-    elseif ($param->sortKey->_value == 'creationDateDescending') {
-      $sort = '&sort=creationdate%20desc'; 
     }
-    $url = $this->solr_url . 
-             'q=' . urlencode($solr_query) . 
-             $sort .
-             '&start=' . ($start - 1) . 
-             '&rows=' . $rows .
-             '&defType=edismax&debugQuery=on&wt=phps';
-    verbose::log(DEBUG, 'Trying in solr with: ' . $url);
+    elseif ($param->sortKey->_value == 'creationDateDescending') {
+      $sort = '&sort=creationdate%20desc';
+    }
+    $url = $this->solr_url .
+      'q=' . urlencode($solr_query) .
+      $sort .
+      '&start=' . ($start - 1) .
+      '&rows=' . $rows .
+      '&defType=edismax&debugQuery=on&wt=phps';
+    VerboseJson::log(DEBUG, array('Trying in solr with: ' => $url));
     $solr_result = $this->curl->get($url);
     if (empty($solr_result)) {
       $curl_status = $this->curl->get_status();
-      verbose::log(ERROR, 'Error getting solr: ' . $url . 
-                          ' http: ' . $curl_status['http_code'] . 
-                          ' errno: ' . $curl_status['errno'] . 
-                          ' error: ' . $curl_status['error']);
+      VerboseJson::log(ERROR, array('Error getting solr: ' => $url ,
+        ' http: ' => $curl_status['http_code'] ,
+          ' errno: ' => $curl_status['errno'] ,
+        ' error: ' => $curl_status['error'])
+      );
       return FALSE;
     }
     else {
@@ -759,7 +826,7 @@ class OFO_solr {
         $ret = 'ordertype:inter_library_request';
         if (isset($param->requesterOrderState->_value)) {
           $ret .= 'AND requesterorderstate:' . $param->requesterOrderState->_value;
-        } 
+        }
         elseif (isset($param->providerOrderState->_value)) {
           $ret .= 'AND providerorderstate:' . $param->providerOrderState->_value;
         }
@@ -942,7 +1009,7 @@ class OFO_solr {
         die('no or wrong action');
         break;
     }
-    if (! $ret) {
+    if (!$ret) {
       self::$error = 'query could not be set for ' . $this->action;
       return FALSE;
     }
@@ -969,12 +1036,16 @@ class OFO_solr {
       if ($param->toDate->_value) {
         $to = $this->solr_date($param->toDate->_value . '+23 hours 59 minutes 59 seconds');
       }
-      if ($ret) $ret .= ' AND ';
+      if ($ret) {
+        $ret .= ' AND ';
+      }
       $ret .= 'creationdate:[' . $from . ' TO ' . $to . ']';
     }
     if ($param->lastModification->_value) {
       $from = $this->solr_date($param->lastModification->_value);
-      if ($ret) $ret .= ' AND ';
+      if ($ret) {
+        $ret .= ' AND ';
+      }
       $ret .= 'lastmodification:[' . $from . ' TO *]';
     }
 
@@ -988,20 +1059,23 @@ class OFO_solr {
   }
 
   /**\brief
-   * handles one parameter 
+   * handles one parameter
    */
   private function add_one_par($par, $search_field, $ret = '', $op = 'AND') {
     if (is_array($par)) {
       foreach ($par as $val) {
-        if ($val->_value)
+        if ($val->_value) {
           $help .= ($help ? ' OR ' : '') . $this->normalize_query_term($val->_value, $search_field);
+        }
       }
-      if ($help)
+      if ($help) {
         $ret .= ($ret ? " $op " : '') . $search_field . ':(' . $help . ')';
+      }
     }
     else {
-      if ($par->_value)
+      if ($par->_value) {
         $ret .= ($ret ? " $op " : '') . $search_field . ':' . $this->normalize_query_term($par->_value, $search_field);
+      }
     }
     return $ret;
   }
@@ -1015,8 +1089,9 @@ class OFO_solr {
     if (empty($solr_e_to)) {
       foreach ($solr_e_from as $ch) $solr_e_to[] = '\\' . $ch;
     }
-    if ($field == 'requesterid' || $field == 'responderid')
+    if ($field == 'requesterid' || $field == 'responderid') {
       $query_term = $this->strip_agency($query_term);
+    }
     elseif (strpos($query_term, ' ')) {
       $query_term = '"' . str_replace('"', '', $query_term) . '"~3';
     }
@@ -1041,9 +1116,11 @@ class OFO_solr {
 
 class OFO_authentication {
   public static function authenticate(&$aaa, $function) {
-    if ($aaa->has_right('netpunkt.dk', 500))
+    if ($aaa->has_right('netpunkt.dk', 500)) {
       return;
-    else 
+    }
+    else {
       return 'authentication_error';
+    }
   }
 }
