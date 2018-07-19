@@ -24,7 +24,8 @@ wsdl = openfindorder.wsdl
 
 ; --------------
 ; in_house_domain may use ?ShowInfo and use create_sample form
-;in_house_domain = .dbc.dk
+in_house_domain = @MY_DOMAIN@
+in_house_ip_list = @MY_DOMAIN_IP_LIST@
 
 ; set to TRUE to expose the create_sample form
 ;show_samples = 1
