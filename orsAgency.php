@@ -66,16 +66,17 @@ class orsAgency{
    * @param; request parameters as xml-object
    * return; FALSE if requesterAgencyId or responderAgencyId contains non-valid agency
    */
-  private function check_agency_consistency(&$param) {
+  public function check_agency_consistency(&$param) {
     $libs = $this->fetch_library_list($param->agency->_value);
     if ($libs) {
       if ($param->requesterAgencyId) {
         return $this->check_in_list($libs, $param->requesterAgencyId, 'requester_not_in_agency');
       }
-      else {
+      else if ($param->responderAgencyId) {
         return $this->check_in_list($libs, $param->responderAgencyId, 'responder_not_in_agency');
       }
     }
+    return FALSE;
   }
 
   private function check_in_list($valid_list, $selected_list, $error_text) {
