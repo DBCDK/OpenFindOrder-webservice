@@ -15,7 +15,7 @@ class orsAgency{
     $this->agency_url = $agency_url;
     $this->curl = new curl();
     $this->error = FALSE;
-    $this->err_msg = array();
+    $this->err_msg = NULL;
   }
 
   /**\brief Expands one or more library object to the corresponding branch objects
@@ -128,7 +128,7 @@ class orsAgency{
    */
   private function setError($msg) {
     $this->error = TRUE;
-    $this->err_msg[] = $msg;
+    $this->err_msg = $msg;
   }
 
   /**
