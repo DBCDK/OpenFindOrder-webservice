@@ -79,8 +79,8 @@ class orsClass {
     //     Så hvemsomhelst kan få alle data, hvis de kan logge ind, 
     //     og finde ud af at skrive requesterAgency's eller responderAgency's hovedbiblioteket ISIL-nr ??.
     $consistency = $orsAgency->check_agency_consistency($param);
-    if ($consistency !== TRUE) {
-      $this->setError("failed_agency_consistency_check : " . explode(", ", $orsAgency->getErrorMsg()));
+    if (!$consistency) {
+      $this->setError(implode("; ", $orsAgency->getErrorMsg()));
       return false;
     }
 
