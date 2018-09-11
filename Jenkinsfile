@@ -41,6 +41,8 @@ node("master") {
 	                xsdparse.php \
 	                orsAgency.php \
 	                orsClass.php \
+                  openFindOrder.php \
+                  ofoAuthentication.php \
 	                xml/ \
 	                docker/webservice/www/
 	                """
