@@ -80,7 +80,7 @@ class orsClass {
     //     og finde ud af at skrive requesterAgency's eller responderAgency's hovedbiblioteket ISIL-nr ??.
     $consistency = $orsAgency->check_agency_consistency($param);
     if ($consistency !== TRUE) {
-      $this->SetError('failed_agency_consistency_check');
+      $this->setError("failed_agency_consistency_check : " . explode(", ", $orsAgency->getErrorMsg()));
       return false;
     }
 
@@ -307,7 +307,7 @@ class orsClass {
     $this->message =  !empty($result['message']) ? $result['message'] : NULL;
     
     if (!empty($result['error'])) {
-      $this->SetError($result['error']);
+      $this->setError($result['error']);
     }
     
     $orders = array();
@@ -584,7 +584,7 @@ class orsClass {
   /**
    * Set errors.
    */
-  public function setError($msg) {
+  private function setError($msg) {
     $this->error = TRUE;
     $this->err_msg[] = $msg;
   }

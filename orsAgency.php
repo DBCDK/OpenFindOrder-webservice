@@ -8,9 +8,14 @@
 class orsAgency{
   private $agency_url;
   private $curl;
+  private $error;
+  private $err_msg;
+  
   public function __construct($agency_url){
     $this->agency_url = $agency_url;
     $this->curl = new curl();
+    $this->error = FALSE;
+    $this->err_msg = array();
   }
 
   /**\brief Expands one or more library object to the corresponding branch objects
@@ -67,14 +72,18 @@ class orsAgency{
    * return; FALSE if requesterAgencyId or responderAgencyId contains non-valid agency
    */
   public function check_agency_consistency(&$param) {
-    $libs = $this->fetch_library_list($param->agency->_value);
-    if ($libs) {
-      if ($param->requesterAgencyId) {
-        return $this->check_in_list($libs, $param->requesterAgencyId, 'requester_not_in_agency');
-      }
-      else if ($param->responderAgencyId) {
-        return $this->check_in_list($libs, $param->responderAgencyId, 'responder_not_in_agency');
-      }
+    try {
+      $libs = $this->fetch_library_list($param->agency->_value);
+    }
+    catch (Exception $e) {
+      $this->setError($e->getMessage());
+      return FALSE;
+    }
+    if ($param->requesterAgencyId) {
+      return $this->check_in_list($libs, $param->requesterAgencyId, 'requester_not_in_agency');
+    }
+    else if ($param->responderAgencyId) {
+      return $this->check_in_list($libs, $param->responderAgencyId, 'responder_not_in_agency');
     }
     return FALSE;
   }
@@ -83,15 +92,44 @@ class orsAgency{
     if (is_array($selected_list)) {
       foreach ($selected_list as $sel) {
         if ($sel->_value && !in_array($this->strip_agency($sel->_value), $valid_list)) {
-          return $error_text;
+          $this->setError($error_text);
+          return FALSE;
         }
       }
     }
     else {
-      return in_array($this->strip_agency($selected_list->_value), $valid_list);
+        if (!in_array($this->strip_agency($selected_list->_value), $valid_list)) {
+          $this->setError($error_text);
+          return FALSE;
+        }
     }
     return TRUE;
   }
+
+  /**
+   * Set errors.
+   */
+  private function setError($msg) {
+    $this->error = TRUE;
+    $this->err_msg[] = $msg;
+  }
+
+  /**
+   * Return error status.
+   * @return boolean
+   */
+  public function getError() {
+    return $this->error;
+  }
+
+  /**
+   * Return errors messages (if any).
+   * @return array
+   */
+  public function getErrorMsg() {
+    return $this->err_msg;
+  }
+
 
   /** \brief
    *  return only digits, so something like DK-710100 returns 710100
