@@ -55,13 +55,19 @@ class orsAgency{
         $libs[] = $sublib->_value->branchId->_value;
       }
     }
-    else {
-      $curl_status = $this->curl->get_status();
+    else if ($res && $res->pickupAgencyListResponse->_value->error) {
+      $this->setError($res->pickupAgencyListResponse->_value->error->_value . ': ' . $agency);
+    }
+    else if ($curl_status = $this->curl->get_status()) {
       VerboseJson::log(ERROR, array('Error getting agency: ' => $url ,
           ' http: ' => $curl_status['http_code'] ,
           ' errno: ' => $curl_status['errno'] ,
           ' error: ' => $curl_status['error'])
       );
+      $this->setError('Error getting agency: ' . $url .
+          ' http: ' . $curl_status['http_code'] .
+          ' errno: ' . $curl_status['errno'] .
+          ' error: ' . $curl_status['error']);
     }
     return $libs;
   }
