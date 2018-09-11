@@ -56,7 +56,23 @@ class orsAgency{
       }
     }
     else if ($res && $res->pickupAgencyListResponse->_value->error) {
-      $this->setError($res->pickupAgencyListResponse->_value->error->_value . ': ' . $agency);
+      $agency_error = $res->pickupAgencyListResponse->_value->error->_value;
+      switch ($agency_error) {
+        case 'authentication_error':
+        case 'no_userid_selected':
+        case 'profile_not_found':
+        case 'error_in_request':
+          VerboseJson::log(ERROR, array('openAgency error' => $agency_error));
+        case 'agency_not_found':
+        case 'no_agencies_found':
+          $this->setError('cannot_find_agency');
+          break;
+        case 'service_unavailable':
+        default:
+          $this->setError('open find order service not available');
+          VerboseJson::log(ERROR, array('openAgency error' => $agency_error));
+          break;
+      }
     }
     else {
       $curl_status = $this->curl->get_status();
@@ -65,10 +81,7 @@ class orsAgency{
           ' errno: ' => $curl_status['errno'] ,
           ' error: ' => $curl_status['error'])
       );
-      $this->setError('Error getting agency: ' . $url .
-          ' http: ' . $curl_status['http_code'] .
-          ' errno: ' . $curl_status['errno'] .
-          ' error: ' . $curl_status['error']);
+      $this->setError('open find order service not available');
     }
     return $libs;
   }
@@ -80,6 +93,9 @@ class orsAgency{
    */
   public function check_agency_consistency(&$param) {
     $libs = $this->fetch_library_list($param->agency->_value);
+    if ($this->getError()) {
+      return FALSE;
+    }
     if ($param->requesterAgencyId) {
       return $this->check_in_list($libs, $param->requesterAgencyId, 'requester_not_in_agency');
     }
