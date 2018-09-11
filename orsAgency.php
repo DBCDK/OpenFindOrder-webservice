@@ -79,13 +79,7 @@ class orsAgency{
    * return; FALSE if requesterAgencyId or responderAgencyId contains non-valid agency
    */
   public function check_agency_consistency(&$param) {
-    try {
-      $libs = $this->fetch_library_list($param->agency->_value);
-    }
-    catch (Exception $e) {
-      $this->setError($e->getMessage());
-      return FALSE;
-    }
+    $libs = $this->fetch_library_list($param->agency->_value);
     if ($param->requesterAgencyId) {
       return $this->check_in_list($libs, $param->requesterAgencyId, 'requester_not_in_agency');
     }
