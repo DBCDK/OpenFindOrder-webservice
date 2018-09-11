@@ -55,8 +55,7 @@ class openFindOrder extends webServiceServer {
     $ors->setQuery($param);
     // TODO: somehow switch between post and get here depending on the action
     if ($ors->getError()) {
-      $err = $ors->getErrorMsg();
-      return $this->send_error(implode("\n", $err));
+      return $this->send_error($ors->getErrorMsg());
     }
     $ors->findOrders();
     switch ($method) {
@@ -66,7 +65,6 @@ class openFindOrder extends webServiceServer {
       default:
         return $this->findOrderResponse($ors);
     }
-    
   }
   
   /** \brief
@@ -286,7 +284,7 @@ class openFindOrder extends webServiceServer {
       return $this->send_error('no orders found');
     }
     
-    // Parse failed.
+    // Total > 0, but parse failed.
     if (empty($orders)) {
       // See: openfindorder.xsd -> errorType
       return $this->send_error('Error decoding json string');
