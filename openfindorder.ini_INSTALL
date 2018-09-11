@@ -61,7 +61,6 @@ soapAction[findOrdersWithAutoForwardReason] = findOrdersWithAutoForwardReasonReq
 soapAction[findOrderType] = findOrderOfTypeRequest
 soapAction[findOwnAutomatedOrders] = findOwnAutomatedOrdersRequest
 soapAction[findSpecificOrder] = findSpecificOrderRequest
-soapAction[getOrderStatus] = getOrderStatusRequest
 soapAction[getReceipts] = getReceiptsRequest
 soapAction[formatReceipt] = formatReceiptRequest
 
@@ -92,7 +91,8 @@ schema=openfindorder.xsd
 
 ; --------------
 ; where to find openAgency
-openagency_agency_list = http://some.server.dk/OpenAgency/?action=pickupAgencyList&agencyId=%s&libraryStatus=alle&outputType=php
+; openagency_agency_list = http://some.server.dk/OpenAgency/?action=pickupAgencyList&agencyId=%s&libraryStatus=alle&outputType=php
+openagency_agency_list = @OPENAGENCY_AGENCY_LIST@
 
 ; --------------
 ; where to find solr indexes
@@ -405,20 +405,6 @@ action[findOrdersWithAutoForwardReason][] = sortKey
 action[findOrdersWithAutoForwardReason][] = start
 action[findOrdersWithAutoForwardReason][] = stepValue
 
-action[findOrdersWithStatus][authentication][] = groupIdAut
-action[findOrdersWithStatus][authentication][] = passwordAut
-action[findOrdersWithStatus][authentication][] = userIdAut
-action[findOrdersWithStatus][] = requesterAgencyId
-action[findOrdersWithStatus][] = responderAgencyId
-action[findOrdersWithStatus][] = agency
-action[findOrdersWithStatus][] = fromDate
-action[findOrdersWithStatus][] = toDate
-action[findOrdersWithStatus][] = outputType
-action[findOrdersWithStatus][] = callback
-action[findOrdersWithStatus][] = sortKey
-action[findOrdersWithStatus][] = start
-action[findOrdersWithStatus][] = stepValue
-
 action[findOrderType][authentication][] = groupIdAut
 action[findOrderType][authentication][] = passwordAut
 action[findOrderType][authentication][] = userIdAut
@@ -465,21 +451,6 @@ action[findSpecificOrder][] = callback
 action[findSpecificOrder][] = sortKey
 action[findSpecificOrder][] = start
 action[findSpecificOrder][] = stepValue
-
-action[getOrderStatus][authentication][] = groupIdAut
-action[getOrderStatus][authentication][] = passwordAut
-action[getOrderStatus][authentication][] = userIdAut
-action[getOrderStatus][] = requesterAgencyId
-action[getOrderStatus][] = responderAgencyId
-action[getOrderStatus][] = orderId
-action[getOrderStatus][] = agency
-action[getOrderStatus][] = fromDate
-action[getOrderStatus][] = toDate
-action[getOrderStatus][] = outputType
-action[getOrderStatus][] = callback
-action[getOrderStatus][] = sortKey
-action[getOrderStatus][] = start
-action[getOrderStatus][] = stepValue
 
 action[getReceipts][authentication][] = groupIdAut
 action[getReceipts][authentication][] = passwordAut
