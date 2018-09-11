@@ -33,5 +33,9 @@ if [ ! -f $INI ] ; then
 
 fi
 
-service memcached start
-/usr/sbin/apache2ctl -D FOREGROUND
+if [ "$1" == '' ]; then
+	service memcached start
+	/usr/sbin/apache2ctl -D FOREGROUND
+else
+	exec "$@"
+fi
