@@ -297,11 +297,6 @@ class openFindOrder extends webServiceServer {
     $result->_value->numberOfOrders->_value = $total;
     $result->_value->order = $orders;
     
-    // $result->_value->debugInfo->_value = $debug_info;
-    
-    // var_dump($orders);
-    // echo "\n************** \n";
-    
     return $response;
   }
 
