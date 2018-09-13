@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="9ee7b431-7d2b-4410-8c32-255f9658d93a" activeEnvironment="Default" name="openfindorder" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="cf512c36-60ca-4e66-9d15-9b33c70e8469" wsaVersion="NONE" name="openFindOrderSoapBinding" type="wsdl" bindingName="{http://oss.dbc.dk/ns/openfindorder_wsdl}openFindOrderSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://openfindorder-staging.mcp1-proxy.dbc.dk/openfindorder.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://openfindorder-staging.mcp1-proxy.dbc.dk/openfindorder.wsdl"><con:part><con:url>http://openfindorder-staging.mcp1-proxy.dbc.dk/openfindorder.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://oss.dbc.dk/ns/openfindorder_wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ofo="http://oss.dbc.dk/ns/openfindorder" xmlns:ofow="http://oss.dbc.dk/ns/openfindorder_wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<con:soapui-project id="9ee7b431-7d2b-4410-8c32-255f9658d93a" activeEnvironment="Default" name="openfindorder" resourceRoot="${projectDir}" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="cf512c36-60ca-4e66-9d15-9b33c70e8469" wsaVersion="NONE" name="openFindOrderSoapBinding" type="wsdl" bindingName="{http://oss.dbc.dk/ns/openfindorder_wsdl}openFindOrderSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://openfindorder-staging.mcp1-proxy.dbc.dk/openfindorder.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://openfindorder-staging.mcp1-proxy.dbc.dk/openfindorder.wsdl"><con:part><con:url>http://openfindorder-staging.mcp1-proxy.dbc.dk/openfindorder.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://oss.dbc.dk/ns/openfindorder_wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ofo="http://oss.dbc.dk/ns/openfindorder" xmlns:ofow="http://oss.dbc.dk/ns/openfindorder_wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xs:schema elementFormDefault="qualified">
       <xs:import schemaLocation="openfindorder.xsd" namespace="http://oss.dbc.dk/ns/openfindorder"/>
@@ -1702,703 +1702,703 @@
       <xs:enumeration value="worldcat"/>
     </xs:restriction>
   </xs:simpleType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint></con:endpoints><con:operation id="9012176f-fc1e-4d8e-8754-dfaabb4f0c74" isOneWay="false" action="bibliographicSearch" name="bibliographicSearch" bindingOperationName="bibliographicSearch" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b7a83deb-fac5-4253-a415-0b23adaef7ec" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:bibliographicSearchRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <!--Optional:-->\r
-         <open:author>?</open:author>\r
-         <!--Optional:-->\r
-         <open:bibliographicFreeText>?</open:bibliographicFreeText>\r
-         <!--Optional:-->\r
-         <open:orderType>?</open:orderType>\r
-         <!--Optional:-->\r
-         <open:title>?</open:title>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:bibliographicSearchRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="bibliographicSearch"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="c6bde4ac-a6e8-49be-be00-5318f67cd8ca" isOneWay="false" action="findAllIllOrders" name="findAllIllOrders" bindingOperationName="findAllIllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="45e8ea7c-5c85-4d43-82d9-cc6065d620d0" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findAllIllOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findAllIllOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findAllIllOrders"/></con:call></con:operation><con:operation id="99e4815d-953b-4bac-9612-85211a2ff7ac" isOneWay="false" action="findAllNonIllOrders" name="findAllNonIllOrders" bindingOperationName="findAllNonIllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="87cc207c-7743-458e-adfb-6a554d7ec496" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findAllNonIllOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findAllNonIllOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findAllNonIllOrders"/></con:call></con:operation><con:operation id="f50ed3e1-b2ae-4118-8c25-8b0c839ea392" isOneWay="false" action="findAllOpenEndUserOrders" name="findAllOpenEndUserOrders" bindingOperationName="findAllOpenEndUserOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="189cbf7f-4b05-42b7-ba20-9d3743693424" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findAllOpenEndUserOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findAllOpenEndUserOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findAllOpenEndUserOrders"/></con:call></con:operation><con:operation id="42612605-f65c-4853-81a2-d37d532653fc" isOneWay="false" action="findAllOrders" name="findAllOrders" bindingOperationName="findAllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="007fb5ad-8d86-426e-b35c-2349595efec1" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findAllOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findAllOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findAllOrders"/></con:call></con:operation><con:operation id="9cbe7a95-3d63-4a6d-a964-d6871f75e6ef" isOneWay="false" action="findAutomatedOrders" name="findAutomatedOrders" bindingOperationName="findAutomatedOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="aedfaca6-7b22-4a8d-bfee-c455f2740c7e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findAutomatedOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <!--Optional:-->\r
-         <open:orderType>?</open:orderType>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findAutomatedOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findAutomatedOrders"/></con:call></con:operation><con:operation id="e8f924d1-3de7-4b83-b890-fa36f7d8508c" isOneWay="false" action="findClosedIllOrders" name="findClosedIllOrders" bindingOperationName="findClosedIllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cb64a1bc-0b2b-4cdb-815c-25901c37648d" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findClosedIllOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <!--Optional:-->\r
-         <open:orderStatus>?</open:orderStatus>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findClosedIllOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findClosedIllOrders"/></con:call></con:operation><con:operation id="f3ca3d50-2b92-4cb3-b0b7-837e94d56121" isOneWay="false" action="findLocalizedEndUserOrders" name="findLocalizedEndUserOrders" bindingOperationName="findLocalizedEndUserOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="77ded53f-510b-4b23-9c36-392eb347f6a7" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findLocalizedEndUserOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:closed>?</open:closed>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findLocalizedEndUserOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findLocalizedEndUserOrders"/></con:call></con:operation><con:operation id="cb39a296-58c9-4532-bfe8-aa57fef48798" isOneWay="false" action="findManuallyFinishedIllOrders" name="findManuallyFinishedIllOrders" bindingOperationName="findManuallyFinishedIllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2546ec5a-cf4c-4b98-8de0-8452f5a2cffa" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findManuallyFinishedIllOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <open:providerOrderState>?</open:providerOrderState>\r
-         <open:requesterOrderState>?</open:requesterOrderState>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findManuallyFinishedIllOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findManuallyFinishedIllOrders"/></con:call></con:operation><con:operation id="f5a9497e-3e83-4ecd-b32f-ff9a5549d70a" isOneWay="false" action="findNonAutomatedOrders" name="findNonAutomatedOrders" bindingOperationName="findNonAutomatedOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d38eca4c-1264-44c3-bce1-fa88fd4ea9a3" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findNonAutomatedOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findNonAutomatedOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findNonAutomatedOrders"/></con:call></con:operation><con:operation id="a2ff87bd-d64e-4fa1-82ec-6f6d27bc0048" isOneWay="false" action="findLocalizedEndUserOrders" name="findNonLocalizedEndUserOrders" bindingOperationName="findNonLocalizedEndUserOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e658d4be-3798-4355-aa4a-c7964104a495" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findNonLocalizedEndUserOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:closed>?</open:closed>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findNonLocalizedEndUserOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findLocalizedEndUserOrders"/></con:call></con:operation><con:operation id="76e20873-1505-4a82-ad2a-dd859e91e281" isOneWay="false" action="findOpenIllOrders" name="findOpenIllOrders" bindingOperationName="findOpenIllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6dde58ff-5331-481b-8365-f6abe000eb38" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findOpenIllOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findOpenIllOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOpenIllOrders"/></con:call></con:operation><con:operation id="f77615b2-9eeb-4cd6-ac4e-9f2f491f38e2" isOneWay="false" action="findOrdersFromUnknownUser" name="findOrdersFromUnknownUser" bindingOperationName="findOrdersFromUnknownUser" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="86be83ea-d755-481e-b7d5-257381dced50" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findOrdersFromUnknownUserRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findOrdersFromUnknownUserRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOrdersFromUnknownUser"/></con:call></con:operation><con:operation id="f086c086-866f-4a61-9709-6cbd886d2a0d" isOneWay="false" action="findOrdersFromUser" name="findOrdersFromUser" bindingOperationName="findOrdersFromUser" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cff3a84b-f63e-498d-8572-0ba9aab35bbc" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findOrdersFromUserRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <!--Optional:-->\r
-         <open:orderType>?</open:orderType>\r
-         <!--You have a CHOICE of the next 4 items at this level-->\r
-         <open:userFreeText>?</open:userFreeText>\r
-         <open:userId>?</open:userId>\r
-         <open:userMail>?</open:userMail>\r
-         <open:userName>?</open:userName>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findOrdersFromUserRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOrdersFromUser"/></con:call></con:operation><con:operation id="9934b483-2196-4f32-ae8a-753e1b78e72a" isOneWay="false" action="findOrdersWithAutoForwardReason" name="findOrdersWithAutoForwardReason" bindingOperationName="findOrdersWithAutoForwardReason" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="362ad577-d10b-44a9-b548-74fe4523cd53" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findOrdersWithAutoForwardReasonRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:autoForwardReason>?</open:autoForwardReason>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findOrdersWithAutoForwardReasonRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOrdersWithAutoForwardReason"/></con:call></con:operation><con:operation id="9d90d422-d1bd-497c-a93c-b58ea70d24ed" isOneWay="false" action="findOrderType" name="findOrderOfType" bindingOperationName="findOrderType" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="19d0659d-accc-4c00-8a0c-67df044d2cc3" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findOrderOfTypeRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <!--You have a CHOICE of the next 3 items at this level-->\r
-         <open:articleDirect>?</open:articleDirect>\r
-         <open:kvik>?</open:kvik>\r
-         <open:norfri>?</open:norfri>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findOrderOfTypeRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOrderType"/></con:call></con:operation><con:operation id="b3a80712-c129-4bd4-a868-f2c2b8a1e7fd" isOneWay="false" action="findOwnAutomatedOrders" name="findOwnAutomatedOrders" bindingOperationName="findOwnAutomatedOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="519d5971-7e28-47f6-8d6c-8f1869d8c141" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findNonAutomatedOrdersRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findNonAutomatedOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOwnAutomatedOrders"/></con:call></con:operation><con:operation id="00f695f9-74e8-4454-b9bc-2daea1261a02" isOneWay="false" action="findSpecificOrder" name="findSpecificOrder" bindingOperationName="findSpecificOrder" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="599cd969-8bca-4bb4-8b8e-1beafd50295f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findSpecificOrderRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:orderId>?</open:orderId>\r
-         <!--Optional:-->\r
-         <open:orderType>?</open:orderType>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:findSpecificOrderRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findSpecificOrder"/></con:call></con:operation><con:operation id="4025edbf-7d09-4099-944f-2af099fe22a6" isOneWay="false" action="formatReceipt" name="formatReceipt" bindingOperationName="formatReceipt" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="54bd4fab-17c9-40cb-8eb2-d2f33a3806ad" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:formatReceiptRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <open:json>?</open:json>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-      </open:formatReceiptRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="formatReceipt"/></con:call></con:operation><con:operation id="596ccb29-1695-4d6c-b8ff-5045fef101fb" isOneWay="false" action="getReceipts" name="getReceipts" bindingOperationName="getReceipts" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ca625945-3afe-4650-88ee-0d2dd1480b50" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:getReceiptsRequest>\r
-         <!--Optional:-->\r
-         <open:authentication>\r
-            <open:groupIdAut>?</open:groupIdAut>\r
-            <open:passwordAut>?</open:passwordAut>\r
-            <open:userIdAut>?</open:userIdAut>\r
-         </open:authentication>\r
-         <!--You have a CHOICE of the next 2 items at this level-->\r
-         <!--1 or more repetitions:-->\r
-         <open:requesterAgencyId>?</open:requesterAgencyId>\r
-         <!--1 or more repetitions:-->\r
-         <open:responderAgencyId>?</open:responderAgencyId>\r
-         <open:orderId>?</open:orderId>\r
-         <open:agency>?</open:agency>\r
-         <!--Optional:-->\r
-         <open:fromDate>?</open:fromDate>\r
-         <!--Optional:-->\r
-         <open:toDate>?</open:toDate>\r
-         <!--Optional:-->\r
-         <open:lastModification>?</open:lastModification>\r
-         <!--Optional:-->\r
-         <open:outputType>?</open:outputType>\r
-         <!--Optional:-->\r
-         <open:callback>?</open:callback>\r
-         <!--Optional:-->\r
-         <open:sortKey>?</open:sortKey>\r
-         <!--Optional:-->\r
-         <open:start>?</open:start>\r
-         <!--Optional:-->\r
-         <open:stepValue>?</open:stepValue>\r
-      </open:getReceiptsRequest>\r
-   </soapenv:Body>\r
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint></con:endpoints><con:operation id="9012176f-fc1e-4d8e-8754-dfaabb4f0c74" isOneWay="false" action="bibliographicSearch" name="bibliographicSearch" bindingOperationName="bibliographicSearch" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b7a83deb-fac5-4253-a415-0b23adaef7ec" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:bibliographicSearchRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <!--Optional:-->
+         <open:author>?</open:author>
+         <!--Optional:-->
+         <open:bibliographicFreeText>?</open:bibliographicFreeText>
+         <!--Optional:-->
+         <open:orderType>?</open:orderType>
+         <!--Optional:-->
+         <open:title>?</open:title>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:bibliographicSearchRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="bibliographicSearch"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="c6bde4ac-a6e8-49be-be00-5318f67cd8ca" isOneWay="false" action="findAllIllOrders" name="findAllIllOrders" bindingOperationName="findAllIllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="45e8ea7c-5c85-4d43-82d9-cc6065d620d0" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findAllIllOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findAllIllOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findAllIllOrders"/></con:call></con:operation><con:operation id="99e4815d-953b-4bac-9612-85211a2ff7ac" isOneWay="false" action="findAllNonIllOrders" name="findAllNonIllOrders" bindingOperationName="findAllNonIllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="87cc207c-7743-458e-adfb-6a554d7ec496" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findAllNonIllOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findAllNonIllOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findAllNonIllOrders"/></con:call></con:operation><con:operation id="f50ed3e1-b2ae-4118-8c25-8b0c839ea392" isOneWay="false" action="findAllOpenEndUserOrders" name="findAllOpenEndUserOrders" bindingOperationName="findAllOpenEndUserOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="189cbf7f-4b05-42b7-ba20-9d3743693424" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findAllOpenEndUserOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findAllOpenEndUserOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findAllOpenEndUserOrders"/></con:call></con:operation><con:operation id="42612605-f65c-4853-81a2-d37d532653fc" isOneWay="false" action="findAllOrders" name="findAllOrders" bindingOperationName="findAllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="007fb5ad-8d86-426e-b35c-2349595efec1" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findAllOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findAllOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findAllOrders"/></con:call></con:operation><con:operation id="9cbe7a95-3d63-4a6d-a964-d6871f75e6ef" isOneWay="false" action="findAutomatedOrders" name="findAutomatedOrders" bindingOperationName="findAutomatedOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="aedfaca6-7b22-4a8d-bfee-c455f2740c7e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findAutomatedOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <!--Optional:-->
+         <open:orderType>?</open:orderType>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findAutomatedOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findAutomatedOrders"/></con:call></con:operation><con:operation id="e8f924d1-3de7-4b83-b890-fa36f7d8508c" isOneWay="false" action="findClosedIllOrders" name="findClosedIllOrders" bindingOperationName="findClosedIllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cb64a1bc-0b2b-4cdb-815c-25901c37648d" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findClosedIllOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <!--Optional:-->
+         <open:orderStatus>?</open:orderStatus>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findClosedIllOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findClosedIllOrders"/></con:call></con:operation><con:operation id="f3ca3d50-2b92-4cb3-b0b7-837e94d56121" isOneWay="false" action="findLocalizedEndUserOrders" name="findLocalizedEndUserOrders" bindingOperationName="findLocalizedEndUserOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="77ded53f-510b-4b23-9c36-392eb347f6a7" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findLocalizedEndUserOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:closed>?</open:closed>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findLocalizedEndUserOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findLocalizedEndUserOrders"/></con:call></con:operation><con:operation id="cb39a296-58c9-4532-bfe8-aa57fef48798" isOneWay="false" action="findManuallyFinishedIllOrders" name="findManuallyFinishedIllOrders" bindingOperationName="findManuallyFinishedIllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2546ec5a-cf4c-4b98-8de0-8452f5a2cffa" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findManuallyFinishedIllOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <open:providerOrderState>?</open:providerOrderState>
+         <open:requesterOrderState>?</open:requesterOrderState>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findManuallyFinishedIllOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findManuallyFinishedIllOrders"/></con:call></con:operation><con:operation id="f5a9497e-3e83-4ecd-b32f-ff9a5549d70a" isOneWay="false" action="findNonAutomatedOrders" name="findNonAutomatedOrders" bindingOperationName="findNonAutomatedOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d38eca4c-1264-44c3-bce1-fa88fd4ea9a3" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findNonAutomatedOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findNonAutomatedOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findNonAutomatedOrders"/></con:call></con:operation><con:operation id="a2ff87bd-d64e-4fa1-82ec-6f6d27bc0048" isOneWay="false" action="findLocalizedEndUserOrders" name="findNonLocalizedEndUserOrders" bindingOperationName="findNonLocalizedEndUserOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e658d4be-3798-4355-aa4a-c7964104a495" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findNonLocalizedEndUserOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:closed>?</open:closed>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findNonLocalizedEndUserOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findLocalizedEndUserOrders"/></con:call></con:operation><con:operation id="76e20873-1505-4a82-ad2a-dd859e91e281" isOneWay="false" action="findOpenIllOrders" name="findOpenIllOrders" bindingOperationName="findOpenIllOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6dde58ff-5331-481b-8365-f6abe000eb38" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findOpenIllOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findOpenIllOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOpenIllOrders"/></con:call></con:operation><con:operation id="f77615b2-9eeb-4cd6-ac4e-9f2f491f38e2" isOneWay="false" action="findOrdersFromUnknownUser" name="findOrdersFromUnknownUser" bindingOperationName="findOrdersFromUnknownUser" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="86be83ea-d755-481e-b7d5-257381dced50" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findOrdersFromUnknownUserRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findOrdersFromUnknownUserRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOrdersFromUnknownUser"/></con:call></con:operation><con:operation id="f086c086-866f-4a61-9709-6cbd886d2a0d" isOneWay="false" action="findOrdersFromUser" name="findOrdersFromUser" bindingOperationName="findOrdersFromUser" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cff3a84b-f63e-498d-8572-0ba9aab35bbc" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findOrdersFromUserRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <!--Optional:-->
+         <open:orderType>?</open:orderType>
+         <!--You have a CHOICE of the next 4 items at this level-->
+         <open:userFreeText>?</open:userFreeText>
+         <open:userId>?</open:userId>
+         <open:userMail>?</open:userMail>
+         <open:userName>?</open:userName>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findOrdersFromUserRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOrdersFromUser"/></con:call></con:operation><con:operation id="9934b483-2196-4f32-ae8a-753e1b78e72a" isOneWay="false" action="findOrdersWithAutoForwardReason" name="findOrdersWithAutoForwardReason" bindingOperationName="findOrdersWithAutoForwardReason" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="362ad577-d10b-44a9-b548-74fe4523cd53" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findOrdersWithAutoForwardReasonRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:autoForwardReason>?</open:autoForwardReason>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findOrdersWithAutoForwardReasonRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOrdersWithAutoForwardReason"/></con:call></con:operation><con:operation id="9d90d422-d1bd-497c-a93c-b58ea70d24ed" isOneWay="false" action="findOrderType" name="findOrderOfType" bindingOperationName="findOrderType" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="19d0659d-accc-4c00-8a0c-67df044d2cc3" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findOrderOfTypeRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <!--You have a CHOICE of the next 3 items at this level-->
+         <open:articleDirect>?</open:articleDirect>
+         <open:kvik>?</open:kvik>
+         <open:norfri>?</open:norfri>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findOrderOfTypeRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOrderType"/></con:call></con:operation><con:operation id="b3a80712-c129-4bd4-a868-f2c2b8a1e7fd" isOneWay="false" action="findOwnAutomatedOrders" name="findOwnAutomatedOrders" bindingOperationName="findOwnAutomatedOrders" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="519d5971-7e28-47f6-8d6c-8f1869d8c141" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findNonAutomatedOrdersRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findNonAutomatedOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findOwnAutomatedOrders"/></con:call></con:operation><con:operation id="00f695f9-74e8-4454-b9bc-2daea1261a02" isOneWay="false" action="findSpecificOrder" name="findSpecificOrder" bindingOperationName="findSpecificOrder" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="599cd969-8bca-4bb4-8b8e-1beafd50295f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findSpecificOrderRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <!--1 or more repetitions:-->
+         <open:orderId>?</open:orderId>
+         <!--Optional:-->
+         <open:orderType>?</open:orderType>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:findSpecificOrderRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="findSpecificOrder"/></con:call></con:operation><con:operation id="4025edbf-7d09-4099-944f-2af099fe22a6" isOneWay="false" action="formatReceipt" name="formatReceipt" bindingOperationName="formatReceipt" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="54bd4fab-17c9-40cb-8eb2-d2f33a3806ad" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:formatReceiptRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <open:json>?</open:json>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+      </open:formatReceiptRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="formatReceipt"/></con:call></con:operation><con:operation id="596ccb29-1695-4d6c-b8ff-5045fef101fb" isOneWay="false" action="getReceipts" name="getReceipts" bindingOperationName="getReceipts" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ca625945-3afe-4650-88ee-0d2dd1480b50" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:getReceiptsRequest>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--You have a CHOICE of the next 2 items at this level-->
+         <!--1 or more repetitions:-->
+         <open:requesterAgencyId>?</open:requesterAgencyId>
+         <!--1 or more repetitions:-->
+         <open:responderAgencyId>?</open:responderAgencyId>
+         <open:orderId>?</open:orderId>
+         <open:agency>?</open:agency>
+         <!--Optional:-->
+         <open:fromDate>?</open:fromDate>
+         <!--Optional:-->
+         <open:toDate>?</open:toDate>
+         <!--Optional:-->
+         <open:lastModification>?</open:lastModification>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:sortKey>?</open:sortKey>
+         <!--Optional:-->
+         <open:start>?</open:start>
+         <!--Optional:-->
+         <open:stepValue>?</open:stepValue>
+      </open:getReceiptsRequest>
+   </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="getReceipts"/></con:call></con:operation></con:interface><con:testSuite id="1661ae2d-bde3-4b89-841c-978328cdc54d" name="openFindOrder SoapUI TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="22141bee-2f73-4fd5-898d-d06ac2046fef" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="bibliographicSearch TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="df03bac7-e786-43f5-9f72-690944dc99ec" name="bibliographicSearch"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>bibliographicSearch</con:operation><con:request name="bibliographicSearch" id="11cd0f5d-7b70-44d7-a0c4-57df1976bbee"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
    <soapenv:Header/>
    <soapenv:Body>
@@ -2433,9 +2433,19 @@
 </soapenv:Envelope>
 ]]></con:request><con:assertion type="SOAP Fault Assertion" id="a69d28c3-c9cb-4c7d-b6ce-50ad0e22d114" name="Not SOAP Fault"/><con:assertion type="Simple Contains" id="a5dc15fb-c1dc-4387-a8ad-80224ca15f58" name="Contains ofo:findOrdersResponse"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder">
 </token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="7ef45e5c-148d-400d-b1a5-8642c92deadb" name="Contains ofo:error"><con:configuration><token>&lt;ofo:error>no orders found&lt;/ofo:error>
-</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="128191cb-51a5-4587-bf32-f62f25e7e05a" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="bibliographicSearch"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="750867ac-9432-46f9-a409-6b3074ad3878" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findAllIllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="e3152c75-413a-4f4f-8fbd-93ee8b4a38d8" name="findAllIllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findAllIllOrders</con:operation><con:request name="findAllIllOrders" id="b9bfd052-5176-49dc-bf3a-247102bd46ea"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r<soapenv:Header/>\r<soapenv:Body>\r<open:findAllIllOrdersRequest>\r<open:requesterAgencyId>100400</open:requesterAgencyId>\r<open:agency>100400</open:agency>\r<open:outputType>xml</open:outputType>\r<open:stepValue>1</open:stepValue>\r</open:findAllIllOrdersRequest>\r</soapenv:Body>\r</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="ad41eeaf-c68b-45c9-9a5b-0c8c60dcbc4f" name="Contains ofo:findOrdersResponse"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="4cb7bf5a-0632-495c-9212-e57935082387" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="56095a13-720c-4199-8673-eca649d0e0fb" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findAllIllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="0440aca5-31dc-4f75-b9ee-9a5a80f99bc4" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findAllNonIllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="486e0e5d-d67e-4cc8-ad08-bf454d955ff8" name="findAllNonIllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findAllNonIllOrders</con:operation><con:request name="findAllNonIllOrders" id="cf28eccd-53f8-4c26-9e74-4fe00866bdad"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="128191cb-51a5-4587-bf32-f62f25e7e05a" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="bibliographicSearch"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="750867ac-9432-46f9-a409-6b3074ad3878" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findAllIllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="e3152c75-413a-4f4f-8fbd-93ee8b4a38d8" name="findAllIllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findAllIllOrders</con:operation><con:request name="findAllIllOrders" id="b9bfd052-5176-49dc-bf3a-247102bd46ea"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@strip-whitespaces">true</con:setting><con:setting id="WsdlSettings@pretty-print-response-xml">false</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findAllIllOrdersRequest>
+         <open:requesterAgencyId>100400</open:requesterAgencyId>
+         <open:agency>100400</open:agency>
+         <open:outputType>xml</open:outputType>
+         <open:stepValue>1</open:stepValue>
+         </open:findAllIllOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="ad41eeaf-c68b-45c9-9a5b-0c8c60dcbc4f" name="Contains ofo:findOrdersResponse"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="4cb7bf5a-0632-495c-9212-e57935082387" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="56095a13-720c-4199-8673-eca649d0e0fb" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findAllIllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="0440aca5-31dc-4f75-b9ee-9a5a80f99bc4" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findAllNonIllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="486e0e5d-d67e-4cc8-ad08-bf454d955ff8" name="findAllNonIllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findAllNonIllOrders</con:operation><con:request name="findAllNonIllOrders" id="cf28eccd-53f8-4c26-9e74-4fe00866bdad"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
 	  <open:findAllNonIllOrdersRequest>
 	    <open:requesterAgencyId>100400</open:requesterAgencyId>
 	    <open:agency>100400</open:agency>
@@ -2443,10 +2453,10 @@
 	    <open:start>1</open:start>
 	    <open:stepValue>1</open:stepValue>
 	  </open:findAllNonIllOrdersRequest>
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="d18f5667-c176-4d22-8eb8-72cc49112848" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="398b7462-7596-456b-ad4b-135708cf75e9" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="eb782f56-fd58-4722-b82c-49d4fdfd7e6b" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findAllNonIllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="661e8dc1-9f55-4369-8cc5-7a07cf3253ca" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findAllOpenEndUserOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="91e05185-233b-419f-b15d-eb8b18f5adbb" name="findAllOpenEndUserOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findAllOpenEndUserOrders</con:operation><con:request name="findAllOpenEndUserOrders" id="3647f244-7f2a-414f-ab25-0589fd7723f1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="d18f5667-c176-4d22-8eb8-72cc49112848" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="398b7462-7596-456b-ad4b-135708cf75e9" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="eb782f56-fd58-4722-b82c-49d4fdfd7e6b" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findAllNonIllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="661e8dc1-9f55-4369-8cc5-7a07cf3253ca" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findAllOpenEndUserOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="91e05185-233b-419f-b15d-eb8b18f5adbb" name="findAllOpenEndUserOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findAllOpenEndUserOrders</con:operation><con:request name="findAllOpenEndUserOrders" id="3647f244-7f2a-414f-ab25-0589fd7723f1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
 	  <open:findAllOpenEndUserOrdersRequest>
 	    <open:requesterAgencyId>100400</open:requesterAgencyId>
 	    <open:requesterAgencyId>100401</open:requesterAgencyId>
@@ -2454,10 +2464,10 @@
 	    <open:outputType>xml</open:outputType>
 	    <open:stepValue>1</open:stepValue>
 	  </open:findAllOpenEndUserOrdersRequest>
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="e054b679-84d7-4f1f-b16f-31ff6c103c72" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="bb731e89-0830-4b12-8f52-f158ae5bbe10" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="5d1ff4f5-3be9-4a9f-a16b-0a23a9e40fc5" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findAllOpenEndUserOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="8afcb5c9-1e9a-467d-8a58-38d46e14f196" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findAllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="5709dc77-e67f-46e5-98ad-66920f19e1b0" name="findAllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findAllOrders</con:operation><con:request name="findAllOrders" id="377383ae-206f-46bb-9493-5cb53b6f98cb"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="e054b679-84d7-4f1f-b16f-31ff6c103c72" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="bb731e89-0830-4b12-8f52-f158ae5bbe10" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="5d1ff4f5-3be9-4a9f-a16b-0a23a9e40fc5" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findAllOpenEndUserOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="8afcb5c9-1e9a-467d-8a58-38d46e14f196" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findAllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="5709dc77-e67f-46e5-98ad-66920f19e1b0" name="findAllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findAllOrders</con:operation><con:request name="findAllOrders" id="377383ae-206f-46bb-9493-5cb53b6f98cb"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
 	<open:findAllOrdersRequest>
 	  <open:requesterAgencyId>100400</open:requesterAgencyId>
 	  <open:requesterAgencyId>100401</open:requesterAgencyId>
@@ -2465,99 +2475,99 @@
 	  <open:outputType>xml</open:outputType>
 	  <open:stepValue>1</open:stepValue>
 	</open:findAllOrdersRequest>
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="30d1fec1-ba73-4b6a-9803-60e34d206051" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="b01a357b-ffac-4f62-a2c3-cd38d3028166" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="e5c802f7-1366-49ca-91c4-cc8e3ecd79b7" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findAllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="e31d4a9c-1faf-452b-8c79-191419ba7181" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findAutomatedOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="256e611a-b1e6-47ff-bca2-f690e84acc89" name="findAutomatedOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findAutomatedOrders</con:operation><con:request name="findAutomatedOrders" id="38103821-00fa-4930-bba8-5a05206ef4da"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-     <open:findAutomatedOrdersRequest>\r
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="30d1fec1-ba73-4b6a-9803-60e34d206051" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="b01a357b-ffac-4f62-a2c3-cd38d3028166" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="e5c802f7-1366-49ca-91c4-cc8e3ecd79b7" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findAllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="e31d4a9c-1faf-452b-8c79-191419ba7181" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findAutomatedOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="256e611a-b1e6-47ff-bca2-f690e84acc89" name="findAutomatedOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findAutomatedOrders</con:operation><con:request name="findAutomatedOrders" id="38103821-00fa-4930-bba8-5a05206ef4da"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+     <open:findAutomatedOrdersRequest>
 	  <open:requesterAgencyId>100400</open:requesterAgencyId>
 	  <open:requesterAgencyId>100401</open:requesterAgencyId>
 	  <open:agency>100400</open:agency>
 	  <open:outputType>xml</open:outputType>
 	  <open:stepValue>1</open:stepValue>
-     </open:findAutomatedOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="fbfb81a8-2a94-4b97-bc56-dfbff92bfdfd" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="bcddd31a-0bb5-4b1c-ac50-56151deb1078" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="e72f8d3f-7d1a-4bee-aac8-8f637434cc91" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findAutomatedOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="7def499b-341f-4c6f-87cc-3893869ead1a" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findClosedIllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="3e87cf2a-2fd9-47a0-a5ec-40b544970de5" name="findClosedIllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findClosedIllOrders</con:operation><con:request name="findClosedIllOrders" id="1c523391-1861-49ad-90fc-73f4abd7e22b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findClosedIllOrdersRequest>\r
+     </open:findAutomatedOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="fbfb81a8-2a94-4b97-bc56-dfbff92bfdfd" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="bcddd31a-0bb5-4b1c-ac50-56151deb1078" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="e72f8d3f-7d1a-4bee-aac8-8f637434cc91" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findAutomatedOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="7def499b-341f-4c6f-87cc-3893869ead1a" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findClosedIllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="3e87cf2a-2fd9-47a0-a5ec-40b544970de5" name="findClosedIllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findClosedIllOrders</con:operation><con:request name="findClosedIllOrders" id="1c523391-1861-49ad-90fc-73f4abd7e22b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findClosedIllOrdersRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:findClosedIllOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="8bbedec9-5109-4486-be30-f7b7fe5bcd89" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="96b3f9ee-43a2-47a7-b0e0-6a834dce67c9" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="b11c65f8-b435-44b8-a1e6-678283514ece" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findClosedIllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="953533d4-ab81-441f-aa39-3ecb1f30c3b2" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findLocalizedEndUserOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="ebc6a411-5303-4bbc-8e18-8a818ced7ce6" name="findLocalizedEndUserOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findLocalizedEndUserOrders</con:operation><con:request name="findLocalizedEndUserOrders" id="682373fe-5649-4822-883b-ee7ef4f80cdb"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findLocalizedEndUserOrdersRequest>\r
+      </open:findClosedIllOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="8bbedec9-5109-4486-be30-f7b7fe5bcd89" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="96b3f9ee-43a2-47a7-b0e0-6a834dce67c9" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="b11c65f8-b435-44b8-a1e6-678283514ece" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findClosedIllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="953533d4-ab81-441f-aa39-3ecb1f30c3b2" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findLocalizedEndUserOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="ebc6a411-5303-4bbc-8e18-8a818ced7ce6" name="findLocalizedEndUserOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findLocalizedEndUserOrders</con:operation><con:request name="findLocalizedEndUserOrders" id="682373fe-5649-4822-883b-ee7ef4f80cdb"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findLocalizedEndUserOrdersRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:findLocalizedEndUserOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="edee7527-1d5f-41c8-a202-a3b8bdc87608" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="0d7a0225-30b0-4ee8-8a18-5040b14ff27e" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="57a674ed-d4b5-4f82-919f-330fc6fd4157" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findLocalizedEndUserOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="b777d659-f61a-4376-b7e6-be88e7462ecb" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findManuallyFinishedIllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="7babf3d8-6384-4712-bcc9-953087890156" name="findManuallyFinishedIllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findManuallyFinishedIllOrders</con:operation><con:request name="findManuallyFinishedIllOrders" id="e95edc9c-6095-4c53-867d-f4352d81274c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findManuallyFinishedIllOrdersRequest>\r
+      </open:findLocalizedEndUserOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="edee7527-1d5f-41c8-a202-a3b8bdc87608" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="0d7a0225-30b0-4ee8-8a18-5040b14ff27e" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="57a674ed-d4b5-4f82-919f-330fc6fd4157" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findLocalizedEndUserOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="b777d659-f61a-4376-b7e6-be88e7462ecb" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findManuallyFinishedIllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="7babf3d8-6384-4712-bcc9-953087890156" name="findManuallyFinishedIllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findManuallyFinishedIllOrders</con:operation><con:request name="findManuallyFinishedIllOrders" id="e95edc9c-6095-4c53-867d-f4352d81274c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findManuallyFinishedIllOrdersRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:findManuallyFinishedIllOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="1ab5b0ce-658d-4658-b2e4-a4dc42ca731c" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="7b8e7806-06f4-4f02-bdbc-fb50a25c02c2" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="93507d6b-3919-4e7e-b0ca-55b523336083" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findManuallyFinishedIllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="c6102226-5c86-4dbc-b4ff-e52509e4d42e" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findNonAutomatedOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="9b7a297a-4bbe-4406-8dd1-49a3609e30b2" name="findNonAutomatedOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findNonAutomatedOrders</con:operation><con:request name="findNonAutomatedOrders" id="96d08489-e85b-4dd2-86e3-23a4d213462e"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findNonAutomatedOrdersRequest>\r
+      </open:findManuallyFinishedIllOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="1ab5b0ce-658d-4658-b2e4-a4dc42ca731c" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="7b8e7806-06f4-4f02-bdbc-fb50a25c02c2" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="93507d6b-3919-4e7e-b0ca-55b523336083" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findManuallyFinishedIllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="c6102226-5c86-4dbc-b4ff-e52509e4d42e" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findNonAutomatedOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="9b7a297a-4bbe-4406-8dd1-49a3609e30b2" name="findNonAutomatedOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findNonAutomatedOrders</con:operation><con:request name="findNonAutomatedOrders" id="96d08489-e85b-4dd2-86e3-23a4d213462e"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findNonAutomatedOrdersRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:findNonAutomatedOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="73008c15-1a26-46f9-b175-0d338a09945e" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="ec8298b0-5b5c-42a7-a7d0-448489513682" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="5da05800-fc1f-4e30-81e3-bc0b3e4fdadd" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findNonAutomatedOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="56547bee-91db-400e-86df-8e25baaa9ae2" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findNonLocalizedEndUserOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="d5ecd063-3767-4e97-84e4-200251c1a727" name="findNonLocalizedEndUserOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findNonLocalizedEndUserOrders</con:operation><con:request name="findNonLocalizedEndUserOrders" id="aa6cd152-a2cd-4c53-9ef7-741bd8d0540f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findNonLocalizedEndUserOrdersRequest>\r
+      </open:findNonAutomatedOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="73008c15-1a26-46f9-b175-0d338a09945e" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="ec8298b0-5b5c-42a7-a7d0-448489513682" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="5da05800-fc1f-4e30-81e3-bc0b3e4fdadd" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findNonAutomatedOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="56547bee-91db-400e-86df-8e25baaa9ae2" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findNonLocalizedEndUserOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="d5ecd063-3767-4e97-84e4-200251c1a727" name="findNonLocalizedEndUserOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findNonLocalizedEndUserOrders</con:operation><con:request name="findNonLocalizedEndUserOrders" id="aa6cd152-a2cd-4c53-9ef7-741bd8d0540f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findNonLocalizedEndUserOrdersRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:findNonLocalizedEndUserOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="64697d51-eee1-40b0-9fa2-bf55399f59dc" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="fbe727f4-62de-49e0-bf7f-c061b44dd16c" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="3eee1830-7693-4173-8e8f-5b7ffa98ca20" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findLocalizedEndUserOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="ebbe2739-391e-40d8-a85b-cbff2ed7685e" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findOpenIllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="30caa351-d7ec-4a7d-9b72-db61cb6eaeb1" name="findOpenIllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findOpenIllOrders</con:operation><con:request name="findOpenIllOrders" id="ce188a7c-e6fd-4873-935c-896e38ad60d1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findOpenIllOrdersRequest>\r
+      </open:findNonLocalizedEndUserOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="64697d51-eee1-40b0-9fa2-bf55399f59dc" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="fbe727f4-62de-49e0-bf7f-c061b44dd16c" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="3eee1830-7693-4173-8e8f-5b7ffa98ca20" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findLocalizedEndUserOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="ebbe2739-391e-40d8-a85b-cbff2ed7685e" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findOpenIllOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="30caa351-d7ec-4a7d-9b72-db61cb6eaeb1" name="findOpenIllOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findOpenIllOrders</con:operation><con:request name="findOpenIllOrders" id="ce188a7c-e6fd-4873-935c-896e38ad60d1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findOpenIllOrdersRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:findOpenIllOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="57c75d40-cf06-4ed3-9cea-9faaba3c6cce" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="d1830ce7-a94e-456c-b939-3a1688be02fa" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="1ae1470b-0671-4682-b8df-05c4c8b14b84" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findOpenIllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="edf436e4-8682-42eb-8367-66ba217b30a0" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findOrdersFromUnknownUser TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="5a44f998-3c24-4dd5-aea1-34548220d753" name="findOrdersFromUnknownUser"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findOrdersFromUnknownUser</con:operation><con:request name="findOrdersFromUnknownUser" id="c24bf8df-9383-4778-8293-baebdff696c1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findOrdersFromUnknownUserRequest>\r
+      </open:findOpenIllOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="57c75d40-cf06-4ed3-9cea-9faaba3c6cce" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="d1830ce7-a94e-456c-b939-3a1688be02fa" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="1ae1470b-0671-4682-b8df-05c4c8b14b84" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findOpenIllOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="edf436e4-8682-42eb-8367-66ba217b30a0" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findOrdersFromUnknownUser TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="5a44f998-3c24-4dd5-aea1-34548220d753" name="findOrdersFromUnknownUser"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findOrdersFromUnknownUser</con:operation><con:request name="findOrdersFromUnknownUser" id="c24bf8df-9383-4778-8293-baebdff696c1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findOrdersFromUnknownUserRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:findOrdersFromUnknownUserRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="9ad1d124-f044-4f0a-ba8d-4bbbcdb2a033" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="078a6d89-ac73-49ae-8c1e-78fd05640231" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="922c92c4-96a8-4876-b278-85605a002ccb" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findOrdersFromUnknownUser" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="373a38d6-2040-42cc-a45c-a11b97bde7e5" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findOrdersFromUser TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="8f505323-2edb-49f3-ae08-32e4f57038b3" name="findOrdersFromUser"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findOrdersFromUser</con:operation><con:request name="findOrdersFromUser" id="df816c20-c982-4ae5-a690-25e0174efdfe"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findOrdersFromUserRequest>\r
+      </open:findOrdersFromUnknownUserRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="9ad1d124-f044-4f0a-ba8d-4bbbcdb2a033" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="078a6d89-ac73-49ae-8c1e-78fd05640231" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="922c92c4-96a8-4876-b278-85605a002ccb" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findOrdersFromUnknownUser" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="373a38d6-2040-42cc-a45c-a11b97bde7e5" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findOrdersFromUser TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="8f505323-2edb-49f3-ae08-32e4f57038b3" name="findOrdersFromUser"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findOrdersFromUser</con:operation><con:request name="findOrdersFromUser" id="df816c20-c982-4ae5-a690-25e0174efdfe"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findOrdersFromUserRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:orderType>enduser_order</open:orderType>
@@ -2567,21 +2577,21 @@
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:findOrdersFromUserRequest>\r
-   </soapenv:Body>\r
+      </open:findOrdersFromUserRequest>
+   </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="2fa3bb3f-f965-4ec3-a9ba-aab6eb7cfbd6" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder">
-</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="25b1181d-9c01-42b2-9ea3-a2c1ca1c184a" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="15482826-f213-4b11-99cd-0636aceb11cd" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findOrdersFromUser" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="23f565f8-3897-484a-9d31-89ef07b8e9c0" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findOrdersWithAutoForwardReason TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="22f333ef-b41b-4515-bbe5-e0d575e7a336" name="findOrdersWithAutoForwardReason"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findOrdersWithAutoForwardReason</con:operation><con:request name="findOrdersWithAutoForwardReason" id="7b1142f4-7474-40ef-ae50-b9f859a215cf"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findOrdersWithAutoForwardReasonRequest>\r
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="25b1181d-9c01-42b2-9ea3-a2c1ca1c184a" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="15482826-f213-4b11-99cd-0636aceb11cd" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findOrdersFromUser" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="23f565f8-3897-484a-9d31-89ef07b8e9c0" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findOrdersWithAutoForwardReason TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="22f333ef-b41b-4515-bbe5-e0d575e7a336" name="findOrdersWithAutoForwardReason"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findOrdersWithAutoForwardReason</con:operation><con:request name="findOrdersWithAutoForwardReason" id="7b1142f4-7474-40ef-ae50-b9f859a215cf"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findOrdersWithAutoForwardReasonRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:autoForwardReason>not_for_loan</open:autoForwardReason>
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:findOrdersWithAutoForwardReasonRequest>\r
-   </soapenv:Body>\r
+      </open:findOrdersWithAutoForwardReasonRequest>
+   </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="e487ee77-b549-4e63-a4b6-ce54e94e3f3c" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="ccff523d-63e8-4f23-b31c-788a3fef51b1" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="fe066c5e-a165-4d08-8bf9-5e819f50c42b" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findOrdersWithAutoForwardReason" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="87aae753-f08e-417b-80b9-502be9033b5b" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findOrderOfType TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="ad17f0c3-4bbe-42f4-9e61-29b8c3ff37bb" name="findOrderType"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findOrderOfType</con:operation><con:request name="findOrderType" id="dcd250ae-4ac1-47e8-a7c0-108881924635"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
    <soapenv:Header/>
    <soapenv:Body>
@@ -2593,21 +2603,21 @@
       </open:findOrderOfTypeRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="Invalid HTTP Status Codes" id="a4ba0496-9a9f-4915-891a-08c23f2fca84" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="Simple Contains" id="c20e4ca6-340a-49ce-ab68-64d44e69a743" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder">
-</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="2e544488-0b0b-4062-8c4a-748d071c4966" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findOrderType" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="9dd0cfd3-457a-4de3-b7e3-67a0bd58ab6f" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findOwnAutomatedOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="a539d1e0-90b2-4d65-a5b1-60cb2ce63ee8" name="findOwnAutomatedOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findOwnAutomatedOrders</con:operation><con:request name="findOwnAutomatedOrders" id="7df49719-7f30-4ce2-8fc5-963cc11973fc"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findNonAutomatedOrdersRequest>\r
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="2e544488-0b0b-4062-8c4a-748d071c4966" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findOrderType" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="9dd0cfd3-457a-4de3-b7e3-67a0bd58ab6f" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findOwnAutomatedOrders TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="a539d1e0-90b2-4d65-a5b1-60cb2ce63ee8" name="findOwnAutomatedOrders"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findOwnAutomatedOrders</con:operation><con:request name="findOwnAutomatedOrders" id="7df49719-7f30-4ce2-8fc5-963cc11973fc"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findNonAutomatedOrdersRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:findNonAutomatedOrdersRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="a1b10e95-8623-4515-b2b7-2e5262d8d16b" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="553a249e-5b28-4030-97bd-c3ecfdd81f9b" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="5e263f69-64a4-4286-81d0-e84fc7c6d4d7" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findOwnAutomatedOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="2e039bed-6005-4bfa-8d5d-ea167256c645" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findSpecificOrder TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="da72fe9b-711e-4e0d-85c4-dd790ada5bad" name="findSpecificOrder"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findSpecificOrder</con:operation><con:request name="findSpecificOrder" id="f4e43fab-2f57-4051-9469-95b2b4ec16ad"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:findSpecificOrderRequest>\r
+      </open:findNonAutomatedOrdersRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="a1b10e95-8623-4515-b2b7-2e5262d8d16b" name="Contains"><con:configuration><token>&lt;ofo:findOrdersResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="553a249e-5b28-4030-97bd-c3ecfdd81f9b" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="5e263f69-64a4-4286-81d0-e84fc7c6d4d7" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findOwnAutomatedOrders" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="2e039bed-6005-4bfa-8d5d-ea167256c645" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="findSpecificOrder TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="da72fe9b-711e-4e0d-85c4-dd790ada5bad" name="findSpecificOrder"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>findSpecificOrder</con:operation><con:request name="findSpecificOrder" id="f4e43fab-2f57-4051-9469-95b2b4ec16ad"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:findSpecificOrderRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:orderId>9876543210</open:orderId>
@@ -2615,12 +2625,12 @@
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:findSpecificOrderRequest>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="e2092102-dc89-406d-8b49-501a7736e945" name="Contains"><con:configuration><token>rsResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="1f4822a2-3bdc-46cf-9c19-babd0276a703" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="fa0cae27-6c12-4f47-813b-1e25a51264f0" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findSpecificOrder" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="1c5041b4-7323-4171-9d76-e12bc88f9a63" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="formatReceipt TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="2d66f200-607b-4e3b-8192-d393b8de8870" name="formatReceipt"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>formatReceipt</con:operation><con:request name="formatReceipt" id="47411e7f-089e-480c-9cb3-674736923051"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:formatReceiptRequest>\r
+      </open:findSpecificOrderRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="e2092102-dc89-406d-8b49-501a7736e945" name="Contains"><con:configuration><token>rsResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="1f4822a2-3bdc-46cf-9c19-babd0276a703" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="fa0cae27-6c12-4f47-813b-1e25a51264f0" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="findSpecificOrder" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="1c5041b4-7323-4171-9d76-e12bc88f9a63" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="formatReceipt TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="2d66f200-607b-4e3b-8192-d393b8de8870" name="formatReceipt"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>formatReceipt</con:operation><con:request name="formatReceipt" id="47411e7f-089e-480c-9cb3-674736923051"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:formatReceiptRequest>
          <open:json>
 {
 "orderId":"9876543210",
@@ -2722,20 +2732,20 @@
 "wantsReceipt":"yes",
 "worldCatNote":""
 }
-         </open:json>\r
-         <open:outputType>xml</open:outputType>\r
-      </open:formatReceiptRequest>\r
-   </soapenv:Body>\r
+         </open:json>
+         <open:outputType>xml</open:outputType>
+      </open:formatReceiptRequest>
+   </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="2948b31a-0271-44a9-badf-a3df9cfbc4a2" name="Contains ofo:getReceiptsResponse"><con:configuration><token>&lt;ofo:getReceiptsResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder" xmlns="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="0ed3eabd-403b-423a-b8b3-fcd89172c6b8" name="Contains ofo:numberOfReceipts"><con:configuration><token>&lt;ofo:numberOfReceipts>1&lt;/ofo:numberOfReceipts>
-</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="312858d9-74f4-4201-a76d-9cc09a04ba84" name="Contains ofo:receipt"><con:configuration><token>&lt;ofo:receipt></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="2b4fdff3-de94-47a6-b397-0a06ace420b6" name="Contains ofo:requesterIdType"><con:configuration><token>&lt;ofo:requesterIdType>DNUCNI&lt;/ofo:requesterIdType></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="83c69b6f-9f2e-409c-8e35-34473120f130" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="108f1f2f-0dcd-45c5-aa85-4d1b19cc47ad" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="formatReceipt" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="97275ec3-102f-43a8-9fa4-81dfbc289a12" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getReceipts TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="64dff16e-5625-475f-833d-58b32e4145a0" name="getReceipts"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>getReceipts</con:operation><con:request name="getReceipts" id="a1ee1feb-ded1-4d0a-bd8f-d02f1eeb2daa"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <open:getReceiptsRequest>\r
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="312858d9-74f4-4201-a76d-9cc09a04ba84" name="Contains ofo:receipt"><con:configuration><token>&lt;ofo:receipt></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="2b4fdff3-de94-47a6-b397-0a06ace420b6" name="Contains ofo:requesterIdType"><con:configuration><token>&lt;ofo:requesterIdType>DNUCNI&lt;/ofo:requesterIdType></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="83c69b6f-9f2e-409c-8e35-34473120f130" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="108f1f2f-0dcd-45c5-aa85-4d1b19cc47ad" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="formatReceipt" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="97275ec3-102f-43a8-9fa4-81dfbc289a12" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getReceipts TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="64dff16e-5625-475f-833d-58b32e4145a0" name="getReceipts"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>openFindOrderSoapBinding</con:interface><con:operation>getReceipts</con:operation><con:request name="getReceipts" id="a1ee1feb-ded1-4d0a-bd8f-d02f1eeb2daa"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://openfindorder-staging.mcp1-proxy.dbc.dk/server.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:open="http://oss.dbc.dk/ns/openfindorder">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <open:getReceiptsRequest>
          <open:requesterAgencyId>100400</open:requesterAgencyId>
          <open:requesterAgencyId>100401</open:requesterAgencyId>
          <open:agency>100400</open:agency>
          <open:outputType>xml</open:outputType>
          <open:stepValue>1</open:stepValue>
-      </open:getReceiptsRequest>\r
-   </soapenv:Body>\r
+      </open:getReceiptsRequest>
+   </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="46c735dd-9b4f-4b06-a21b-8389acabe430" name="Contains"><con:configuration><token>&lt;ofo:getReceiptsResponse xmlns:ofo="http://oss.dbc.dk/ns/openfindorder" xmlns="http://oss.dbc.dk/ns/openfindorder"></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="cb1ca0dd-df51-4e5f-b5fd-2affe48d02c7" name="Invalid HTTP Status Codes"><con:configuration><codes>500, 404, 403</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="54176638-538c-404b-8fd5-d989057161f5" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="getReceipts" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
