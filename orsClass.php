@@ -270,21 +270,12 @@ class orsClass {
     // this is for the (find)order api
     $url .= 'orders';
     
-    // echo print_r($json, 1) . "\n************** \n";
-    // echo print_r($url, 1) . "\n************** \n";
-
     // initialize curl for post request
     $this->curl->set_post($json);
     $this->curl->set_url($url);
     $this->curl->set_option(CURLOPT_RETURNTRANSFER, TRUE);
     $this->curl->set_option(CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     $result = $this->curl->get();
-    
-    // TODO errorhandling:
-    // Set $this->error, $this->status.
-    
-    // var_dump(json_decode($result));
-    // echo "\n************** \n";
     
     $this->response = $this->parseResponse($result);
     
@@ -328,99 +319,7 @@ class orsClass {
       // $resultObject['activeId'];
       // $resultObject['creationTimestamp'];
       // $resultObject['lastAccessTimestamp'];
-/*  
-<xs:element ref="ofo:resultPosition"/>
-<xs:element ref="ofo:orderId" minOccurs="0"/>
-<xs:element ref="ofo:requesterId" minOccurs="0"/>
-<xs:element ref="ofo:articleDirect" minOccurs="0"/>
-<xs:element ref="ofo:articleFirstNote" minOccurs="0"/>
-<xs:element ref="ofo:author" minOccurs="0"/>
-<xs:element ref="ofo:authorOfComponent" minOccurs="0"/>
-<xs:element ref="ofo:autoForwardDeliverToday" minOccurs="0"/>
-<xs:element ref="ofo:autoForwardOwn" minOccurs="0"/>
-<xs:element ref="ofo:autoForwardReason" minOccurs="0"/>
-<xs:element ref="ofo:autoForwardResult" minOccurs="0"/>
-<xs:element ref="ofo:autoForwardTestNote" minOccurs="0"/>
-<xs:element ref="ofo:bibliographicCategory" minOccurs="0"/>
-<xs:element ref="ofo:bibliographicRecordAgencyId" minOccurs="0"/>
-<xs:element ref="ofo:bibliographicRecordId" minOccurs="0"/>
-<xs:element ref="ofo:callNumber" minOccurs="0"/>
-<xs:element ref="ofo:cancelled" minOccurs="0"/>
-<xs:element ref="ofo:cancelledDate" minOccurs="0"/>
-<xs:element ref="ofo:closed" minOccurs="0"/>
-<xs:element ref="ofo:closedDate" minOccurs="0"/>
-<xs:element ref="ofo:copy" minOccurs="0"/>
-<xs:element ref="ofo:creationDate" minOccurs="0"/>
-<xs:element ref="ofo:dateDue" minOccurs="0"/>
-<xs:element ref="ofo:desiredDateDue" minOccurs="0"/>
-<xs:element ref="ofo:edition" minOccurs="0"/>
-<xs:element ref="ofo:exactEdition" minOccurs="0"/>
-<xs:element ref="ofo:expectedDelivery" minOccurs="0"/>
-<xs:element ref="ofo:forwardOrderId" minOccurs="0"/>
-<xs:element ref="ofo:isbn" minOccurs="0"/>
-<xs:element ref="ofo:isShipped" minOccurs="0"/>
-<xs:element ref="ofo:issn" minOccurs="0"/>
-<xs:element ref="ofo:issue" minOccurs="0"/>
-<xs:element ref="ofo:itemId" minOccurs="0"/>
-<xs:element ref="ofo:kvik" minOccurs="0"/>
-<xs:element ref="ofo:language" minOccurs="0"/>
-<xs:element ref="ofo:lastModification" minOccurs="0"/>
-<xs:element ref="ofo:lastRenewalDate" minOccurs="0"/>
-<xs:element ref="ofo:latestProviderNote" minOccurs="0"/>
-<xs:element ref="ofo:latestRequesterNote" minOccurs="0"/>
-<xs:element ref="ofo:localHoldingsId" minOccurs="0"/>
-<xs:element ref="ofo:lookedUpUserId" minOccurs="0"/>
-<xs:element ref="ofo:mediumType" minOccurs="0"/>
-<xs:element ref="ofo:needBeforeDate" minOccurs="0"/>
-<xs:element ref="ofo:norfri" minOccurs="0"/>
-<xs:element ref="ofo:numberOfRenewals" minOccurs="0"/>
-<xs:element ref="ofo:orderSystem" minOccurs="0"/>
-<xs:element ref="ofo:orderType" minOccurs="0"/>
-<xs:element ref="ofo:originalOrderId" minOccurs="0"/>
-<xs:element ref="ofo:pagination" minOccurs="0"/>
-<xs:element ref="ofo:pickUpAgencyId" minOccurs="0"/>
-<xs:element ref="ofo:pickUpAgencySubdivision" minOccurs="0"/>
-<xs:element ref="ofo:pid" minOccurs="0" maxOccurs="unbounded"/>
-<xs:element ref="ofo:pidOfComponent" minOccurs="0"/>
-<xs:element ref="ofo:pidOfPrimaryObject" minOccurs="0"/>
-<xs:element ref="ofo:placeOfPublication" minOccurs="0"/>
-<xs:element ref="ofo:placeOnHold" minOccurs="0"/>
-<xs:element ref="ofo:providerAnswer" minOccurs="0"/>
-<xs:element ref="ofo:providerAnswerDate" minOccurs="0"/>
-<xs:element ref="ofo:providerAnswerReason" minOccurs="0"/>
-<xs:element ref="ofo:providerOrderState" minOccurs="0"/>
-<xs:element ref="ofo:publicationDate" minOccurs="0"/>
-<xs:element ref="ofo:publicationDateOfComponent" minOccurs="0"/>
-<xs:element ref="ofo:publisher" minOccurs="0"/>
-<xs:element ref="ofo:receivedDate" minOccurs="0"/>
-<xs:element ref="ofo:renewed" minOccurs="0"/>
-<xs:element ref="ofo:renewPendingDate" minOccurs="0"/>
-<xs:element ref="ofo:requesterInitials" minOccurs="0"/>
-<xs:element ref="ofo:requesterOrderState" minOccurs="0"/>
-<xs:element ref="ofo:resendToRequesterDate" minOccurs="0"/>
-<xs:element ref="ofo:resendToResponderDate" minOccurs="0"/>
-<xs:element ref="ofo:responderId" minOccurs="0"/>
-<xs:element ref="ofo:returnedDate" minOccurs="0"/>
-<xs:element ref="ofo:seriesTitelNumber" minOccurs="0"/>
-<xs:element ref="ofo:shippedDate" minOccurs="0"/>
-<xs:element ref="ofo:shippedServiceType" minOccurs="0"/>
-<xs:element ref="ofo:title" minOccurs="0"/>
-<xs:element ref="ofo:titleOfComponent" minOccurs="0"/>
-<xs:element ref="ofo:userAddress" minOccurs="0"/>
-<xs:element ref="ofo:userAgencyId" minOccurs="0"/>
-<xs:element ref="ofo:userDateOfBirth" minOccurs="0"/>
-<xs:element ref="ofo:userId" minOccurs="0"/>
-<xs:element ref="ofo:userIdAuthenticated" minOccurs="0"/>
-<xs:element ref="ofo:userIdType" minOccurs="0"/>
-<xs:element ref="ofo:userMail" minOccurs="0"/>
-<xs:element ref="ofo:userName" minOccurs="0"/>
-<xs:element ref="ofo:userReferenceSource" minOccurs="0"/>
-<xs:element ref="ofo:userTelephone" minOccurs="0"/>
-<xs:element ref="ofo:verificationReferenceSource" minOccurs="0"/>
-<xs:element ref="ofo:volume" minOccurs="0"/>
-<xs:element ref="ofo:wantsReceipt" minOccurs="0"/>
-<xs:element ref="ofo:worldCatNote" minOccurs="0"/>
-*/
+
       // to check:
       $buffer = array();
       foreach ($resultObject['orderJSON'] as $key => $orderItem) {
@@ -512,8 +411,6 @@ class orsClass {
    * @return int
    */
   private function sortOrderItems($a, $b) {
-    // echo print_r($a,1) . ' : ' . print_r($b,1) . "<br>\n";
-    // die();
     return strcmp(key($a), key($b));
   }
 
@@ -676,10 +573,6 @@ class orsClass {
       $ret['toDate'] = $param->toDate->_value;
     }
     
-    // Not in Ors2MaintenanceApi: See webServiceServer_class.php
-    //   $param->outputType->_value;
-    //   $param->callback->_value;
-    
     return $ret;
   }
 
@@ -750,31 +643,4 @@ class orsClass {
     return $val;
   }
 
-  /**
-   * This one is for parsing the xsd describing the openfindorder service.
-   * if schema validation is on we need to deliver elements in correct order
-   *
-   * ... but do we need it now ??
-   *
-   */
-  /*
-  private function setSchema() {
-    // get xml schema
-    $schemafile = $this->config->get_value('schema', 'setup');
-    if (!file_exists($schemafile)) {
-      die('xsd not found: ' . $schemafile);
-    }
-
-    $schema = new xml_schema();
-    $schema->get_from_file($schemafile);
-
-    // set xml-fields
-    if (in_array($this->action, array('getReceipts', 'formatReceipt'))) {
-      $this->xmlfields = $schema->get_sequence_array('receipt');
-    }
-    else {
-      $this->xmlfields = $schema->get_sequence_array('order');
-    }
-  }
-  */
 }
