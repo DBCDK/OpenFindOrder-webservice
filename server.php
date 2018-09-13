@@ -22,11 +22,8 @@
 define('DEBUG', FALSE);
 
 require_once('OLS_class_lib/webServiceServer_class.php');
-// require_once('xsdparse.php');
-
 require_once "orsClass.php";
 require_once "ofoAuthentication.php";
-
 require_once "openFindOrder.php";
 
 
