@@ -45,7 +45,7 @@ class orsAgency{
    * @agency; agency to fetch pickupAgencyList for
    * return; array of branch-ids in agency
    */
-  private function fetch_library_list($agency) {
+  public function fetch_library_list($agency) {
     $libs = array();
     $url = sprintf($this->agency_url, $this->strip_agency($agency));
 
