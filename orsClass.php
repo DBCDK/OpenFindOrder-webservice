@@ -187,7 +187,7 @@ class orsClass {
         break;
       case 'findOrderOfType': //  <- TODO: missing!??
         $ret['ordertype'] = array('enduser_request', 'enduser_illrequest');
-        // electronic|pickup|postal
+        // string: electronic|pickup|postal
         $this->add_string('articleDirect', $param->articleDirect, $ret);
         // boolean
         $this->add_string('kvik', $param->kvik, $ret);
@@ -251,10 +251,19 @@ class orsClass {
         break;
     }
 
-    $this->query = $ret;
+    $this->setQueryArray($ret);
   }
 
 
+  /**
+   * @param $param
+   *
+   * This is mainly so we can set it in howRU.
+   */
+  public function setQueryArray($param) {
+    $this->query = $param;
+  }
+    
   /**
    * Do post request for orders.
    * @param array $request
@@ -265,8 +274,9 @@ class orsClass {
    *
    */
   public function findOrders() {
+    
     $json = json_encode($this->query, JSON_PRETTY_PRINT);
-    $url = $this->config->get_value('maintenance_url', 'ORS');
+    $url = $this->config->get_value('ors2_url', 'ORS');
     // this is for the (find)order api
     $url .= 'orders';
     
@@ -276,6 +286,17 @@ class orsClass {
     $this->curl->set_option(CURLOPT_RETURNTRANSFER, TRUE);
     $this->curl->set_option(CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     $result = $this->curl->get();
+    
+    // Check cURL response.
+    if ($this->curl->has_error()) {
+      $status = $this->curl->get_status();
+      VerboseJson::log(ERROR, array('Error getting orders: ' => $url ,
+          ' http: ' => $status['http_code'] ,
+          ' errno: ' => $status['errno'] ,
+          ' error: ' => $status['error'])
+      );
+      $this->setError('open find order service not available');
+    }
     
     $this->response = $this->parseResponse($result);
     
