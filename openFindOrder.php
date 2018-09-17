@@ -53,7 +53,7 @@ class openFindOrder extends webServiceServer {
     }
     $ors = new orsClass($this->soap_action, $this->config);
     $ors->setQuery($param);
-    // TODO: somehow switch between post and get here depending on the action
+
     if ($ors->getError()) {
       return $this->send_error($ors->getErrorMsg());
     }
@@ -296,6 +296,7 @@ class openFindOrder extends webServiceServer {
     $result->_value->numberOfOrders->_namespace = THIS_NAMESPACE;
     $result->_value->numberOfOrders->_value = $total;
     $result->_value->order = $orders;
+    $result->_value->debugInfo->_value = $debug_info;
     
     return $response;
   }
