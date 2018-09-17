@@ -50,8 +50,7 @@ class orsClass {
     $this->err_msg = NULL;
     $this->status = NULL;
     $this->message = NULL;
-    // TODO here you cast response to be boolean - it is actually a string
-    $this->response = FALSE;
+    $this->response = array();
     
     // get xml schema
     $schemafile = $config->get_value('schema', 'setup');
@@ -72,17 +71,13 @@ class orsClass {
   }
 
   /**
-   * TODO describe what the function does
+   * Parse input, and create a query.
    *
    * @param stdClass $param
    */
   public function setQuery($param) {
     $orsAgency = new orsAgency($this->config->get_value('openagency_agency_list', 'setup'));
 
-    // TODO is this comment still valid? if not delete it
-    // NB: $param->agency bruges kun hér??
-    //     Så hvemsomhelst kan få alle data, hvis de kan logge ind, 
-    //     og finde ud af at skrive requesterAgency's eller responderAgency's hovedbiblioteket ISIL-nr ??.
     $consistency = $orsAgency->check_agency_consistency($param);
     if (!$consistency) {
       $this->setError($orsAgency->getErrorMsg());
@@ -190,7 +185,7 @@ class orsClass {
       case 'findOrdersWithAutoForwardReason':
         $this->add_string('autoforwardreason', $param->autoForwardReason, $ret);
         break;
-      case 'findOrderOfType': //  <- TODO: missing!??
+      case 'findOrderOfType': 
         $ret['ordertype'] = array('enduser_request', 'enduser_illrequest');
         // string: electronic|pickup|postal
         $this->add_string('articleDirect', $param->articleDirect, $ret);
@@ -247,7 +242,7 @@ class orsClass {
         $this->add_list('responderId', $responder, $ret);
         break;
       case 'bibliographicSearch':
-      case 'findOrderOfType': //  <- TODO: missing!??
+      case 'findOrderOfType': 
         $this->add_common_pars($param, $ret);
         break;
       case 'formatReceipt': //  See: openFindOrder->formatReceipt()
@@ -270,19 +265,15 @@ class orsClass {
   }
     
   /**
-   * Do post request for orders.
+   * CURL request for orders.
    * @param array $request
    *
-   * TODO are these TODO's valid - if not delete them
-   *
-   * TODO some orderrequests are GET, but to find orders we do POST. see documentation for details
-   *
-   * TODO we need a similar method for GET like: private function do_get_request(array $request) {
+   * NB: ORS2 documentation has a GET /api/orders/{orderId} method,
+   *     but POSTing a JSON query with an orderId variable works just as well.
    *
    */
   public function findOrders() {
-    // TODO why use pretty_print if it is okay forget this TODO
-    $json = json_encode($this->query, JSON_PRETTY_PRINT);
+    $json = json_encode($this->query);
     $url = $this->config->get_value('ors2_url', 'ORS');
     // this is for the (find)order api
     $url .= 'orders';
@@ -295,17 +286,27 @@ class orsClass {
     $result = $this->curl->get();
     
     // Check cURL response.
+    $status = $this->curl->get_status();
     if ($this->curl->has_error()) {
-      $status = $this->curl->get_status();
-      VerboseJson::log(ERROR, array('Error getting orders: ' => $url ,
-          ' http: ' => $status['http_code'] ,
-          ' errno: ' => $status['errno'] ,
-          ' error: ' => $status['error'])
+      VerboseJson::log(ERROR, array(
+        'system' => 'ORS2',
+        'query' => $json,
+        'url' => $status['url'],
+        'total_time' => $status['total_time'],
+        'http_code' => $status['http_code'] ,
+        'errno' => $status['errno'] ,
+        'error' => $status['error'])
       );
       $this->setError('open find order service not available');
     }
-
-    // TODO response is completed - LOG .. verbose_level:STATUS ??
+    else {
+      VerboseJson::log(TRACE, array(
+        'system' => 'ORS2',
+        'query' => $json ,
+        'url' => $status['url'],
+        'total_time' => $status['total_time'])
+      );
+    }
     
     $this->response = $this->parseResponse($result);
     
@@ -318,9 +319,6 @@ class orsClass {
   public function parseResponse($result) {
     $result = json_decode($result, true);
 
-    $datetime = new DateTime();
-    $datetime->setTimezone(new DateTimeZone('Europe/Copenhagen'));
-    
     $this->start =    !empty($result['start'])   ? $result['start'] :   NULL;
     $this->step =     !empty($result['step'])    ? $result['step'] :    NULL;
     $this->total =    !empty($result['total'])   ? $result['total'] :   NULL;
@@ -376,7 +374,6 @@ class orsClass {
             break;
           case 'cancelledDate':
           case 'creationDate':
-          case 'dateDue':
           case 'desiredDateDue':
           case 'expectedDelivery':
           case 'fromDate':
@@ -388,30 +385,22 @@ class orsClass {
           case 'resendToRequesterDate':
           case 'resendToResponderDate':
           case 'returnedDate':
-          case 'shippedDate':
           case 'toDate':
-            // convert timestamp to dateformat YYYY-MM-DD
-            // TODO setDate requires 3 parameters (Year, month, day) how
-            // TODO does this work ??
-            $datetime->setDate($orderItem);
+            // convert timestamp (ex: "2018-09-02T17:07:28Z") to dateformat YYYY-MM-DD
+            $datetime = new DateTime($orderItem);
+            $datetime->setTimezone(new DateTimeZone('Europe/Copenhagen'));
             $buffer[$key] = $datetime->format('Y-m-d');
             break;
           case 'closedDate': // not type="xs:dateTime" in xsd, but old webservice return dateTime.
-            // TODO dateDue and shippedDate are already handled in previous case. should they
-            // TODO be handled here or earlier ??
           case 'dateDue':
           case 'shippedDate':
-            // convert timestamp to dateformat 1900-01-01T00:00:00Z
-          // TODO setDate requires 3 parameters (Year, month, day)
-          // TODO does this work ??
-            $datetime->setDate($orderItem);
+            $datetime = new DateTime($orderItem);
+            $datetime->setTimezone(new DateTimeZone('Europe/Copenhagen'));
             $buffer[$key] = $datetime->format('Y-m-d\TH:i:s\Z');
             break;
           case 'lastRelevantModification':
-            // convert timestamp to dateformat YYYY-MM-DD
-            // TODO setDate requires 3 parameters (Year, month, day)
-            // TODO does this work ??
-            $datetime->setDate($orderItem);
+            $datetime = new DateTime($orderItem);
+            $datetime->setTimezone(new DateTimeZone('Europe/Copenhagen'));
             $buffer['lastModification'] = $datetime->format('Y-m-d\TH:i:s\Z');
             break;
           default:
@@ -444,13 +433,6 @@ class orsClass {
     return $orders;
   }
 
-  /**
-   * Sort findOrdersResponse order.
-   * @return int
-   */
-  private function sortOrderItems($a, $b) {
-    return strcmp(key($a), key($b));
-  }
 
   /**
    * Return ORS2 query.
@@ -463,8 +445,6 @@ class orsClass {
   /**
    * Return ORS2 response.
    *
-   * // TODO wrong return type - $this->response is cast to boolean
-   * // TODO in constructor - i think it should be a string ?
    * @return array
    */
   public function getResponse() {
@@ -573,8 +553,7 @@ class orsClass {
       $ret['responderId'] = array($param->responderAgencyId->_value);
     } else if (is_array($param->responderAgencyId)) {
       foreach ($param->responderAgencyId as $responder) {
-        // TODO shouldn't this be $responderAgency->_value ??
-        $ret['responderId'][] = $requesterAgency->_value;
+        $ret['responderId'][] = $responderAgencyId->_value;
       }
     }
     // String(s).
@@ -624,11 +603,9 @@ class orsClass {
    * @param $key
    * @param $par
    * @param $params
-   * @return void | array
    */
-  private function add_string($key = 'fubar', $par = null, &$params) {
-    if (empty($par) || empty($par->_value)) {
-      // TODO return something array() ??
+  private function add_string($key = null, $par = null, &$params) {
+    if (empty($par) || empty($par->_value) || empty($key) || !is_array($params)) {
       return;
     }
     $params[$key] = $par->_value;
@@ -640,12 +617,10 @@ class orsClass {
    * @param $key
    * @param $par
    * @param $params
-   * @return void | array
    */
-  private function add_list($key = 'fubar', $par = null, &$params) {
+  private function add_list($key = null, $par = null, &$params) {
     $ret = array();
-    if (empty($par)) {
-      // TODO return something.. NULL ??
+    if (empty($par) || empty($key) || !is_array($params)) {
       return;
     }
     if (!is_array($par)) {
