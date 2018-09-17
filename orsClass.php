@@ -33,6 +33,7 @@ class orsClass {
 
   /**
    * orsClass constructor.
+   *
    * @param string $action
    * @param inifile $config
    */
@@ -49,6 +50,7 @@ class orsClass {
     $this->err_msg = NULL;
     $this->status = NULL;
     $this->message = NULL;
+    // TODO here you cast response to be boolean - it is actually a string
     $this->response = FALSE;
     
     // get xml schema
@@ -70,11 +72,14 @@ class orsClass {
   }
 
   /**
-   * @param $param
+   * TODO describe what the function does
+   *
+   * @param stdClass $param
    */
   public function setQuery($param) {
     $orsAgency = new orsAgency($this->config->get_value('openagency_agency_list', 'setup'));
-    
+
+    // TODO is this comment still valid? if not delete it
     // NB: $param->agency bruges kun hér??
     //     Så hvemsomhelst kan få alle data, hvis de kan logge ind, 
     //     og finde ud af at skrive requesterAgency's eller responderAgency's hovedbiblioteket ISIL-nr ??.
@@ -256,7 +261,7 @@ class orsClass {
 
 
   /**
-   * @param $param
+   * @param array $param
    *
    * This is mainly so we can set it in howRU.
    */
@@ -268,13 +273,15 @@ class orsClass {
    * Do post request for orders.
    * @param array $request
    *
+   * TODO are these TODO's valid - if not delete them
+   *
    * TODO some orderrequests are GET, but to find orders we do POST. see documentation for details
    *
    * TODO we need a similar method for GET like: private function do_get_request(array $request) {
    *
    */
   public function findOrders() {
-    
+    // TODO why use pretty_print if it is okay forget this TODO
     $json = json_encode($this->query, JSON_PRETTY_PRINT);
     $url = $this->config->get_value('ors2_url', 'ORS');
     // this is for the (find)order api
@@ -297,6 +304,8 @@ class orsClass {
       );
       $this->setError('open find order service not available');
     }
+
+    // TODO response is completed - LOG .. verbose_level:STATUS ??
     
     $this->response = $this->parseResponse($result);
     
@@ -382,18 +391,26 @@ class orsClass {
           case 'shippedDate':
           case 'toDate':
             // convert timestamp to dateformat YYYY-MM-DD
+            // TODO setDate requires 3 parameters (Year, month, day) how
+            // TODO does this work ??
             $datetime->setDate($orderItem);
             $buffer[$key] = $datetime->format('Y-m-d');
             break;
           case 'closedDate': // not type="xs:dateTime" in xsd, but old webservice return dateTime.
+            // TODO dateDue and shippedDate are already handled in previous case. should they
+            // TODO be handled here or earlier ??
           case 'dateDue':
           case 'shippedDate':
             // convert timestamp to dateformat 1900-01-01T00:00:00Z
+          // TODO setDate requires 3 parameters (Year, month, day)
+          // TODO does this work ??
             $datetime->setDate($orderItem);
             $buffer[$key] = $datetime->format('Y-m-d\TH:i:s\Z');
             break;
           case 'lastRelevantModification':
             // convert timestamp to dateformat YYYY-MM-DD
+            // TODO setDate requires 3 parameters (Year, month, day)
+            // TODO does this work ??
             $datetime->setDate($orderItem);
             $buffer['lastModification'] = $datetime->format('Y-m-d\TH:i:s\Z');
             break;
@@ -437,7 +454,7 @@ class orsClass {
 
   /**
    * Return ORS2 query.
-   * @return array
+   * @return string
    */
   public function getQuery() {
     return json_encode($this->query);
@@ -445,6 +462,9 @@ class orsClass {
 
   /**
    * Return ORS2 response.
+   *
+   * // TODO wrong return type - $this->response is cast to boolean
+   * // TODO in constructor - i think it should be a string ?
    * @return array
    */
   public function getResponse() {
@@ -553,6 +573,7 @@ class orsClass {
       $ret['responderId'] = array($param->responderAgencyId->_value);
     } else if (is_array($param->responderAgencyId)) {
       foreach ($param->responderAgencyId as $responder) {
+        // TODO shouldn't this be $responderAgency->_value ??
         $ret['responderId'][] = $requesterAgency->_value;
       }
     }
@@ -603,10 +624,11 @@ class orsClass {
    * @param $key
    * @param $par
    * @param $params
-   * @return array
+   * @return void | array
    */
   private function add_string($key = 'fubar', $par = null, &$params) {
     if (empty($par) || empty($par->_value)) {
+      // TODO return something array() ??
       return;
     }
     $params[$key] = $par->_value;
@@ -618,11 +640,12 @@ class orsClass {
    * @param $key
    * @param $par
    * @param $params
-   * @return array
+   * @return void | array
    */
   private function add_list($key = 'fubar', $par = null, &$params) {
     $ret = array();
     if (empty($par)) {
+      // TODO return something.. NULL ??
       return;
     }
     if (!is_array($par)) {
