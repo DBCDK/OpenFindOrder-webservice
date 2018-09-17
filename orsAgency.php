@@ -63,7 +63,7 @@ class orsAgency{
         case 'profile_not_found':
         case 'error_in_request':
           VerboseJson::log(ERROR, array('openAgency error' => $agency_error));
-        // TODO break ??
+          // no break
         case 'agency_not_found':
         case 'no_agencies_found':
           $this->setError('cannot_find_agency');
@@ -75,17 +75,29 @@ class orsAgency{
           break;
       }
     }
-    else {
-      $curl_status = $this->curl->get_status();
-      VerboseJson::log(ERROR, array('Error getting agency: ' => $url ,
-          ' http: ' => $curl_status['http_code'] ,
-          ' errno: ' => $curl_status['errno'] ,
-          ' error: ' => $curl_status['error'])
+
+    // Check cURL response.
+    $status = $this->curl->get_status();
+    if ($this->curl->has_error()) {
+      VerboseJson::log(ERROR, array(
+        'system' => 'ORS2',
+        'query' => $json,
+        'url' => $status['url'],
+        'total_time' => $status['total_time'],
+        'http_code' => $status['http_code'] ,
+        'errno' => $status['errno'] ,
+        'error' => $status['error'])
       );
       $this->setError('open find order service not available');
     }
-
-    // TODO request completed - LOG 
+    else {
+      VerboseJson::log(TRACE, array(
+        'system' => 'ORS2',
+        'query' => $json ,
+        'url' => $status['url'],
+        'total_time' => $status['total_time'])
+      );
+    }
 
     return $libs;
   }
