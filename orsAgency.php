@@ -63,6 +63,7 @@ class orsAgency{
         case 'profile_not_found':
         case 'error_in_request':
           VerboseJson::log(ERROR, array('openAgency error' => $agency_error));
+        // TODO break ??
         case 'agency_not_found':
         case 'no_agencies_found':
           $this->setError('cannot_find_agency');
@@ -83,6 +84,9 @@ class orsAgency{
       );
       $this->setError('open find order service not available');
     }
+
+    // TODO request completed - LOG 
+
     return $libs;
   }
 
