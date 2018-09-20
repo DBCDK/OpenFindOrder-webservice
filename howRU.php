@@ -2,6 +2,7 @@
 
 require_once('OLS_class_lib/inifile_class.php');
 require_once('OLS_class_lib/curl_class.php');
+require_once('OLS_class_lib/verbose_json_class.php');
 
 require_once "xsdparse.php";
 require_once "orsAgency.php";
