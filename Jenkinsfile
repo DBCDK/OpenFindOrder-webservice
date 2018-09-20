@@ -38,6 +38,7 @@ node("master") {
 	                openfindorder.ini_INSTALL \
 	                OLS_class_lib/ \
 	                server.php \
+	                howRU.php \
 	                xsdparse.php \
 	                orsAgency.php \
 	                orsClass.php \
