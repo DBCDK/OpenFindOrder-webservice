@@ -31,7 +31,17 @@ class howRU {
     $this->config = new inifile($inifile);
     
     // Check openAgency.
-    $openagency = $this->config->get_value('openagency_agency_list', 'setup');
+    $openagency_url = parse_url$this->config->get_value('openagency_agency_list', 'setup'));
+    unset($openagency_url['query ']);
+    $curl = new curl(http_build_url($openagency_url));
+    $curl->get();
+    $status = $this->curl->get_status();
+    if ($this->curl->has_error()) {
+      $this->error = TRUE;
+      $this->error_msg[] = 'ORS2 connection failed.';
+      $this->error_msg[] = $status['http_code'] . ': ' . $status['error'] . ' (' . $status['errno'] . ')';
+    }
+
     $orsAgency = new orsAgency($openagency);
     $orsAgency->fetch_library_list('100400');
     if ($orsAgency->getError()) {
@@ -40,6 +50,16 @@ class howRU {
     }
     
     // Check ORS2.
+    $ors2_url = $this->config->get_value('ors2_url', 'ORS');
+    $curl = new curl();
+    $curl->get($ors2_url . 'howru');
+    $status = $this->curl->get_status();
+    if ($this->curl->has_error()) {
+      $this->error = TRUE;
+      $this->error_msg[] = 'ORS2 connection failed.';
+      $this->error_msg[] = $status['http_code'] . ': ' . $status['error'] . ' (' . $status['errno'] . ')';
+    }
+    
     $ors = new orsClass('findAllOrders', $this->config);
     $param['pickupAgencyId'] = array('100400');
     $param['requesterId']    = array('100400', '100401');
