@@ -593,4 +593,4 @@ preg_match[] = result
 error[] = ERROR findAllOrders&requesterAgencyId=716702&agency=716700&orderSystem=pallesgavebod
 
 [ORS]
-maintenance_url = @MAINTENANCE_URL@
+ors2_url = @ORS2_URL@
