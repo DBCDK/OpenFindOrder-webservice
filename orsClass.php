@@ -332,6 +332,8 @@ class orsClass {
     $orders = array();
     foreach ($result['orderList'] as $n => $resultObject) {
       
+      $pid = NULL;
+      
       $orders[$n]->_value->resultPosition->_namespace = THIS_NAMESPACE;
       $orders[$n]->_value->resultPosition->_value = $n + 1;
       
@@ -371,6 +373,10 @@ class orsClass {
           case 'norfri':
           case 'renewed':
             $buffer[$key] = ($this->xs_boolean($orderItem)) ? 'true' : 'false';
+            break;
+          case 'pid':
+            // jfr. xsd, så er pid minOccurs="0" maxOccurs="unbounded". Dvs. skal håndteres som array.
+            $pid = $orderItem;
             break;
           case 'cancelledDate':
           case 'creationDate':
@@ -424,6 +430,12 @@ class orsClass {
       foreach ($buffer as $key => $orderItem) {
         $orders[$n]->_value->$key->_namespace = THIS_NAMESPACE;
         $orders[$n]->_value->$key->_value = $orderItem;
+      }
+      
+      // Handle pid as array.
+      if ($pid) {
+        $orders[$n]->_value->pid[0]->_namespace = THIS_NAMESPACE;
+        $orders[$n]->_value->pid[0]->_value = $pid;
       }
 
       $orders[$n]->_namespace = THIS_NAMESPACE;
