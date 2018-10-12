@@ -13,6 +13,7 @@ $howru = new howRU('openfindorder.ini');
 
 class howRU {
 
+  protected $curl;
   protected $config;
   protected $error = FALSE;
   protected $error_msg = array();
@@ -23,6 +24,8 @@ class howRU {
    */
   public function __construct($inifile) {
 
+    $this->curl = new curl();
+
     // Get inifile.
     if (!file_exists($inifile)) {
       $this->error = TRUE;
@@ -31,28 +34,30 @@ class howRU {
     $this->config = new inifile($inifile);
     
     // Check openAgency.
-    $openagency_url = parse_url$this->config->get_value('openagency_agency_list', 'setup'));
-    unset($openagency_url['query ']);
-    $curl = new curl(http_build_url($openagency_url));
-    $curl->get();
+    $url = parse_url($this->config->get_value('openagency_agency_list', 'setup'));
+    $url['scheme'] = (!empty($url['scheme'])) ? $url['scheme'] . '://' : NULL;
+    $url['port'] = (!empty($url['port'])) ? '[' . $url['port'] . ']' : NULL;
+    $url['path'] = (!empty($url['path'])) ? '/' . $url['path'] : NULL;
+    $this->curl->get($url['scheme '] . $url['host'] . $url['port'] . $url['path']);
     $status = $this->curl->get_status();
     if ($this->curl->has_error()) {
       $this->error = TRUE;
-      $this->error_msg[] = 'ORS2 connection failed.';
+      $this->error_msg[] = 'openAgency connection failed.';
       $this->error_msg[] = $status['http_code'] . ': ' . $status['error'] . ' (' . $status['errno'] . ')';
     }
 
+    $openagency = $this->config->get_value('openagency_agency_list', 'setup');
     $orsAgency = new orsAgency($openagency);
-    $orsAgency->fetch_library_list('100400');
+    $orsAgency->fetch_library_list('790900');
     if ($orsAgency->getError()) {
       $this->error = TRUE;
+      $this->error_msg[] = 'orsAgency request failed.';
       $this->error_msg[] = $orsAgency->getErrorMsg();
     }
     
     // Check ORS2.
     $ors2_url = $this->config->get_value('ors2_url', 'ORS');
-    $curl = new curl();
-    $curl->get($ors2_url . 'howru');
+    $this->curl->get($ors2_url . 'howru');
     $status = $this->curl->get_status();
     if ($this->curl->has_error()) {
       $this->error = TRUE;
@@ -67,6 +72,7 @@ class howRU {
     $ors->findOrders();
     if ($ors->getError()) {
       $this->error = TRUE;
+      $this->error_msg[] = 'ORS2 request failed.';
       $this->error_msg[] = $ors->getErrorMsg();
     }
 
