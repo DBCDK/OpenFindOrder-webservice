@@ -650,7 +650,10 @@ class orsClass {
    *  return true if xs:boolean is so
    */
   private function xs_boolean($str) {
-    return (strtolower($str) == 'true' || strtolower($str) == 'yes' || $str === TRUE);
+    if (strtolower($str) == 'true' || strtolower($str) == 'yes' || $str === TRUE) {
+      return TRUE;
+    };
+    return FALSE;
   }
 
   /**\brief
