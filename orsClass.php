@@ -138,10 +138,10 @@ class orsClass {
           $ret['provideranswer'] = 'empty';
         }
         if ($param->requesterAgencyId) {
-          $ret['requesterOrderState'] = array('finished');
+          $ret['requesterOrderState'] = array('not finished');
         }
         if ($param->responderAgencyId) {
-          $ret['providerOrderState'] = array('finished');
+          $ret['providerOrderState'] = array('not finished');
         }
         break;
       case 'findManuallyFinishedIllOrders':
