@@ -101,13 +101,13 @@ class orsClass {
         break;
       case 'findOpenIllOrders':
         $ret['orderType'] = array('inter_library_request');
-        $ret['provideranswer'] = 'empty';
-        $ret['isshipped'] = false;
+        $ret['providerAnswer'] = 'empty';
+        $ret['isShipped'] = false;
         if (!empty($param->requesterAgencyId)) {
-          $ret['requesterorderstate'] = array('not finished');
+          $ret['requesterOrderState'] = array('not finished');
         }
         if ($param->responderAgencyId) {
-          $ret['providerorderstate'] = array('not finished');
+          $ret['providerOrderState'] = array('not finished');
         }
         break;
       case 'findOrdersFromUnknownUser':
@@ -124,18 +124,18 @@ class orsClass {
       case 'findOwnAutomatedOrders':
         $order_type = ($param->orderType->_value ? $param->orderType->_value : 'inter_library_request');
         $ret['orderType'] = array($order_type);
-        $ret['autoforwardown'] = 'yes';
+        $ret['autoForwardOwn'] = 'yes';
         break;
       case 'findClosedIllOrders':
         $ret['orderType'] = array('inter_library_request');
         if ($param->orderStatus->_value == 'shipped') {
-          $ret['isshipped'] = true;
+          $ret['isShipped'] = true;
         }
         elseif ($param->orderStatus->_value) {
-          $ret['provideranswer'] = $param->orderStatus->_value;
+          $ret['providerAnswer'] = $param->orderStatus->_value;
         }
         else {
-          $ret['provideranswer'] = 'empty';
+          $ret['providerAnswer'] = 'empty';
         }
         if ($param->requesterAgencyId) {
           $ret['requesterOrderState'] = array('not finished');
@@ -155,19 +155,19 @@ class orsClass {
         break;
       case 'findSpecificOrder':
         if ($param->orderType->_value == 'enduser_order') {
-          $ret['ordertype'] = array('enduser_request', 'enduser_illrequest');
+          $ret['orderType'] = array('enduser_request', 'enduser_illrequest');
         }
         elseif ($param->orderType->_value == 'inter_library_order') {
-          $ret['ordertype'] = array('inter_library_order');
+          $ret['orderType'] = array('inter_library_order');
         }
         $this->add_string('orderId', $param->orderId, $ret);
         break;
       case 'findOrdersFromUser':
         if ($param->orderType->_value == 'enduser_order') {
-          $ret['ordertype'] = array('enduser_request', 'enduser_illrequest');
+          $ret['orderType'] = array('enduser_request', 'enduser_illrequest');
         }
         elseif ($param->orderType->_value == 'inter_library_order') {
-          $ret['ordertype'] = array('inter_library_order');
+          $ret['orderType'] = array('inter_library_order');
         }
         $this->add_string('userId', $param->userId, $ret);
         $this->add_string('userMail', $param->userMail, $ret);
@@ -175,18 +175,18 @@ class orsClass {
         $this->add_string('userFreeText', $param->userFreeText, $ret);
         break;
       case 'findLocalizedEndUserOrders':
-        $ret['ordertype'] = array('enduser_request');
+        $ret['orderType'] = array('enduser_request');
         $ret['closed'] = ($this->xs_boolean($param->closed->_value) ? 'true' : 'false');
         break;
       case 'findNonLocalizedEndUserOrders':
-        $ret['ordertype'] = array('enduser_illrequest');
+        $ret['orderType'] = array('enduser_illrequest');
         $ret['closed'] = ($this->xs_boolean($param->closed->_value) ? 'true' : 'false');
         break;
       case 'findOrdersWithAutoForwardReason':
         $this->add_string('autoforwardreason', $param->autoForwardReason, $ret);
         break;
       case 'findOrderOfType': 
-        $ret['ordertype'] = array('enduser_request', 'enduser_illrequest');
+        $ret['orderType'] = array('enduser_request', 'enduser_illrequest');
         // string: electronic|pickup|postal
         $this->add_string('articleDirect', $param->articleDirect, $ret);
         // boolean
@@ -195,10 +195,10 @@ class orsClass {
         break;
       case 'bibliographicSearch':
         if ($param->orderType->_value == 'enduser_order') {
-          $ret['ordertype'] = array('enduser_request', 'enduser_illrequest');
+          $ret['orderType'] = array('enduser_request', 'enduser_illrequest');
         }
         elseif ($param->orderType->_value == 'inter_library_order') {
-          $ret['ordertype'] = array('inter_library_request');
+          $ret['orderType'] = array('inter_library_request');
         }
         $this->add_string('author', $param->author, $ret);
         $this->add_string('title', $param->title, $ret);
