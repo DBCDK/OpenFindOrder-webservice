@@ -544,7 +544,7 @@ class orsClass {
    * @return array
    */
   private function add_common_pars($param, &$ret) {
-     // List (string).
+    // List (string).
     if (isset($param->requesterAgencyId->_value)) {
       $ret['pickupAgencyId'] = array($param->requesterAgencyId->_value);
     } else if (is_array($param->requesterAgencyId)) {
@@ -552,7 +552,7 @@ class orsClass {
         $ret['pickupAgencyId'][] = $requesterAgency->_value;
       }
     }
-     // List (string).
+    // List (string).
     if (isset($param->requesterAgencyId->_value)) {
       $ret['requesterId'] = array($param->requesterAgencyId->_value);
     } else if (is_array($param->requesterAgencyId)) {
@@ -565,7 +565,7 @@ class orsClass {
       $ret['responderId'] = array($param->responderAgencyId->_value);
     } else if (is_array($param->responderAgencyId)) {
       foreach ($param->responderAgencyId as $responder) {
-        $ret['responderId'][] = $responderAgencyId->_value;
+        $ret['responderId'][] = $responder->_value;
       }
     }
     // String(s).
