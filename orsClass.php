@@ -135,7 +135,7 @@ class orsClass {
           $ret['providerAnswer'] = $param->orderStatus->_value;
         }
         else {
-          $ret['providerAnswer'] = 'empty';
+          $ret['providerAnswer'] = 'not empty';
         }
         if ($param->requesterAgencyId) {
           $ret['requesterOrderState'] = array('not finished');
