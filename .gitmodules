@@ -1,0 +1,3 @@
+[submodule "OLS_class_lib"]
+	path = OLS_class_lib
+	url = https://gitlab.dbc.dk/OpenLibrary/ols_class_lib.git
