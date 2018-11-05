@@ -270,25 +270,22 @@ class openFindOrder extends webServiceServer {
 
     if ($status == 'ERROR') {
       // See: openfindorder.xsd -> errorType
-      return $this->send_error('open find order service not available');
-      // watchdog($ors->getError());
+      return $this->send_error('open find order service not available', 'findOrdersResponse', $debug_info);
     }
     
     if ($status == 'OTHER') {
-      return $this->send_error('open find order service not available');
-      // watchdog($ors->getMessage());
+      return $this->send_error('open find order service not available', 'findOrdersResponse', $debug_info);
     }
     
     // Empty result-set.
     if ($total == 0) {
-      return $this->send_error('no orders found');
+      return $this->send_error('no orders found', 'findOrdersResponse', $debug_info);
     }
     
     // Total > 0, but parse failed.
     if (empty($orders)) {
       // See: openfindorder.xsd -> errorType
-      return $this->send_error('Error decoding json string');
-      // watchdog($ors->getMessage());
+      return $this->send_error('Error decoding json string', 'findOrdersResponse', $debug_info);
     }
 
     $result = &$response->findOrdersResponse->_value->result;
@@ -372,11 +369,18 @@ class openFindOrder extends webServiceServer {
   /** \brief
    * send errormessage as xml response-object
    */
-  private function send_error($message, $response_tag = 'findOrdersResponse') {
+  private function send_error($message, $response_tag = 'findOrdersResponse', $debug_info = null) {
     $response->$response_tag->_namespace = THIS_NAMESPACE;
     $error->_namespace = THIS_NAMESPACE;
     $error->_value = $message;
     $response->$response_tag->_value->error = $error;
+    
+    if ($debug_info) {
+      $debug->_namespace = THIS_NAMESPACE;
+      $debug->_value = $debug_info;
+      $response->$response_tag->_value->debugInfo = $debug;
+    }
+    
     return $response;
   }
 }

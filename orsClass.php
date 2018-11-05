@@ -147,10 +147,10 @@ class orsClass {
       case 'findManuallyFinishedIllOrders':
         $ret['orderType'] = array('inter_library_request');
         if (isset($param->requesterOrderState->_value)) {
-          $ret['requesterOrderState'] = $param->requesterOrderState->_value;
+          $ret['requesterOrderState'] = array($param->requesterOrderState->_value);
         }
         elseif (isset($param->providerOrderState->_value)) {
-          $ret['providerOrderState'] =  $param->providerOrderState->_value;
+          $ret['providerOrderState'] =  array($param->providerOrderState->_value);
         }
         break;
       case 'findSpecificOrder':
