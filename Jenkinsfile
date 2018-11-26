@@ -34,7 +34,9 @@ node("master") {
                 // make index.php symbolic link 
                 dir('docker/webservice/www') {
                     sh """
-	                    mkdir 2.5 \
+	                    mkdir 2.5
+	                    """
+                    sh """
                       ln -s versions.php index.php
 	                    """
                 }
