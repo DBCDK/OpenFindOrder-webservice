@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR=$APACHE_ROOT
+DIR=$APACHE_ROOT/2.5
 INI=$DIR/openfindorder.ini
 INSTALL=$INI"_INSTALL"
 

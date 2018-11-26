@@ -20,16 +20,25 @@ node("master") {
             }
 
             stage("prepare website build (copy files)") {
-                // make a www folder
+                // Prepare the build
+                // Check out OpenVersionWrapper into a www folder
                 dir('docker/webservice') {
-                    // prepare the build
                     sh """
-	                    rm -rf www
-	                    """
-                    sh """
-	                    mkdir www
+	                    rm -rf www \
+	                    svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www \
+                      cp OpenVersionWrapper/* www/
 	                    """
                 }
+                
+                // make a www folder
+                // make index.php symbolic link 
+                dir('docker/webservice/www') {
+                    sh """
+	                    mkdir 2.5 \
+                      ln -s versions.php index.php
+	                    """
+                }
+                
                 // copy files needed for docker image
                 sh """
 	                cp -r \
@@ -45,8 +54,15 @@ node("master") {
                   openFindOrder.php \
                   ofoAuthentication.php \
 	                xml/ \
-	                docker/webservice/www/
+	                docker/webservice/www/2.5/
 	                """
+                
+                // make index.php symbolic link 
+                dir('docker/webservice/www/2.5') {
+                    sh """
+                      ln -s server.php index.php
+	                    """
+                }
             }
 
             stage("Docker: build image") {
