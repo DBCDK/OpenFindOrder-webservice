@@ -24,8 +24,12 @@ node("master") {
                 // Check out OpenVersionWrapper into a www folder
                 dir('docker/webservice') {
                     sh """
-	                    rm -rf www \
-	                    svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www \
+	                    rm -rf www
+	                    """
+                    sh """
+	                    svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
+	                    """
+                    sh """
                       cp OpenVersionWrapper/* www/
 	                    """
                 }
