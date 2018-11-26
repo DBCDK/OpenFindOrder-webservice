@@ -59,6 +59,8 @@ node("master") {
 	                orsClass.php \
                   openFindOrder.php \
                   ofoAuthentication.php \
+                  NEWS.html \
+                  license.txt \
 	                xml/ \
 	                docker/webservice/www/2.5/
 	                """
