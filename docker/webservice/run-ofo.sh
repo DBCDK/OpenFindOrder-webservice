@@ -32,7 +32,7 @@ if [ ! -f $INI ] ; then
     sed -i "s/@$ORS2_URL@/$ORS2_URL_PROD/g" $INI
 fi
 
-DIR=$APACHE_ROOT/NEXT_2.5
+DIR=$APACHE_ROOT/next_2.5
 INI=$DIR/openfindorder.ini
 INSTALL=$INI"_INSTALL"
 cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
@@ -41,10 +41,10 @@ if [ ! -f $INI ] ; then
     while IFS='=' read -r name value ; do
       echo "$name $value"
     done < <(env)
-    sed -i "s/@$ORS2_URL_STAGING@/$ORS2_URL_STAGING/g" $INI
+    sed -i "s/@ORS2_URL@/$ORS2_URL_STAGING/g" $INI
 fi
 
-DIR=$APACHE_ROOT/TEST_2.5
+DIR=$APACHE_ROOT/test_2.5
 INI=$DIR/openfindorder.ini
 INSTALL=$INI"_INSTALL"
 cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
@@ -53,7 +53,7 @@ if [ ! -f $INI ] ; then
     while IFS='=' read -r name value ; do
       echo "$name $value"
     done < <(env)
-    sed -i "s/@$ORS2_URL_STAGING@/$ORS2_URL_STAGING/g" $INI
+    sed -i "s/@ORS2_URL@/$ORS2_URL_STAGING/g" $INI
 fi
 
 if [ "$1" == '' ]; then
