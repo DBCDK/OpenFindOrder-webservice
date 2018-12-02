@@ -68,6 +68,26 @@ node("master") {
                   NEWS.html \
                   license.txt \
 	                xml/ \
+	                docker/webservice/www/2.5/
+	                """
+                
+                // copy files needed for docker image
+                sh """
+	                cp -r \
+	                openfindorder.wsdl_INSTALL \
+	                openfindorder.xsd \
+	                openfindorder.ini_INSTALL \
+	                OLS_class_lib/ \
+	                server.php \
+	                howRU.php \
+	                xsdparse.php \
+	                orsAgency.php \
+	                orsClass.php \
+                  openFindOrder.php \
+                  ofoAuthentication.php \
+                  NEWS.html \
+                  license.txt \
+	                xml/ \
 	                docker/webservice/www/next_2.5/
 	                """
                 
