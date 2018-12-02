@@ -97,6 +97,20 @@ node("master") {
                       ln -s server.php index.php
 	                    """
                 }
+                
+                // make index.php symbolic link 
+                dir('docker/webservice/www/NEXT_2.5') {
+                    sh """
+                      ln -s server.php index.php
+	                    """
+                }
+                
+                // make index.php symbolic link 
+                dir('docker/webservice/www/TEST_2.5') {
+                    sh """
+                      ln -s server.php index.php
+	                    """
+                }
             }
 
             stage("Docker: build image") {
