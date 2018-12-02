@@ -29,7 +29,7 @@ if [ ! -f $INI ] ; then
       echo "$name $value"
       sed -i "s/@${name}@/$(echo $value | sed -e 's/\//\\\//g; s/&/\\\&/g')/g" $INI
     done < <(env)
-    sed -i "s/@$ORS2_URL@/$ORS2_URL_PROD/g" $INI
+    sed -i "s#@$ORS2_URL@#$ORS2_URL_PROD#g" $INI
 fi
 
 DIR=$APACHE_ROOT/next_2.5
@@ -40,8 +40,9 @@ if [ ! -f $INI ] ; then
     cp $INSTALL $INI
     while IFS='=' read -r name value ; do
       echo "$name $value"
+      sed -i "s/@${name}@/$(echo $value | sed -e 's/\//\\\//g; s/&/\\\&/g')/g" $INI
     done < <(env)
-    sed -i "s/@ORS2_URL@/$ORS2_URL_STAGING/g" $INI
+    sed -i "s#@ORS2_URL@#$ORS2_URL_STAGING#g" $INI
 fi
 
 DIR=$APACHE_ROOT/test_2.5
@@ -52,8 +53,9 @@ if [ ! -f $INI ] ; then
     cp $INSTALL $INI
     while IFS='=' read -r name value ; do
       echo "$name $value"
+      sed -i "s/@${name}@/$(echo $value | sed -e 's/\//\\\//g; s/&/\\\&/g')/g" $INI
     done < <(env)
-    sed -i "s/@ORS2_URL@/$ORS2_URL_STAGING/g" $INI
+    sed -i "s#@ORS2_URL@#$ORS2_URL_STAGING#g" $INI
 fi
 
 if [ "$1" == '' ]; then
