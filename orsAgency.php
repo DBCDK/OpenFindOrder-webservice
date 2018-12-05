@@ -47,12 +47,28 @@ class orsAgency{
    */
   public function fetch_library_list($agency) {
     $libs = array();
-    $url = sprintf($this->agency_url, $this->strip_agency($agency));
+    $agency = $this->strip_agency($agency);
+    $is_main_agency = FALSE;
+    $url = sprintf($this->agency_url, $agency);
 
     $res = unserialize($this->curl->get($url));
     if ($res && $res->pickupAgencyListResponse->_value->library) {
       foreach ($res->pickupAgencyListResponse->_value->library[0]->_value->pickupAgency as $sublib) {
-        $libs[] = $sublib->_value->branchId->_value;
+        if (
+          !empty($sublib->_value->branchType->_value) &&
+          $sublib->_value->branchType->_value === 'H' &&
+          $sublib->_value->branchId->_value === $agency
+        ) {
+          $is_main_agency = TRUE;
+        }
+      }
+      foreach ($res->pickupAgencyListResponse->_value->library[0]->_value->pickupAgency as $sublib) {
+        if ($is_main_agency) {
+          $libs[] = $sublib->_value->branchId->_value;
+        }
+        else {
+          $libs[] = $agency;
+        }
       }
     }
     else if ($res && $res->pickupAgencyListResponse->_value->error) {

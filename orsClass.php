@@ -215,7 +215,7 @@ class orsClass {
         break;
     }
 
-    // NB: Bør dette ikke kun gælde for hovedbiblioteks-nummer ?
+    // Udvid søgning til alle filialer, hvis requester/responderAgencyId er hovedbibliotek.
     $requester = $orsAgency->expand_library($param->requesterAgencyId);
     $responder = $orsAgency->expand_library($param->responderAgencyId);
     
