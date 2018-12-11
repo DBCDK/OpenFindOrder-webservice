@@ -34,6 +34,7 @@ class howRU {
     $this->config = new inifile($inifile);
     
     // Check openAgency.
+    /*
     $url = parse_url($this->config->get_value('openagency_agency_list', 'setup'));
     $url['scheme'] = (!empty($url['scheme'])) ? $url['scheme'] . '://' : NULL;
     $url['port'] = (!empty($url['port'])) ? '[' . $url['port'] . ']' : NULL;
@@ -45,6 +46,7 @@ class howRU {
       $this->error_msg[] = 'openAgency connection failed.';
       $this->error_msg[] = $status['http_code'] . ': ' . $status['error'] . ' (' . $status['errno'] . ')';
     }
+    */
 
     $openagency = $this->config->get_value('openagency_agency_list', 'setup');
     $orsAgency = new orsAgency($openagency);
