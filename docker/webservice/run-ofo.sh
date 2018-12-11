@@ -25,11 +25,11 @@ cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
 # replace variables in openuserinfo.ini with environment vars
 if [ ! -f $INI ] ; then
     cp $INSTALL $INI
+    sed -i "s#@$ORS2_URL@#$ORS2_URL_PROD#g" $INI
     while IFS='=' read -r name value ; do
       echo "$name $value"
       sed -i "s/@${name}@/$(echo $value | sed -e 's/\//\\\//g; s/&/\\\&/g')/g" $INI
     done < <(env)
-    sed -i "s#@$ORS2_URL@#$ORS2_URL_PROD#g" $INI
 fi
 
 DIR=$APACHE_ROOT/next_2.5
@@ -38,11 +38,11 @@ INSTALL=$INI"_INSTALL"
 cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
 if [ ! -f $INI ] ; then
     cp $INSTALL $INI
+    sed -i "s#@ORS2_URL@#$ORS2_URL_STAGING#g" $INI
     while IFS='=' read -r name value ; do
       echo "$name $value"
       sed -i "s/@${name}@/$(echo $value | sed -e 's/\//\\\//g; s/&/\\\&/g')/g" $INI
     done < <(env)
-    sed -i "s#@ORS2_URL@#$ORS2_URL_STAGING#g" $INI
 fi
 
 DIR=$APACHE_ROOT/test_2.5
@@ -51,11 +51,11 @@ INSTALL=$INI"_INSTALL"
 cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
 if [ ! -f $INI ] ; then
     cp $INSTALL $INI
+    sed -i "s#@ORS2_URL@#$ORS2_URL_STAGING#g" $INI
     while IFS='=' read -r name value ; do
       echo "$name $value"
       sed -i "s/@${name}@/$(echo $value | sed -e 's/\//\\\//g; s/&/\\\&/g')/g" $INI
     done < <(env)
-    sed -i "s#@ORS2_URL@#$ORS2_URL_STAGING#g" $INI
 fi
 
 if [ "$1" == '' ]; then
