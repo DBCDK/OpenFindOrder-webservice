@@ -100,7 +100,7 @@ class howRU {
     
     if ($this->error) {
       header('HTTP/1.0 503 Service Unavailable');
-      die(implode('; ', $this->error_msg));
+      die(implode("; \n", $this->error_msg));
     }
     
     die('Gr8');
