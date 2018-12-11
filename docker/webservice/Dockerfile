@@ -16,8 +16,9 @@ ENV CACHE_SETTINGS="cache_host = localhost\ncache_port = 11211\ncache_expire = 6
     LOGFILE="php://stdout" \
     #SERVICE_LOCATION="" \
     VERBOSE_LEVEL="WARNING+ERROR+FATAL+STAT+TIMER+TRACE" \
-    ORS2_URL_PROD="http://ors-maintenance.iscrum-prod.svc.cloud.dbc.dk:8080/api/" \
-    ORS2_URL_STAGING="http://ors-maintenance.iscrum-staging.svc.cloud.dbc.dk:8080/api/"
+    ORS2_URL="http://ors-maintenance.iscrum-prod.svc.cloud.dbc.dk:8080/api/" \
+    # ORS2_URL_PROD="http://ors-maintenance.iscrum-prod.svc.cloud.dbc.dk:8080/api/" \
+    # ORS2_URL_STAGING="http://ors-maintenance.iscrum-staging.svc.cloud.dbc.dk:8080/api/"
 
 COPY apache_security.conf /etc/apache2/conf-enabled/
 COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
