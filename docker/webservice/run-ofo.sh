@@ -25,6 +25,7 @@ cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
 # replace variables in openuserinfo.ini with environment vars
 if [ ! -f $INI ] ; then
     cp $INSTALL $INI
+    sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_PROD#g" $INI
     sed -i "s#@$ORS2_URL@#$ORS2_URL_PROD#g" $INI
     while IFS='=' read -r name value ; do
       echo "$name $value"
@@ -38,6 +39,7 @@ INSTALL=$INI"_INSTALL"
 cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
 if [ ! -f $INI ] ; then
     cp $INSTALL $INI
+    sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_STAGING#g" $INI
     sed -i "s#@ORS2_URL@#$ORS2_URL_STAGING#g" $INI
     while IFS='=' read -r name value ; do
       echo "$name $value"
@@ -51,6 +53,7 @@ INSTALL=$INI"_INSTALL"
 cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
 if [ ! -f $INI ] ; then
     cp $INSTALL $INI
+    sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_STAGING#g" $INI
     sed -i "s#@ORS2_URL@#$ORS2_URL_STAGING#g" $INI
     while IFS='=' read -r name value ; do
       echo "$name $value"
