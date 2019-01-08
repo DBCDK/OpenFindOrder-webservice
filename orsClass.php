@@ -83,7 +83,7 @@ class orsClass {
       $this->setError($orsAgency->getErrorMsg());
       return false;
     }
-
+    
     $ret = array();
     
     switch ($this->action) {
@@ -114,16 +114,14 @@ class orsClass {
         $ret['userIdAuthenticated'] = 'no';
         break;
       case 'findAutomatedOrders':
-        $order_type = ($param->orderType->_value ? $param->orderType->_value : 'inter_library_request');
-        $ret['orderType'] = array($order_type);
+        $this->add_orderType($param->orderType, $ret, 'inter_library_request');
         $ret['autoForwardResult'] = 'automated';
         break;
       case 'findNonAutomatedOrders':
         $ret['autoForwardReason'] = 'non_automated';
         break;
       case 'findOwnAutomatedOrders':
-        $order_type = ($param->orderType->_value ? $param->orderType->_value : 'inter_library_request');
-        $ret['orderType'] = array($order_type);
+        $this->add_orderType($param->orderType, $ret, 'inter_library_request');
         $ret['autoForwardOwn'] = 'yes';
         break;
       case 'findClosedIllOrders':
@@ -154,21 +152,11 @@ class orsClass {
         }
         break;
       case 'findSpecificOrder':
-        if ($param->orderType->_value == 'enduser_order') {
-          $ret['orderType'] = array('enduser_request', 'enduser_illrequest');
-        }
-        elseif ($param->orderType->_value == 'inter_library_order') {
-          $ret['orderType'] = array('inter_library_order');
-        }
+        $this->add_orderType($param->orderType, $ret);
         $this->add_string('orderId', $param->orderId, $ret);
         break;
       case 'findOrdersFromUser':
-        if ($param->orderType->_value == 'enduser_order') {
-          $ret['orderType'] = array('enduser_request', 'enduser_illrequest');
-        }
-        elseif ($param->orderType->_value == 'inter_library_order') {
-          $ret['orderType'] = array('inter_library_order');
-        }
+        $this->add_orderType($param->orderType, $ret);
         $this->add_string('userId', $param->userId, $ret);
         $this->add_string('userMail', $param->userMail, $ret);
         $this->add_string('userName', $param->userName, $ret);
@@ -194,12 +182,7 @@ class orsClass {
         $this->add_string('norfri', $param->norfri, $ret);
         break;
       case 'bibliographicSearch':
-        if ($param->orderType->_value == 'enduser_order') {
-          $ret['orderType'] = array('enduser_request', 'enduser_illrequest');
-        }
-        elseif ($param->orderType->_value == 'inter_library_order') {
-          $ret['orderType'] = array('inter_library_request');
-        }
+        $this->add_orderType($param->orderType, $ret);
         $this->add_string('author', $param->author, $ret);
         $this->add_string('title', $param->title, $ret);
         $this->add_string('bibliographicFreeText', $param->bibliographicFreeText, $ret);
@@ -645,6 +628,50 @@ class orsClass {
       $params[$key] = $ret;
     };
   }
+  
+  
+  /**
+   * Add orderTypes to query array
+   *
+   * @param $par
+   * @param $params
+   */
+  private function add_orderType($par = NULL, &$params, $default = NULL) {
+    
+    if (!is_array($params)) {
+      return;
+    }
+    
+    $ret = array();
+    
+    if (is_array($par)) {
+      foreach ($par as $orderTypeItem) {
+        if (!empty($orderTypeItem->_value)) {
+          $ret[] = $orderTypeItem->_value;
+        }
+      }
+    }
+    elseif (!empty($par->_value)) {
+      $ret[] = $par->_value;
+    }
+
+    // NB: 'enduser_order' & 'inter_library_order' is deprecated. 
+    // TO DO: Synchronize openfindorder.xsd with ORS version.
+    if (in_array('enduser_order', $ret)) {
+      $ret = array('enduser_request', 'enduser_illrequest');
+    }
+    elseif (in_array('inter_library_order', $ret)) {
+      $ret = array('inter_library_request');
+    }
+    
+    if (!empty($ret)) {
+      $params['orderType'] = $ret;
+    }
+    elseif (!empty($default)) {
+      $params['orderType'][] = $default;
+    }
+  }
+
 
   /** \brief
    *  return true if xs:boolean is so
