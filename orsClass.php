@@ -198,39 +198,11 @@ class orsClass {
         break;
     }
 
-    // Udvid søgning til alle filialer, hvis requester/responderAgencyId er hovedbibliotek.
-    $requester = $orsAgency->expand_library($param->requesterAgencyId);
-    $responder = $orsAgency->expand_library($param->responderAgencyId);
-    
     switch ($this->action) {
-      case 'findAllOrders':
-      case 'findAllIllOrders':
-      case 'findAllNonIllOrders':
-      case 'findAllOpenEndUserOrders':
-      case 'findOpenIllOrders':
-      case 'findOrdersFromUnknownUser':
-      case 'findAutomatedOrders':
-      case 'findNonAutomatedOrders':
-      case 'findOwnAutomatedOrders':
-      case 'findClosedIllOrders':
-      case 'findManuallyFinishedIllOrders':
-      case 'findSpecificOrder':
-      case 'findOrdersFromUser':
-      case 'findLocalizedEndUserOrders':
-      case 'findNonLocalizedEndUserOrders':
-      case 'findOrdersWithAutoForwardReason':
-      case 'getReceipts':
-        $this->add_common_pars($param, $ret);
-        $this->add_list('requesterId', $requester, $ret);
-        $this->add_list('responderId', $responder, $ret);
-        break;
-      case 'bibliographicSearch':
-      case 'findOrderOfType': 
-        $this->add_common_pars($param, $ret);
-        break;
       case 'formatReceipt': //  See: openFindOrder->formatReceipt()
         break;
       default:
+        $this->add_common_pars($param, $ret);
         break;
     }
 
