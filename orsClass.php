@@ -171,7 +171,7 @@ class orsClass {
         $ret['closed'] = ($this->xs_boolean($param->closed->_value) ? 'true' : 'false');
         break;
       case 'findOrdersWithAutoForwardReason':
-        $this->add_string('autoforwardreason', $param->autoForwardReason, $ret);
+        $this->add_string('autoForwardReason', $param->autoForwardReason, $ret);
         break;
       case 'findOrderOfType': 
         $ret['orderType'] = array('enduser_request', 'enduser_illrequest');
