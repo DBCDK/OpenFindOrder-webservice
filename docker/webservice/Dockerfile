@@ -15,7 +15,7 @@ ENV CACHE_SETTINGS="cache_host = localhost\ncache_port = 11211\ncache_expire = 6
     OPENAGENCY_AGENCY_LIST_PROD="http://openagency.addi.dk/2.35/?action=pickupAgencyList\&agencyId=%s\&libraryStatus=aktive\&outputType=php" \
     OPENAGENCY_AGENCY_LIST_STAGING="http://openagency.addi.dk/next_2.35/?action=pickupAgencyList\&agencyId=%s\&libraryStatus=aktive\&outputType=php" \
     LOGFILE="php://stdout" \
-    AAA_FORS_RIGHTS="http://forsrights.some.server/?action=forsRights&outputType=php&userIdAut=%s&groupIdAut=%s&passwordAut=%s&ipAddress=%s" \
+    AAA_FORS_RIGHTS="http://forsrights.some.server/?action=forsRights\&outputType=php\&userIdAut=%s\&groupIdAut=%s\&passwordAut=%s\&ipAddress=%s" \
     #SERVICE_LOCATION="" \
     VERBOSE_LEVEL="WARNING+ERROR+FATAL+STAT+TIMER+TRACE" \
     ORS2_URL_PROD="http://ors-maintenance.iscrum-prod.svc.cloud.dbc.dk:8080/api/" \
