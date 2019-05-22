@@ -16,7 +16,7 @@ node("master") {
             stage('SVN: checkout code') {
                 checkout scm
                 // get externals
-                sh 'svn up'
+                svn co https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/ OLS_class_lib
             }
 
             stage("prepare website build (copy files)") {
