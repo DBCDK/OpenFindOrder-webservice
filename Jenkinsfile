@@ -16,41 +16,20 @@ node("master") {
             stage('SVN: checkout code') {
                 checkout scm
                 // get externals
-                svn co https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/ OLS_class_lib
+                svn co 'https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/' OLS_class_lib
             }
 
             stage("prepare website build (copy files)") {
-                // Prepare the build
-                // Check out OpenVersionWrapper into a www folder
+                // make a www folder
                 dir('docker/webservice') {
+                    // prepare the build
                     sh """
 	                    rm -rf www
 	                    """
                     sh """
-	                    svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
-	                    """
-                    sh """
-                      cp OpenVersionWrapper/* www/
+	                    mkdir www
 	                    """
                 }
-                
-                // make a www folder
-                // make index.php symbolic link 
-                dir('docker/webservice/www') {
-                    sh """
-	                    mkdir 2.5
-	                    """
-                    sh """
-	                    mkdir next_2.5
-	                    """
-                    sh """
-	                    mkdir test_2.5
-	                    """
-                    sh """
-                      ln -s versions.php index.php
-	                    """
-                }
-                
                 // copy files needed for docker image
                 sh """
 	                cp -r \
@@ -65,72 +44,9 @@ node("master") {
 	                orsClass.php \
                   openFindOrder.php \
                   ofoAuthentication.php \
-                  NEWS.html \
-                  license.txt \
 	                xml/ \
-	                docker/webservice/www/2.5/
+	                docker/webservice/www/
 	                """
-                
-                // copy files needed for docker image
-                sh """
-	                cp -r \
-	                openfindorder.wsdl_INSTALL \
-	                openfindorder.xsd \
-	                openfindorder.ini_INSTALL \
-	                OLS_class_lib/ \
-	                server.php \
-	                howRU.php \
-	                xsdparse.php \
-	                orsAgency.php \
-	                orsClass.php \
-                  openFindOrder.php \
-                  ofoAuthentication.php \
-                  NEWS.html \
-                  license.txt \
-	                xml/ \
-	                docker/webservice/www/next_2.5/
-	                """
-                
-                // copy files needed for docker image
-                sh """
-	                cp -r \
-	                openfindorder.wsdl_INSTALL \
-	                openfindorder.xsd \
-	                openfindorder.ini_INSTALL \
-	                OLS_class_lib/ \
-	                server.php \
-	                howRU.php \
-	                xsdparse.php \
-	                orsAgency.php \
-	                orsClass.php \
-                  openFindOrder.php \
-                  ofoAuthentication.php \
-                  NEWS.html \
-                  license.txt \
-	                xml/ \
-	                docker/webservice/www/test_2.5/
-	                """
-                
-                // make index.php symbolic link 
-                dir('docker/webservice/www/2.5') {
-                    sh """
-                      ln -s server.php index.php
-	                    """
-                }
-                
-                // make index.php symbolic link 
-                dir('docker/webservice/www/next_2.5') {
-                    sh """
-                      ln -s server.php index.php
-	                    """
-                }
-                
-                // make index.php symbolic link 
-                dir('docker/webservice/www/test_2.5') {
-                    sh """
-                      ln -s server.php index.php
-	                    """
-                }
             }
 
             stage("Docker: build image") {
