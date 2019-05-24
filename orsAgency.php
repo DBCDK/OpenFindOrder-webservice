@@ -10,7 +10,7 @@ class orsAgency{
   private $curl;
   private $error;
   private $err_msg;
-  
+
   public function __construct($agency_url){
     $this->agency_url = $agency_url;
     $this->curl = new curl();
