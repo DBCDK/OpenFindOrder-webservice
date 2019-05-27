@@ -25,11 +25,14 @@
       $orsAgency = new orsAgency($this->openagencyAgencyList);
       $branches = $orsAgency->fetch_library_list($this->group);
       if ($orsAgency->getError()) {
-        $this->authorizationError = $orsAgency->getErrorMsg();
+        self::local_verbose(WARNING, 'ofoAaa(' . __LINE__ . '):: orsAgency error: ' . $orsAgency->getErrorMsg());
+        $this->authorizationError = 'authentication_error';
         return FALSE;
       }
-      if (!in_array($this-agency, $branches)) {
-        $this->authorizationError = 'agency not subset of groupid';
+      if (!in_array($this->agency, $branches)) {
+        // TO DO:update openfindorder.xsd -> add errorType.
+        // $this->authorizationError = 'authorization_error';
+        $this->authorizationError = 'authentication_error';
         return FALSE;
       }
       return TRUE;
@@ -42,7 +45,7 @@
      * @return string
      */
     public function getAuthorizationError() {
-      return 'authorization error: ' . $this->authorizationError;
+      return $this->authorizationError;
     }
 
     /**
@@ -55,6 +58,23 @@
      */
     private function stripAgency($id) {
       return preg_replace('/\D/', '', $id);
+    }
+
+    /**
+     * \brief
+     * Log function. Same as aaa:local_verbose
+     * NB: the aaa:local_verbose function ought to be 'protected', not 'private'.
+     *
+     * @param string $level
+     * @param string $msg
+     */
+    private function local_verbose($level, $msg) {
+      if (method_exists('VerboseJson', 'log')) {
+        VerboseJson::log($level, $msg);
+      }
+      elseif (method_exists('verbose', 'log')) {
+        verbose::log($level, $msg);
+      }
     }
 
   }
