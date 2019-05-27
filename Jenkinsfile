@@ -45,6 +45,7 @@ node("master") {
 	                orsAgency.php \
 	                orsClass.php \
                   openFindOrder.php \
+                  ofoAaa.php \
                   ofoAuthentication.php \
 	                xml/ \
 	                docker/webservice/www/
