@@ -19,7 +19,7 @@ class orsClass {
   private $action;
   private $curl;
   private $xmlfields;
-  
+
   private $query;
   private $response;
   private $start;
@@ -29,7 +29,7 @@ class orsClass {
   private $message;
   private $error;
   private $err_msg;
-  
+
 
   /**
    * orsClass constructor.
@@ -51,7 +51,7 @@ class orsClass {
     $this->status = NULL;
     $this->message = NULL;
     $this->response = array();
-    
+
     // get xml schema
     $schemafile = $config->get_value('schema', 'setup');
     if (!file_exists($schemafile)) {
@@ -83,9 +83,9 @@ class orsClass {
       $this->setError($orsAgency->getErrorMsg());
       return false;
     }
-    
+
     $ret = array();
-    
+
     switch ($this->action) {
       case 'findAllOrders':
         break;
@@ -173,7 +173,7 @@ class orsClass {
       case 'findOrdersWithAutoForwardReason':
         $this->add_string('autoForwardReason', $param->autoForwardReason, $ret);
         break;
-      case 'findOrderOfType': 
+      case 'findOrderOfType':
         $ret['orderType'] = array('enduser_request', 'enduser_illrequest');
         // string: electronic|pickup|postal
         $this->add_string('articleDirect', $param->articleDirect, $ret);
@@ -218,7 +218,7 @@ class orsClass {
   public function setQueryArray($param) {
     $this->query = $param;
   }
-    
+
   /**
    * CURL request for orders.
    * @param array $request
@@ -232,14 +232,14 @@ class orsClass {
     $url = $this->config->get_value('ors2_url', 'ORS');
     // this is for the (find)order api
     $url .= 'orders';
-    
+
     // initialize curl for post request
     $this->curl->set_post($json);
     $this->curl->set_url($url);
     $this->curl->set_option(CURLOPT_RETURNTRANSFER, TRUE);
     $this->curl->set_option(CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     $result = $this->curl->get();
-    
+
     // Check cURL response.
     $status = $this->curl->get_status();
     if ($this->curl->has_error()) {
@@ -262,9 +262,9 @@ class orsClass {
         'total_time' => $status['total_time'])
       );
     }
-    
+
     $this->response = $this->parseResponse($result);
-    
+
   }
 
   /**
@@ -279,25 +279,25 @@ class orsClass {
     $this->total =    !empty($result['total'])   ? $result['total'] :   NULL;
     $this->status =   !empty($result['status'])  ? $result['status'] :  NULL;
     $this->message =  !empty($result['message']) ? $result['message'] : NULL;
-    
+
     if (!empty($result['error'])) {
       $this->setError($result['error']);
     }
-    
+
     $orders = array();
     foreach ($result['orderList'] as $n => $resultObject) {
-      
+
       $pid = NULL;
-      
+
       $orders[$n]->_value->resultPosition->_namespace = THIS_NAMESPACE;
       $orders[$n]->_value->resultPosition->_value = $n + 1;
-      
+
       $orders[$n]->_value->orderId->_namespace = THIS_NAMESPACE;
       $orders[$n]->_value->orderId->_value = $resultObject['orderKey'];
-      
+
       $orders[$n]->_value->requesterId->_namespace = THIS_NAMESPACE;
       $orders[$n]->_value->requesterId->_value = $resultObject['requesterId'];
-      
+
       // Ignore values:
       // $resultObject['responderId'];
       // $resultObject['active'];
@@ -368,7 +368,7 @@ class orsClass {
             $buffer[$key] = $orderItem;
         }
       }
-      
+
       foreach ($resultObject['userData'] as $key => $orderItem) {
         switch ($key) {
           case 'userIdAuthenticated':
@@ -378,15 +378,15 @@ class orsClass {
             $buffer[$key] = $orderItem;
         }
       }
-      
+
       // Case-insensitive sorting.
       ksort($buffer, SORT_NATURAL | SORT_FLAG_CASE);
-      
+
       foreach ($buffer as $key => $orderItem) {
         $orders[$n]->_value->$key->_namespace = THIS_NAMESPACE;
         $orders[$n]->_value->$key->_value = $orderItem;
       }
-      
+
       // Handle pid as array.
       if ($pid) {
         $orders[$n]->_value->pid[0]->_namespace = THIS_NAMESPACE;
@@ -394,9 +394,9 @@ class orsClass {
       }
 
       $orders[$n]->_namespace = THIS_NAMESPACE;
-      
+
     }
-    
+
     return $orders;
   }
 
@@ -425,7 +425,7 @@ class orsClass {
   public function getStart() {
     return $this->start;
   }
-  
+
   /**
    * Return ORS2 stepValue.
    * @return array
@@ -433,7 +433,7 @@ class orsClass {
   public function getStep() {
     return $this->step;
   }
-  
+
   /**
    * Return ORS2 total.
    * @return array
@@ -441,7 +441,7 @@ class orsClass {
   public function getTotal() {
     return $this->total;
   }
-  
+
   /**
    * Return ORS2 status.
    * @return array
@@ -449,7 +449,7 @@ class orsClass {
   public function getStatus() {
     return $this->status;
   }
-  
+
   /**
    * Return ORS2 message.
    * @return array
@@ -457,7 +457,7 @@ class orsClass {
   public function getMessage() {
     return $this->message;
   }
-  
+
   /**
    * Return schema fields.
    * @return array
@@ -465,7 +465,7 @@ class orsClass {
   public function getXmlfields() {
     return $this->xmlfields;
   }
-  
+
   /**
    * Set errors.
    */
@@ -546,7 +546,7 @@ class orsClass {
       $start = (int) $param->start->_value;
       $ret['start'] = ($start) ? $start : 0;
     }
-    
+
     // Date (string). Format: "YYYY-MM-DD".
     // XSD: lastModification. ORS2: lastModificationDate.
     if (isset($param->lastModification->_value)) { // date (string)
@@ -560,7 +560,7 @@ class orsClass {
     if (isset($param->toDate->_value)) { // date (string)
       $ret['toDate'] = $param->toDate->_value;
     }
-    
+
     return $ret;
   }
 
@@ -600,8 +600,8 @@ class orsClass {
       $params[$key] = $ret;
     };
   }
-  
-  
+
+
   /**
    * Add orderTypes to query array
    *
@@ -609,13 +609,13 @@ class orsClass {
    * @param $params
    */
   private function add_orderType($par = NULL, &$params, $default = NULL) {
-    
+
     if (!is_array($params)) {
       return;
     }
-    
+
     $ret = array();
-    
+
     if (is_array($par)) {
       foreach ($par as $orderTypeItem) {
         if (!empty($orderTypeItem->_value)) {
@@ -627,7 +627,7 @@ class orsClass {
       $ret[] = $par->_value;
     }
 
-    // NB: 'enduser_order' & 'inter_library_order' is deprecated. 
+    // NB: 'enduser_order' & 'inter_library_order' is deprecated.
     // TO DO: Synchronize openfindorder.xsd with ORS version.
     if (in_array('enduser_order', $ret)) {
       $ret = array('enduser_request', 'enduser_illrequest');
@@ -635,7 +635,7 @@ class orsClass {
     elseif (in_array('inter_library_order', $ret)) {
       $ret = array('inter_library_request');
     }
-    
+
     if (!empty($ret)) {
       $params['orderType'] = $ret;
     }
