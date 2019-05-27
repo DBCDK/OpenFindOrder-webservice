@@ -66,6 +66,7 @@ node("master") {
 	                orsAgency.php \
 	                orsClass.php \
                   openFindOrder.php \
+                  ofoAaa.php \
                   ofoAuthentication.php \
                   NEWS.html \
                   license.txt \
@@ -86,6 +87,7 @@ node("master") {
 	                orsAgency.php \
 	                orsClass.php \
                   openFindOrder.php \
+                  ofoAaa.php \
                   ofoAuthentication.php \
                   NEWS.html \
                   license.txt \
@@ -106,6 +108,7 @@ node("master") {
 	                orsAgency.php \
 	                orsClass.php \
                   openFindOrder.php \
+                  ofoAaa.php \
                   ofoAuthentication.php \
                   NEWS.html \
                   license.txt \
