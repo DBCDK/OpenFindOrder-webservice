@@ -13,10 +13,12 @@ def ofoImage
 node("master") {
     ws(WORKSPACE) {
         withEnv(["DOCKER_HOST=${DOCKER_HOST}"]) {
-            stage('SVN: checkout code') {
+            stage('GIT: checkout code') {
                 checkout scm
                 // get externals
-                svn co https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/ OLS_class_lib
+                sh """
+                  svn co 'https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/' OLS_class_lib
+                  """
             }
 
             stage("prepare website build (copy files)") {
