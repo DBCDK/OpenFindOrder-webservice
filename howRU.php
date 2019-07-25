@@ -17,7 +17,7 @@ class howRU {
   protected $config;
   protected $error = FALSE;
   protected $error_msg = array();
-  
+
   /**
    * howRU constructor.
    * @param inifile $config
@@ -32,7 +32,7 @@ class howRU {
       $this->error_msg[] = 'Inifile not found: ' . $inifile;
     }
     $this->config = new inifile($inifile);
-    
+
     // Check openAgency.
     $url = parse_url($this->config->get_value('openagency_agency_list', 'setup'));
     $url['scheme'] = (!empty($url['scheme'])) ? $url['scheme'] . '://' : NULL;
@@ -54,7 +54,7 @@ class howRU {
       $this->error_msg[] = 'orsAgency request failed.';
       $this->error_msg[] = $orsAgency->getErrorMsg();
     }
-    
+
     // Check ORS2.
     $ors2_url = $this->config->get_value('ors2_url', 'ORS');
     $this->curl->get($ors2_url . 'howru');
@@ -64,7 +64,7 @@ class howRU {
       $this->error_msg[] = 'ORS2 connection failed.';
       $this->error_msg[] = $status['http_code'] . ': ' . $status['error'] . ' (' . $status['errno'] . ')';
     }
-    
+
     $ors = new orsClass('findAllOrders', $this->config);
     $param['pickupAgencyId'] = array('100400');
     $param['requesterId']    = array('100400', '100401');
@@ -91,20 +91,20 @@ class howRU {
       $this->error = TRUE;
       $this->error_msg[] = 'No xmlfields defined for receipt';
     }
-    
+
     $this->xmlfields = $schema->get_sequence_array('order');
     if (empty($this->xmlfields)) {
       $this->error = TRUE;
       $this->error_msg[] = 'No xmlfields defined for order';
     }
-    
+
     if ($this->error) {
       header('HTTP/1.0 503 Service Unavailable');
-      die(implode('; ', $this->error_msg));
+      die(implode("; \n", $this->error_msg));
     }
-    
+
     die('Gr8');
-    
+
   }
 
 }

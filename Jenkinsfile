@@ -13,23 +13,46 @@ def ofoImage
 node("master") {
     ws(WORKSPACE) {
         withEnv(["DOCKER_HOST=${DOCKER_HOST}"]) {
-            stage('SVN: checkout code') {
+            stage('GIT: checkout code') {
                 checkout scm
                 // get externals
-                sh 'svn up'
+                sh """
+                  svn co 'https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/' OLS_class_lib
+                  """
             }
 
             stage("prepare website build (copy files)") {
-                // make a www folder
+                // Prepare the build
+                // Check out OpenVersionWrapper into a www folder
                 dir('docker/webservice') {
-                    // prepare the build
                     sh """
 	                    rm -rf www
 	                    """
                     sh """
-	                    mkdir www
+	                    svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
+	                    """
+                    sh """
+                      cp OpenVersionWrapper/* www/
 	                    """
                 }
+
+                // make a www folder
+                // make index.php symbolic link
+                dir('docker/webservice/www') {
+                    sh """
+	                    mkdir 2.5
+	                    """
+                    sh """
+	                    mkdir next_2.5
+	                    """
+                    sh """
+	                    mkdir test_2.5
+	                    """
+                    sh """
+                      ln -s versions.php index.php
+	                    """
+                }
+
                 // copy files needed for docker image
                 sh """
 	                cp -r \
@@ -43,10 +66,76 @@ node("master") {
 	                orsAgency.php \
 	                orsClass.php \
                   openFindOrder.php \
+                  ofoAaa.php \
                   ofoAuthentication.php \
+                  NEWS.html \
+                  license.txt \
 	                xml/ \
-	                docker/webservice/www/
+	                docker/webservice/www/2.5/
 	                """
+
+                // copy files needed for docker image
+                sh """
+	                cp -r \
+	                openfindorder.wsdl_INSTALL \
+	                openfindorder.xsd \
+	                openfindorder.ini_INSTALL \
+	                OLS_class_lib/ \
+	                server.php \
+	                howRU.php \
+	                xsdparse.php \
+	                orsAgency.php \
+	                orsClass.php \
+                  openFindOrder.php \
+                  ofoAaa.php \
+                  ofoAuthentication.php \
+                  NEWS.html \
+                  license.txt \
+	                xml/ \
+	                docker/webservice/www/next_2.5/
+	                """
+
+                // copy files needed for docker image
+                sh """
+	                cp -r \
+	                openfindorder.wsdl_INSTALL \
+	                openfindorder.xsd \
+	                openfindorder.ini_INSTALL \
+	                OLS_class_lib/ \
+	                server.php \
+	                howRU.php \
+	                xsdparse.php \
+	                orsAgency.php \
+	                orsClass.php \
+                  openFindOrder.php \
+                  ofoAaa.php \
+                  ofoAuthentication.php \
+                  NEWS.html \
+                  license.txt \
+	                xml/ \
+	                docker/webservice/www/test_2.5/
+	                """
+
+                // make index.php symbolic link
+                dir('docker/webservice/www/2.5') {
+                    sh """
+                      ln -s server.php index.php
+	                    """
+                }
+
+                // make index.php symbolic link
+                dir('docker/webservice/www/next_2.5') {
+                    sh """
+                      ln -s server.php index.php
+	                    """
+                }
+
+                // make index.php symbolic link
+                dir('docker/webservice/www/test_2.5') {
+                    sh """
+                      ln -s server.php index.php
+	                    """
+                }
             }
 
             stage("Docker: build image") {

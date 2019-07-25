@@ -11,7 +11,9 @@ class openFindOrder extends webServiceServer {
 
     define('THIS_NAMESPACE', $this->xmlns['ofo']);
     $this->watch->start('openfindorderWS');
-    //  $this->stat = new stats();
+
+    $this->aaa = new ofoAaa($this->config->get_section('aaa'));
+    $this->aaa->setOpenagencyList($this->config->get_section('setup'));
   }
 
   /** \brief
@@ -38,7 +40,7 @@ class openFindOrder extends webServiceServer {
     foreach ($methods as $key => $value) {
       echo '    ' . $value . '<br/>';
     }
-    
+
     echo '</pre>';
     die();
   }
@@ -51,6 +53,14 @@ class openFindOrder extends webServiceServer {
     if ($error = ofoAuthentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
     }
+
+    if (!$this->in_house()) {
+      if (!$this->aaa->authorization($param)) {
+        $error = $this->aaa->getAuthorizationError();
+        return $this->send_error($error);
+      }
+    }
+
     $ors = new orsClass($this->soap_action, $this->config);
     $ors->setQuery($param);
 
@@ -66,7 +76,7 @@ class openFindOrder extends webServiceServer {
         return $this->findOrderResponse($ors);
     }
   }
-  
+
   /** \brief
    * The service request for all orders (optionally for a specific order system)
    * @param; request parameters in request-xml object.
@@ -224,12 +234,11 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object
    */
   public function formatReceipt($param) {
-    
+
     if ($error = ofoAuthentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error, 'formatReceipt');
     }
-    
-    
+
     $ors = new orsClass($this->soap_action, $this->config);
     if (!$receipt = self::xs_json_decode($param->json->_value)) {
       return $this->send_error('Error decoding json string', 'formatReceipt');
@@ -260,28 +269,28 @@ class openFindOrder extends webServiceServer {
    * return; orders as xml-objects
    */
   private function findOrderResponse($ors) {
-    
+
     $orders = $ors->getResponse();
     $total = $ors->getTotal();
     $debug_info = $ors->getQuery();
     $status = $ors->getStatus();
-    
+
     $response->findOrdersResponse->_namespace = THIS_NAMESPACE;
 
     if ($status == 'ERROR') {
       // See: openfindorder.xsd -> errorType
       return $this->send_error('open find order service not available', 'findOrdersResponse', $debug_info);
     }
-    
+
     if ($status == 'OTHER') {
       return $this->send_error('open find order service not available', 'findOrdersResponse', $debug_info);
     }
-    
+
     // Empty result-set.
     if ($total == 0) {
       return $this->send_error('no orders found', 'findOrdersResponse', $debug_info);
     }
-    
+
     // Total > 0, but parse failed.
     if (empty($orders)) {
       // See: openfindorder.xsd -> errorType
@@ -294,7 +303,7 @@ class openFindOrder extends webServiceServer {
     $result->_value->numberOfOrders->_value = $total;
     $result->_value->order = $orders;
     $result->_value->debugInfo->_value = $debug_info;
-    
+
     return $response;
   }
 
@@ -374,13 +383,13 @@ class openFindOrder extends webServiceServer {
     $error->_namespace = THIS_NAMESPACE;
     $error->_value = $message;
     $response->$response_tag->_value->error = $error;
-    
+
     if ($debug_info) {
       $debug->_namespace = THIS_NAMESPACE;
       $debug->_value = $debug_info;
       $response->$response_tag->_value->debugInfo = $debug;
     }
-    
+
     return $response;
   }
 }

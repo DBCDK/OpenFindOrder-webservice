@@ -146,7 +146,7 @@ aaa_ip_rights[dbc][ressource]['netpunkt.dk'] = 500
 ; either by using the WS specified by aaa_fors_rights or by OCI specified by aaa_credentials
 ;
 ; uri for a fors rights webservice - aaa_fors_rights have precedence over aaa_credentials
-;aaa_fors_rights = http://forsrights.some.server/?action=forsRights&outputType=php&userIdAut=%s&groupIdAut=%s&passwordAut=%s&ipAddress=%s
+aaa_fors_rights = @AAA_FORS_RIGHTS@
 ;
 ; oci credentials for FORS server
 ;aaa_credentials = ora_user/ora_passwd@some.server.dk
@@ -167,7 +167,7 @@ aaa_ip_rights[dbc][ressource]['netpunkt.dk'] = 500
 ; use xml.path.to.par notation to solve name-conflicts
 ; action[thisSoapAction][foo][] = some.number
 ; action[thisSoapAction][bar][] = another.number
-; to build 
+; to build
 ; <thisSoapAction>
 ;   <foo>
 ;     <number>nn</number>
