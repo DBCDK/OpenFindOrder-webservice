@@ -4,7 +4,7 @@ def PRODUCT = 'openfindorder'
 
 def DOCKER_HOST = 'tcp://dscrum-is:2375'
 def DOCKER_REPO = 'docker-dscrum.dbc.dk'
-def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk, las@dbc.dk'
+def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk'
 def WORKSPACE = "workspace/$PRODUCT"
 // the image to use on different stages
 def ofoImage
@@ -21,7 +21,7 @@ node("master") {
                   """
             }
 
-            stage("prepare website build (copy files)") {
+            stage("prepare website build (copy OpenVersionWrapper)") {
                 // Prepare the build
                 // Check out OpenVersionWrapper into a www folder
                 dir('docker/webservice') {
@@ -34,9 +34,12 @@ node("master") {
                     sh """
                       cp OpenVersionWrapper/* www/
 	                    """
-                }
+                      }
 
-                // make a www folder
+            }
+
+            stage("prepare website build (version 2.5 & 2.6)") {
+                // cd www folder
                 // make index.php symbolic link
                 dir('docker/webservice/www') {
                     sh """
@@ -49,10 +52,29 @@ node("master") {
 	                    mkdir test_2.5
 	                    """
                     sh """
+	                    mkdir 2.6
+	                    """
+                    sh """
+	                    mkdir next_2.6
+	                    """
+                    sh """
+	                    mkdir test_2.6
+	                    """
+                    sh """
                       ln -s versions.php index.php
 	                    """
                 }
 
+            }
+
+            stage('GIT: checkout version 2.5') {
+                // get externals
+                sh """
+                  git checkout release/2.5
+                  """
+            }
+
+            stage("copy files") {
                 // copy files needed for docker image
                 sh """
 	                cp -r \
@@ -147,9 +169,10 @@ node("master") {
             }
 
             stage('Docker: push and cleanup') {
-                docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
-                    ofoImage.push()
-                }
+                // drop artifactory update while fooling around
+                // docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
+                //     ofoImage.push()
+                // }
 
                 sh """
                    docker rmi ${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}
