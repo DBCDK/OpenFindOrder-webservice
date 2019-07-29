@@ -1235,7 +1235,11 @@
   <xs:simpleType name="orderSystemType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="bibliotekdk"/>
+      <xs:enumeration value="læsekompasset"/>
       <xs:enumeration value="netpunkt"/>
+      <xs:enumeration value="ors"/>
+      <xs:enumeration value="pallesgavebod"/>
+      <xs:enumeration value="sbserialssolutions"/>
       <xs:enumeration value="zpunkt"/>
     </xs:restriction>
   </xs:simpleType>
