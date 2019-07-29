@@ -33,7 +33,7 @@ def  copyDockerFiles(String version = '2.5') {
                 NEWS.html \
                 license.txt \
                 xml/ \
-                docker/webservice/www/${version}/
+                ${version}/
                 """
         }
 
