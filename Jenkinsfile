@@ -19,8 +19,10 @@ def WORKSPACE = "workspace/$PRODUCT"
 def VERSION_2_5 = params.Version_2_5
 def VERSION_2_6 = params.Version_2_6
 
-print "Parameter: PRODUCT = ${PRODUCT}"
 print "Parameter: PRODUCT = " + PRODUCT
+print "Parameter: DOCKER_HOST = ${DOCKER_HOST}"
+print "Parameter: DOCKER_REPO = ${DOCKER_REPO}"
+print "Parameter: MAIL_RECIPIENTS = ${MAIL_RECIPIENTS}"
 print "Parameter: WORKSPACE = ${WORKSPACE}"
 
 // the image to use on different stages
@@ -43,15 +45,11 @@ node("master") {
                     """
                 dir('docker/webservice') {
                     sh """
-	                    rm -rf www
-	                    """
-                    sh """
-	                    svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
-	                    """
-                    sh """
-                      cp OpenVersionWrapper/* www/
-	                    """
-                      }
+	                      rm -rf www
+	                      svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
+                        cp OpenVersionWrapper/* www/
+	                      """
+                }
 
             }
 
@@ -299,6 +297,7 @@ node("master") {
                 // docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
                 //     ofoImage.push()
                 // }
+                whateverFunction('foo')
 
                 sh """
                    docker rmi ${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}
@@ -306,4 +305,10 @@ node("master") {
             }
         }
     }
+}
+
+void whateverFunction(String baz = 'bar') {
+    sh """
+      echo "Hello, ${baz}."
+      """
 }
