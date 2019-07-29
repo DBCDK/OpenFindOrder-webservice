@@ -41,8 +41,7 @@ def  copyDockerFiles(String version = '2.5') {
     // Make index.php symbolic link.
     dir("docker/webservice") {
         sh """
-            RUN_FILE=run-ofo.sh
-            sed -i "s#@RUN-OFO@#testhest:${version}#g" $RUN_FILE
+            sed -i "s#@RUN-OFO@#testhest:${version}#g" run-ofo.sh
             """
     }
 }
