@@ -83,15 +83,6 @@ node("master") {
 
             stage("prepare website build (version 2.6)") {
                 if (VERSION_2_6) {
-                    // cd www folder
-                    // make index.php symbolic link
-                    dir('docker/webservice/www') {
-                        sh """
-    	                    mkdir 2.6
-    	                    mkdir next_2.6
-    	                    mkdir test_2.6
-    	                    """
-                    }
                     // checkout release
                     sh """
                       git checkout feature/release_2_6
@@ -151,34 +142,41 @@ node("master") {
 }
 
 void copyDockerFiles(String version = '2.5') {
-  ws(WORKSPACE) {
-      dir('docker/webservice/www') {
-          sh """
-              cp -r \
-              openfindorder.wsdl_INSTALL \
-              openfindorder.xsd \
-              openfindorder.ini_INSTALL \
-              OLS_class_lib/ \
-              server.php \
-              howRU.php \
-              xsdparse.php \
-              orsAgency.php \
-              orsClass.php \
-              openFindOrder.php \
-              ofoAaa.php \
-              ofoAuthentication.php \
-              NEWS.html \
-              license.txt \
-              xml/ \
-              docker/webservice/www/${version}/
+    ws(WORKSPACE) {
+        // create folders
+        dir('docker/webservice/www') {
+            sh """
+              mkdir ${version}
+              mkdir next_${version}
+              mkdir test_${version}
               """
-      }
 
-      // make index.php symbolic link
-      dir("docker/webservice/www/${version}") {
-          sh """
-              ln -s server.php index.php
-              """
-      }
-  }
+            sh """
+                cp -r \
+                openfindorder.wsdl_INSTALL \
+                openfindorder.xsd \
+                openfindorder.ini_INSTALL \
+                OLS_class_lib/ \
+                server.php \
+                howRU.php \
+                xsdparse.php \
+                orsAgency.php \
+                orsClass.php \
+                openFindOrder.php \
+                ofoAaa.php \
+                ofoAuthentication.php \
+                NEWS.html \
+                license.txt \
+                xml/ \
+                docker/webservice/www/${version}/
+                """
+        }
+
+        // make index.php symbolic link
+        dir("docker/webservice/www/${version}") {
+            sh """
+                ln -s server.php index.php
+                """
+        }
+    }
 }
