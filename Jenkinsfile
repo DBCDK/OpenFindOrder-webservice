@@ -4,8 +4,11 @@ def PRODUCT = 'openfindorder'
 
 def DOCKER_HOST = 'tcp://dscrum-is:2375'
 def DOCKER_REPO = 'docker-dscrum.dbc.dk'
-def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk'
+def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk, niw@dbc.dk'
 def WORKSPACE = "workspace/$PRODUCT"
+def version_2_5 = params.Version_2_5
+def version_2_6 = params.Version_2_6
+
 // the image to use on different stages
 def ofoImage
 
@@ -15,15 +18,15 @@ node("master") {
         withEnv(["DOCKER_HOST=${DOCKER_HOST}"]) {
             stage('GIT: checkout code') {
                 checkout scm
-                // get externals
-                sh """
-                  svn co 'https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/' OLS_class_lib
-                  """
             }
 
-            stage("prepare website build (copy OpenVersionWrapper)") {
+            stage("SVN: checkout OpenVersionWrapper & class_lib") {
                 // Prepare the build
                 // Check out OpenVersionWrapper into a www folder
+                // get externals
+                sh """
+                    svn co 'https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/' OLS_class_lib
+                    """
                 dir('docker/webservice') {
                     sh """
 	                    rm -rf www
@@ -38,40 +41,66 @@ node("master") {
 
             }
 
-            stage("prepare website build (version 2.5 & 2.6)") {
-                // cd www folder
-                // make index.php symbolic link
-                dir('docker/webservice/www') {
+            stage("prepare website build (version 2.5)") {
+                if (version_2_5) {
+                    // cd www folder
+                    // make index.php symbolic link
+                    dir('docker/webservice/www') {
+                        sh """
+    	                    mkdir 2.5
+    	                    """
+                        sh """
+    	                    mkdir next_2.5
+    	                    """
+                        sh """
+    	                    mkdir test_2.5
+    	                    """
+                        sh """
+                          ln -s versions.php index.php
+    	                    """
+                    }
+                    // get externals
                     sh """
-	                    mkdir 2.5
-	                    """
+                      git checkout release/2.5
+                      """
+                }
+                else {
                     sh """
-	                    mkdir next_2.5
-	                    """
-                    sh """
-	                    mkdir test_2.5
-	                    """
-                    sh """
-	                    mkdir 2.6
-	                    """
-                    sh """
-	                    mkdir next_2.6
-	                    """
-                    sh """
-	                    mkdir test_2.6
-	                    """
-                    sh """
-                      ln -s versions.php index.php
-	                    """
+                        echo 'skipping release/2.5'
+                    """
                 }
 
             }
 
-            stage('GIT: checkout version 2.5') {
-                // get externals
-                sh """
-                  git checkout release/2.5
-                  """
+            stage("prepare website build (version 2.5)") {
+                if (version_2_6) {
+                    // cd www folder
+                    // make index.php symbolic link
+                    dir('docker/webservice/www') {
+                        sh """
+    	                    mkdir 2.6
+    	                    """
+                        sh """
+    	                    mkdir next_2.6
+    	                    """
+                        sh """
+    	                    mkdir test_2.6
+    	                    """
+                        sh """
+                          ln -s versions.php index.php
+    	                    """
+                    }
+                    // get externals
+                    sh """
+                      git checkout release/2.6
+                      """
+                }
+                else {
+                    sh """
+                        echo 'skipping release/2.6'
+                    """
+                }
+
             }
 
             stage("copy files") {
