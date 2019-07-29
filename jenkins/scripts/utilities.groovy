@@ -1,10 +1,12 @@
-void hello(String baz = 'foo') {
+#!/usr/bin/env groovy
+
+def  hello(String baz = 'foo') {
   sh """
     echo ${baz}
     """
 }
 
-void copyDockerFiles(String version = '2.5') {
+def  copyDockerFiles(String version = '2.5') {
     // ws(WORKSPACE) {
         // create folders
         dir('docker/webservice/www') {
@@ -41,3 +43,5 @@ void copyDockerFiles(String version = '2.5') {
         }
     // }
 }
+
+return this
