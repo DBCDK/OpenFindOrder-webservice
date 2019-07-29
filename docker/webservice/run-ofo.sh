@@ -2,8 +2,6 @@
 
 # replace variables in openuserinfo.ini with environment vars
 
-# @RUN-OFO@
-
 DIR=$APACHE_ROOT/2.5
 INI=$DIR/openfindorder.ini
 INSTALL=$INI"_INSTALL"
@@ -51,6 +49,8 @@ if [ ! -f $INI ] ; then
     sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
     sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
 fi
+
+@RUN-OFO@
 
 if [ "$1" == '' ]; then
 	service memcached start
