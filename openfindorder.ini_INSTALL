@@ -167,7 +167,7 @@ aaa_fors_rights = @AAA_FORS_RIGHTS@
 ; use xml.path.to.par notation to solve name-conflicts
 ; action[thisSoapAction][foo][] = some.number
 ; action[thisSoapAction][bar][] = another.number
-; to build 
+; to build
 ; <thisSoapAction>
 ;   <foo>
 ;     <number>nn</number>

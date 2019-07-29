@@ -19,7 +19,6 @@ class orsClass {
   private $action;
   private $curl;
   private $xmlfields;
-
   private $query;
   private $response;
   private $start;
@@ -29,7 +28,6 @@ class orsClass {
   private $message;
   private $error;
   private $err_msg;
-
 
   /**
    * orsClass constructor.
@@ -218,7 +216,6 @@ class orsClass {
   public function setQueryArray($param) {
     $this->query = $param;
   }
-
   /**
    * CURL request for orders.
    * @param array $request
@@ -232,7 +229,6 @@ class orsClass {
     $url = $this->config->get_value('ors2_url', 'ORS');
     // this is for the (find)order api
     $url .= 'orders';
-
     // initialize curl for post request
     $this->curl->set_post($json);
     $this->curl->set_url($url);
@@ -368,7 +364,6 @@ class orsClass {
             $buffer[$key] = $orderItem;
         }
       }
-
       foreach ($resultObject['userData'] as $key => $orderItem) {
         switch ($key) {
           case 'userIdAuthenticated':
@@ -386,7 +381,6 @@ class orsClass {
         $orders[$n]->_value->$key->_namespace = THIS_NAMESPACE;
         $orders[$n]->_value->$key->_value = $orderItem;
       }
-
       // Handle pid as array.
       if ($pid) {
         $orders[$n]->_value->pid[0]->_namespace = THIS_NAMESPACE;
@@ -394,7 +388,6 @@ class orsClass {
       }
 
       $orders[$n]->_namespace = THIS_NAMESPACE;
-
     }
 
     return $orders;
@@ -601,7 +594,6 @@ class orsClass {
     };
   }
 
-
   /**
    * Add orderTypes to query array
    *
@@ -643,7 +635,6 @@ class orsClass {
       $params['orderType'][] = $default;
     }
   }
-
 
   /** \brief
    *  return true if xs:boolean is so

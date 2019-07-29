@@ -239,7 +239,6 @@ class openFindOrder extends webServiceServer {
       return $this->send_error($error, 'formatReceipt');
     }
 
-
     $ors = new orsClass($this->soap_action, $this->config);
     if (!$receipt = self::xs_json_decode($param->json->_value)) {
       return $this->send_error('Error decoding json string', 'formatReceipt');

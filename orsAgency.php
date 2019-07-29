@@ -47,6 +47,7 @@ class orsAgency{
    */
   public function fetch_library_list($agency) {
     $libs = array();
+
     $agency = $this->strip_agency($agency);
     $is_main_agency = FALSE;
     $url = sprintf($this->agency_url, $agency);

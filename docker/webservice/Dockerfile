@@ -27,6 +27,3 @@ COPY run-ofo.sh /
 RUN chmod 755 /run-ofo.sh
 
 ENTRYPOINT ["/run-ofo.sh"]
-
-
-
