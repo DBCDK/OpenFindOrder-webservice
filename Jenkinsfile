@@ -54,15 +54,7 @@ node("master") {
 
             stage("prepare website build (version 2.5)") {
                 if (VERSION_2_5) {
-                    // cd www folder
-                    // make index.php symbolic link
-                    dir('docker/webservice/www') {
-                        sh """
-    	                    mkdir 2.5
-    	                    mkdir next_2.5
-    	                    mkdir test_2.5
-    	                    """
-                    }
+
                     // checkout release
                     sh """
                       git checkout feature/release_2_5
