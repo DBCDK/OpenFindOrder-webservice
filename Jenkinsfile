@@ -72,9 +72,9 @@ node("master") {
                       git checkout feature/release_2_5
                       """
                     // copy files needed for docker image
-                    copyDockerFiles('2.5')
-                    copyDockerFiles('next_2.5')
-                    copyDockerFiles('test_2.5')
+                    util.copyDockerFiles('2.5')
+                    util.copyDockerFiles('next_2.5')
+                    util.copyDockerFiles('test_2.5')
 
                 }
                 else {
@@ -93,9 +93,9 @@ node("master") {
                       """
 
                     // copy files needed for docker image
-                    copyDockerFiles('2.6')
-                    copyDockerFiles('next_2.6')
-                    copyDockerFiles('test_2.6')
+                    util.copyDockerFiles('2.6')
+                    util.copyDockerFiles('next_2.6')
+                    util.copyDockerFiles('test_2.6')
 
                 }
                 else {
@@ -144,42 +144,3 @@ node("master") {
         }
     }
 }
-/*
-void copyDockerFiles(String version = '2.5') {
-    ws(WORKSPACE) {
-        // create folders
-        dir('docker/webservice/www') {
-            sh """
-              mkdir ${version}
-              """
-
-            sh """
-                cp -r \
-                openfindorder.wsdl_INSTALL \
-                openfindorder.xsd \
-                openfindorder.ini_INSTALL \
-                OLS_class_lib/ \
-                server.php \
-                howRU.php \
-                xsdparse.php \
-                orsAgency.php \
-                orsClass.php \
-                openFindOrder.php \
-                ofoAaa.php \
-                ofoAuthentication.php \
-                NEWS.html \
-                license.txt \
-                xml/ \
-                docker/webservice/www/${version}/
-                """
-        }
-
-        // make index.php symbolic link
-        dir("docker/webservice/www/${version}") {
-            sh """
-                ln -s server.php index.php
-                """
-        }
-    }
-}
-*/
