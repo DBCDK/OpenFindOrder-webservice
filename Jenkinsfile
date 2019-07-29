@@ -139,8 +139,6 @@ void copyDockerFiles(String version = '2.5') {
         dir('docker/webservice/www') {
             sh """
               mkdir ${version}
-              mkdir next_${version}
-              mkdir test_${version}
               """
 
             sh """
