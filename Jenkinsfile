@@ -16,8 +16,8 @@ def DOCKER_HOST = 'tcp://dscrum-is:2375'
 def DOCKER_REPO = 'docker-dscrum.dbc.dk'
 def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk, niw@dbc.dk'
 def WORKSPACE = "workspace/$PRODUCT"
-def VERSION_2_5 = ${Version_2_5}
-def VERSION_2_6 = ${Version_2_6}
+def VERSION_2_5 = params.Version_2_5
+def VERSION_2_6 = params.Version_2_6
 
 // the image to use on different stages
 def ofoImage
