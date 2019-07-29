@@ -8,8 +8,8 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
             disableConcurrentBuilds(),
 ])
 
-print "DEBUG: parameter Version_2_5 = ${Version_2_5}"
-print "DEBUG: parameter Version_2_6 = ${Version_2_6}"
+print "Parameter: Version_2_5 = ${Version_2_5}"
+print "Parameter: Version_2_6 = ${Version_2_6}"
 
 def PRODUCT = 'openfindorder'
 def DOCKER_HOST = 'tcp://dscrum-is:2375'
@@ -58,11 +58,7 @@ node("master") {
                     dir('docker/webservice/www') {
                         sh """
     	                    mkdir 2.5
-    	                    """
-                        sh """
     	                    mkdir next_2.5
-    	                    """
-                        sh """
     	                    mkdir test_2.5
     	                    """
                     }
@@ -79,18 +75,14 @@ node("master") {
 
             }
 
-            stage("prepare website build (version 2.5)") {
+            stage("prepare website build (version 2.6)") {
                 if (VERSION_2_6) {
                     // cd www folder
                     // make index.php symbolic link
                     dir('docker/webservice/www') {
                         sh """
     	                    mkdir 2.6
-    	                    """
-                        sh """
     	                    mkdir next_2.6
-    	                    """
-                        sh """
     	                    mkdir test_2.6
     	                    """
                     }
@@ -107,7 +99,7 @@ node("master") {
 
             }
 
-            stage("prepare website build (version 2.5)") {
+            stage("Set OpenVersionWrapper link") {
                 if (VERSION_2_5 || VERSION_2_6) {
                     // make index.php symbolic link
                     dir('docker/webservice/www') {
