@@ -8,14 +8,6 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
             disableConcurrentBuilds(),
 ])
 
-// get parameters
-def parameters = build?.actions.find{ it instanceof ParametersAction }?.parameters
-parameters.each {
-   println "parameter ${it.name}:"
-   println it.dump()
-   println "-" * 80
-}
-
 print "DEBUG: parameter Version_2_5 = ${Version_2_5}"
 
 def PRODUCT = 'openfindorder'
