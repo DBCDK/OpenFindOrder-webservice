@@ -44,7 +44,7 @@ node("master") {
                     """
                 script {
                     util = load("jenkins/scripts/utilities.groovy")
-                    util.hello()
+                    util.hello('hest')
                 }
             }
 
@@ -133,9 +133,9 @@ node("master") {
 
             stage('Docker: push and cleanup') {
                 // drop artifactory update while fooling around
-                docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
-                   ofoImage.push()
-                }
+                // docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
+                //    ofoImage.push()
+                // }
 
                 sh """
                    docker rmi ${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}
