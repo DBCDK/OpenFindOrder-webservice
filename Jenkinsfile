@@ -19,6 +19,9 @@ def WORKSPACE = "workspace/$PRODUCT"
 def VERSION_2_5 = params.Version_2_5
 def VERSION_2_6 = params.Version_2_6
 
+print "Parameter: PRODUCT = ${PRODUCT}"
+print "Parameter: WORKSPACE = ${WORKSPACE}"
+
 // the image to use on different stages
 def ofoImage
 
@@ -64,7 +67,7 @@ node("master") {
                     }
                     // checkout release
                     sh """
-                      git checkout release/2.5
+                      git checkout feature/release_2_5
                       """
                       // copy files needed for docker image
                       sh """
@@ -171,7 +174,7 @@ node("master") {
                     }
                     // checkout release
                     sh """
-                      git checkout release/2.6
+                      git checkout feature/release_2_6
                       """
                       // copy files needed for docker image
                       sh """
@@ -285,7 +288,7 @@ node("master") {
             stage("Docker: build image") {
                 dir("docker/webservice") {
                     // build the image
-                    //ouiImage = docker.build("docker-dscrum.dbc.dk/oui:latest")
+                    // ouiImage = docker.build("docker-dscrum.dbc.dk/oui:latest")
                     ofoImage = docker.build("${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}")
                 }
             }
