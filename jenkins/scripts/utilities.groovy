@@ -41,5 +41,3 @@ void copyDockerFiles(String version = '2.5') {
         }
     // }
 }
-
-return this;

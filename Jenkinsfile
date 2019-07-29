@@ -43,7 +43,7 @@ node("master") {
                     ls -al
                     """
                 script {
-                    util = load(jenkins/scripts/utilities.groovy")
+                    util = load("jenkins/scripts/utilities.groovy")
                     util.hello()
                 }
             }
