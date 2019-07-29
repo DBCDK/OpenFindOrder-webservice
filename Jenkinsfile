@@ -218,25 +218,7 @@ node("master") {
       	                """
 
                       // copy files needed for docker image
-                      sh """
-      	                cp -r \
-      	                openfindorder.wsdl_INSTALL \
-      	                openfindorder.xsd \
-      	                openfindorder.ini_INSTALL \
-      	                OLS_class_lib/ \
-      	                server.php \
-      	                howRU.php \
-      	                xsdparse.php \
-      	                orsAgency.php \
-      	                orsClass.php \
-                        openFindOrder.php \
-                        ofoAaa.php \
-                        ofoAuthentication.php \
-                        NEWS.html \
-                        license.txt \
-      	                xml/ \
-      	                docker/webservice/www/test_2.6/
-      	                """
+                      copyDockerFiles(String version = 'test_2.6')
 
                       // make index.php symbolic link
                       dir('docker/webservice/www/2.6') {
@@ -307,8 +289,27 @@ node("master") {
     }
 }
 
-void whateverFunction(String baz = 'bar') {
+void copyDockerFiles(String version = '2.5') {
     sh """
-      echo "Hello, ${baz}."
+      echo "Hello, ${version}."
       """
-}
+    sh """
+        cp -r \
+        openfindorder.wsdl_INSTALL \
+        openfindorder.xsd \
+        openfindorder.ini_INSTALL \
+        OLS_class_lib/ \
+        server.php \
+        howRU.php \
+        xsdparse.php \
+        orsAgency.php \
+        orsClass.php \
+        openFindOrder.php \
+        ofoAaa.php \
+        ofoAuthentication.php \
+        NEWS.html \
+        license.txt \
+        xml/ \
+        docker/webservice/www/${version}/
+        """
+    }
