@@ -19,6 +19,8 @@ def WORKSPACE = "workspace/$PRODUCT"
 def VERSION_2_5 = params.Version_2_5
 def VERSION_2_6 = params.Version_2_6
 
+def util
+
 print "Parameter: PRODUCT = " + PRODUCT
 print "Parameter: DOCKER_HOST = ${DOCKER_HOST}"
 print "Parameter: DOCKER_REPO = ${DOCKER_REPO}"
@@ -34,6 +36,13 @@ node("master") {
         withEnv(["DOCKER_HOST=${DOCKER_HOST}"]) {
             stage('GIT: checkout code') {
                 checkout scm
+            }
+
+            stage('SetUp') {
+                script {
+                    util = load("${WORKSPACE}/jenkins/scripts/utilities.groovy")
+                    util.runStep1()
+                }
             }
 
             stage("SVN: checkout externals") {
@@ -132,7 +141,7 @@ node("master") {
         }
     }
 }
-
+/*
 void copyDockerFiles(String version = '2.5') {
     ws(WORKSPACE) {
         // create folders
@@ -170,3 +179,4 @@ void copyDockerFiles(String version = '2.5') {
         }
     }
 }
+*/
