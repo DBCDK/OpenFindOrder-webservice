@@ -62,10 +62,93 @@ node("master") {
     	                    mkdir test_2.5
     	                    """
                     }
-                    // get externals
+                    // checkout release
                     sh """
                       git checkout release/2.5
                       """
+                      // copy files needed for docker image
+                      sh """
+      	                cp -r \
+      	                openfindorder.wsdl_INSTALL \
+      	                openfindorder.xsd \
+      	                openfindorder.ini_INSTALL \
+      	                OLS_class_lib/ \
+      	                server.php \
+      	                howRU.php \
+      	                xsdparse.php \
+      	                orsAgency.php \
+      	                orsClass.php \
+                        openFindOrder.php \
+                        ofoAaa.php \
+                        ofoAuthentication.php \
+                        NEWS.html \
+                        license.txt \
+      	                xml/ \
+      	                docker/webservice/www/2.5/
+      	                """
+
+                      // copy files needed for docker image
+                      sh """
+      	                cp -r \
+      	                openfindorder.wsdl_INSTALL \
+      	                openfindorder.xsd \
+      	                openfindorder.ini_INSTALL \
+      	                OLS_class_lib/ \
+      	                server.php \
+      	                howRU.php \
+      	                xsdparse.php \
+      	                orsAgency.php \
+      	                orsClass.php \
+                        openFindOrder.php \
+                        ofoAaa.php \
+                        ofoAuthentication.php \
+                        NEWS.html \
+                        license.txt \
+      	                xml/ \
+      	                docker/webservice/www/next_2.5/
+      	                """
+
+                      // copy files needed for docker image
+                      sh """
+      	                cp -r \
+      	                openfindorder.wsdl_INSTALL \
+      	                openfindorder.xsd \
+      	                openfindorder.ini_INSTALL \
+      	                OLS_class_lib/ \
+      	                server.php \
+      	                howRU.php \
+      	                xsdparse.php \
+      	                orsAgency.php \
+      	                orsClass.php \
+                        openFindOrder.php \
+                        ofoAaa.php \
+                        ofoAuthentication.php \
+                        NEWS.html \
+                        license.txt \
+      	                xml/ \
+      	                docker/webservice/www/test_2.5/
+      	                """
+
+                      // make index.php symbolic link
+                      dir('docker/webservice/www/2.5') {
+                          sh """
+                            ln -s server.php index.php
+      	                    """
+                      }
+
+                      // make index.php symbolic link
+                      dir('docker/webservice/www/next_2.5') {
+                          sh """
+                            ln -s server.php index.php
+      	                    """
+                      }
+
+                      // make index.php symbolic link
+                      dir('docker/webservice/www/test_2.5') {
+                          sh """
+                            ln -s server.php index.php
+      	                    """
+                      }
                 }
                 else {
                     sh """
@@ -86,10 +169,93 @@ node("master") {
     	                    mkdir test_2.6
     	                    """
                     }
-                    // get externals
+                    // checkout release
                     sh """
                       git checkout release/2.6
                       """
+                      // copy files needed for docker image
+                      sh """
+      	                cp -r \
+      	                openfindorder.wsdl_INSTALL \
+      	                openfindorder.xsd \
+      	                openfindorder.ini_INSTALL \
+      	                OLS_class_lib/ \
+      	                server.php \
+      	                howRU.php \
+      	                xsdparse.php \
+      	                orsAgency.php \
+      	                orsClass.php \
+                        openFindOrder.php \
+                        ofoAaa.php \
+                        ofoAuthentication.php \
+                        NEWS.html \
+                        license.txt \
+      	                xml/ \
+      	                docker/webservice/www/2.6/
+      	                """
+
+                      // copy files needed for docker image
+                      sh """
+      	                cp -r \
+      	                openfindorder.wsdl_INSTALL \
+      	                openfindorder.xsd \
+      	                openfindorder.ini_INSTALL \
+      	                OLS_class_lib/ \
+      	                server.php \
+      	                howRU.php \
+      	                xsdparse.php \
+      	                orsAgency.php \
+      	                orsClass.php \
+                        openFindOrder.php \
+                        ofoAaa.php \
+                        ofoAuthentication.php \
+                        NEWS.html \
+                        license.txt \
+      	                xml/ \
+      	                docker/webservice/www/next_2.6/
+      	                """
+
+                      // copy files needed for docker image
+                      sh """
+      	                cp -r \
+      	                openfindorder.wsdl_INSTALL \
+      	                openfindorder.xsd \
+      	                openfindorder.ini_INSTALL \
+      	                OLS_class_lib/ \
+      	                server.php \
+      	                howRU.php \
+      	                xsdparse.php \
+      	                orsAgency.php \
+      	                orsClass.php \
+                        openFindOrder.php \
+                        ofoAaa.php \
+                        ofoAuthentication.php \
+                        NEWS.html \
+                        license.txt \
+      	                xml/ \
+      	                docker/webservice/www/test_2.6/
+      	                """
+
+                      // make index.php symbolic link
+                      dir('docker/webservice/www/2.6') {
+                          sh """
+                            ln -s server.php index.php
+      	                    """
+                      }
+
+                      // make index.php symbolic link
+                      dir('docker/webservice/www/next_2.6') {
+                          sh """
+                            ln -s server.php index.php
+      	                    """
+                      }
+
+                      // make index.php symbolic link
+                      dir('docker/webservice/www/test_2.6') {
+                          sh """
+                            ln -s server.php index.php
+      	                    """
+                      }
                 }
                 else {
                     sh """
@@ -114,92 +280,6 @@ node("master") {
                     """
                 }
 
-            }
-
-            stage("copy files") {
-                // copy files needed for docker image
-                sh """
-	                cp -r \
-	                openfindorder.wsdl_INSTALL \
-	                openfindorder.xsd \
-	                openfindorder.ini_INSTALL \
-	                OLS_class_lib/ \
-	                server.php \
-	                howRU.php \
-	                xsdparse.php \
-	                orsAgency.php \
-	                orsClass.php \
-                  openFindOrder.php \
-                  ofoAaa.php \
-                  ofoAuthentication.php \
-                  NEWS.html \
-                  license.txt \
-	                xml/ \
-	                docker/webservice/www/2.5/
-	                """
-
-                // copy files needed for docker image
-                sh """
-	                cp -r \
-	                openfindorder.wsdl_INSTALL \
-	                openfindorder.xsd \
-	                openfindorder.ini_INSTALL \
-	                OLS_class_lib/ \
-	                server.php \
-	                howRU.php \
-	                xsdparse.php \
-	                orsAgency.php \
-	                orsClass.php \
-                  openFindOrder.php \
-                  ofoAaa.php \
-                  ofoAuthentication.php \
-                  NEWS.html \
-                  license.txt \
-	                xml/ \
-	                docker/webservice/www/next_2.5/
-	                """
-
-                // copy files needed for docker image
-                sh """
-	                cp -r \
-	                openfindorder.wsdl_INSTALL \
-	                openfindorder.xsd \
-	                openfindorder.ini_INSTALL \
-	                OLS_class_lib/ \
-	                server.php \
-	                howRU.php \
-	                xsdparse.php \
-	                orsAgency.php \
-	                orsClass.php \
-                  openFindOrder.php \
-                  ofoAaa.php \
-                  ofoAuthentication.php \
-                  NEWS.html \
-                  license.txt \
-	                xml/ \
-	                docker/webservice/www/test_2.5/
-	                """
-
-                // make index.php symbolic link
-                dir('docker/webservice/www/2.5') {
-                    sh """
-                      ln -s server.php index.php
-	                    """
-                }
-
-                // make index.php symbolic link
-                dir('docker/webservice/www/next_2.5') {
-                    sh """
-                      ln -s server.php index.php
-	                    """
-                }
-
-                // make index.php symbolic link
-                dir('docker/webservice/www/test_2.5') {
-                    sh """
-                      ln -s server.php index.php
-	                    """
-                }
             }
 
             stage("Docker: build image") {
