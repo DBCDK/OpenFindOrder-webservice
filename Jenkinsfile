@@ -59,8 +59,6 @@ node("master") {
                     dir('docker/webservice/www') {
                         sh """
     	                    mkdir 2.5
-    	                    """
-                        sh """
     	                    mkdir next_2.5
     	                    mkdir test_2.5
     	                    """
@@ -153,32 +151,34 @@ node("master") {
 }
 
 void copyDockerFiles(String version = '2.5') {
-    dir('docker/webservice/www') {
-        sh """
-            cp -r \
-            openfindorder.wsdl_INSTALL \
-            openfindorder.xsd \
-            openfindorder.ini_INSTALL \
-            OLS_class_lib/ \
-            server.php \
-            howRU.php \
-            xsdparse.php \
-            orsAgency.php \
-            orsClass.php \
-            openFindOrder.php \
-            ofoAaa.php \
-            ofoAuthentication.php \
-            NEWS.html \
-            license.txt \
-            xml/ \
-            docker/webservice/www/${version}/
-            """
-    }
+  ws(WORKSPACE) {
+      dir('docker/webservice/www') {
+          sh """
+              cp -r \
+              openfindorder.wsdl_INSTALL \
+              openfindorder.xsd \
+              openfindorder.ini_INSTALL \
+              OLS_class_lib/ \
+              server.php \
+              howRU.php \
+              xsdparse.php \
+              orsAgency.php \
+              orsClass.php \
+              openFindOrder.php \
+              ofoAaa.php \
+              ofoAuthentication.php \
+              NEWS.html \
+              license.txt \
+              xml/ \
+              docker/webservice/www/${version}/
+              """
+      }
 
-    // make index.php symbolic link
-    dir("docker/webservice/www/${version}") {
-        sh """
-            ln -s server.php index.php
-            """
-    }
+      // make index.php symbolic link
+      dir("docker/webservice/www/${version}") {
+          sh """
+              ln -s server.php index.php
+              """
+      }
+  }
 }
