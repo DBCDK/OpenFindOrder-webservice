@@ -43,7 +43,7 @@ def  copyDockerFiles(String version = '2.5') {
         // if (${version}.equals('2.6')) {
             // escape char is "$"
             def SED_STRING = $/
-                DIR=$$APACHE_ROOT/2.6
+                DIR=$$$APACHE_ROOT/2.6
                 INI=$$DIR/openfindorder.ini
                 INSTALL=$$INI"_INSTALL"
                 cp $$DIR/openfindorder.wsdl_INSTALL $$DIR/openfindorder.wsdl
