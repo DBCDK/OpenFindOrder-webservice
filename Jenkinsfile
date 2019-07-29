@@ -39,12 +39,8 @@ node("master") {
             }
 
             stage('SetUp') {
-                sh """
-                    ls -al
-                    """
                 script {
                     util = load("jenkins/scripts/utilities.groovy")
-                    util.hello('hest')
                 }
             }
 
@@ -66,7 +62,6 @@ node("master") {
 
             stage("prepare website build (version 2.5)") {
                 if (VERSION_2_5) {
-
                     // checkout release
                     sh """
                       git checkout feature/release_2_5
@@ -75,14 +70,12 @@ node("master") {
                     util.copyDockerFiles('2.5')
                     util.copyDockerFiles('next_2.5')
                     util.copyDockerFiles('test_2.5')
-
                 }
                 else {
                     sh """
                         echo 'skipping release/2.5'
                     """
                 }
-
             }
 
             stage("prepare website build (version 2.6)") {
@@ -91,19 +84,16 @@ node("master") {
                     sh """
                       git checkout feature/release_2_6
                       """
-
                     // copy files needed for docker image
                     util.copyDockerFiles('2.6')
                     util.copyDockerFiles('next_2.6')
                     util.copyDockerFiles('test_2.6')
-
                 }
                 else {
                     sh """
                         echo 'skipping release/2.6'
                     """
                 }
-
             }
 
             stage("Set OpenVersionWrapper link") {
@@ -133,12 +123,12 @@ node("master") {
 
             stage('Docker: push and cleanup') {
                 // drop artifactory update while fooling around
-                // docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
-                //    ofoImage.push()
-                // }
+                docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
+                  ofoImage.push()
+                }
 
                 sh """
-                   docker rmi ${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}
+                    docker rmi ${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}
                     """
             }
         }
