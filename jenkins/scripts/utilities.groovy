@@ -41,8 +41,7 @@ def  copyDockerFiles(String version = '2.5') {
     // Make index.php symbolic link.
     dir("docker/webservice") {
         // if (${version}.equals('2.6')) {
-            def STR_APACHE_ROOT = '$APACHE_ROOT'
-            def SED_STRING = 'DIR=$STR_APACHE_ROOT/2.6\n' +
+            def SED_STRING = 'DIR=$APACHE_ROOT/2.6\n' +
                 'INI=$DIR/openfindorder.ini\n' +
                 'INSTALL=$INI"_INSTALL"\n' +
                 'cp \$DIR/openfindorder.wsdl_INSTALL \$DIR/openfindorder.wsdl\n' +
@@ -56,7 +55,7 @@ def  copyDockerFiles(String version = '2.5') {
                 '    sed -i "s#@AAA_FORS_RIGHTS@#\$AAA_FORS_RIGHTS#g" \$INI\n' +
                 '    sed -i "s#@LOGFILE@#v\$LOGFILE#g" \$INI\n' +
                 '    sed -i "s#@VERBOSE_LEVEL@#\$VERBOSE_LEVEL#g" \$INI\n' +
-                'fi'
+                'fi\n'
         // }
         sh """
             echo '/*' + ${SED_STRING} + '*/'
