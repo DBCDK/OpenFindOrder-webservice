@@ -20,6 +20,7 @@ def VERSION_2_5 = params.Version_2_5
 def VERSION_2_6 = params.Version_2_6
 
 print "Parameter: PRODUCT = ${PRODUCT}"
+print "Parameter: PRODUCT = " + PRODUCT
 print "Parameter: WORKSPACE = ${WORKSPACE}"
 
 // the image to use on different stages
