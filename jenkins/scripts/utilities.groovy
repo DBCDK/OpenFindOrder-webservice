@@ -42,24 +42,24 @@ def  copyDockerFiles(String version = '2.5') {
     dir("docker/webservice") {
         // if (${version}.equals('2.6')) {
             def STR_APACHE_ROOT = '$APACHE_ROOT'
-            def SED_STRING = 'DIR=$STR_APACHE_ROOT/2.6' +
+            def SED_STRING = 'DIR=$STR_APACHE_ROOT/2.6\n' +
                 'INI=$DIR/openfindorder.ini\n' +
-                'INSTALL=$INI"_INSTALL"' +
-                'cp \$DIR/openfindorder.wsdl_INSTALL \$DIR/openfindorder.wsdl' +
-                'if [ ! -f \$INI ] ; then' +
-                '    cp \$INSTALL \$INI' +
-                '    sed -i "s#@OPENAGENCY_AGENCY_LIST@#\$OPENAGENCY_AGENCY_LIST_PROD#g" \$INI' +
-                '    sed -i "s#@ORS2_URL@#\$ORS2_URL_PROD#g" \$INI' +
-                '    sed -i "s#@CACHE_SETTINGS@#\$CACHE_SETTINGS#g" \$INI' +
-                '    sed -i "s#@MY_DOMAIN@#\$MY_DOMAIN#g" \$INI' +
-                '    sed -i "s#@MY_DOMAIN_IP_LIST@#\$MY_DOMAIN_IP_LIST#g" \$INI' +
-                '    sed -i "s#@AAA_FORS_RIGHTS@#\$AAA_FORS_RIGHTS#g" \$INI' +
-                '    sed -i "s#@LOGFILE@#v\$LOGFILE#g" \$INI' +
-                '    sed -i "s#@VERBOSE_LEVEL@#\$VERBOSE_LEVEL#g" \$INI' +
+                'INSTALL=$INI"_INSTALL"\n' +
+                'cp \$DIR/openfindorder.wsdl_INSTALL \$DIR/openfindorder.wsdl\n' +
+                'if [ ! -f \$INI ] ; then\n' +
+                '    cp \$INSTALL \$INI\n' +
+                '    sed -i "s#@OPENAGENCY_AGENCY_LIST@#\$OPENAGENCY_AGENCY_LIST_PROD#g" \$INI\n' +
+                '    sed -i "s#@ORS2_URL@#\$ORS2_URL_PROD#g" \$INI\n' +
+                '    sed -i "s#@CACHE_SETTINGS@#\$CACHE_SETTINGS#g" \$INI\n' +
+                '    sed -i "s#@MY_DOMAIN@#\$MY_DOMAIN#g" \$INI\n' +
+                '    sed -i "s#@MY_DOMAIN_IP_LIST@#\$MY_DOMAIN_IP_LIST#g" \$INI\n' +
+                '    sed -i "s#@AAA_FORS_RIGHTS@#\$AAA_FORS_RIGHTS#g" \$INI\n' +
+                '    sed -i "s#@LOGFILE@#v\$LOGFILE#g" \$INI\n' +
+                '    sed -i "s#@VERBOSE_LEVEL@#\$VERBOSE_LEVEL#g" \$INI\n' +
                 'fi'
         // }
         sh """
-            echo ${SED_STRING}
+            echo '/*' + ${SED_STRING} + '*/'
             // sed -i "s#@RUN-OFO@#${SED_STRING}#g" run-ofo.sh
             """
     }
