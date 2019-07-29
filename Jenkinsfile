@@ -218,7 +218,7 @@ node("master") {
       	                """
 
                       // copy files needed for docker image
-                      copyDockerFiles(String version = 'test_2.6')
+                      copyDockerFiles('test_2.6')
 
                       // make index.php symbolic link
                       dir('docker/webservice/www/2.6') {
