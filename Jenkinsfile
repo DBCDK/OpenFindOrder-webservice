@@ -36,12 +36,13 @@ node("master") {
         withEnv(["DOCKER_HOST=${DOCKER_HOST}"]) {
             stage('GIT: checkout code') {
                 checkout scm
-                sh """
-                    ls -al
-                    """
             }
 
             stage('SetUp') {
+                sh """
+                    cd "${WORKSPACE}/jenkins/scripts"
+                    ls -al
+                    """
                 script {
                     util = load("${WORKSPACE}/jenkins/scripts/utilities.groovy")
                     util.hello()
