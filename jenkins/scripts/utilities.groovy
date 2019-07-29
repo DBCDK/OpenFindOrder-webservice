@@ -59,8 +59,8 @@ def  copyDockerFiles(String version = '2.5') {
                 fi/$
         // }
         sh """
-            echo ${SED_STRING}
-            sed -i "s#@RUN-OFO@#${SED_STRING}#g" run-ofo.sh
+            echo SED_STRING
+            // sed -i "s#@RUN-OFO@#${SED_STRING}#g" run-ofo.sh
             """
     }
 }
