@@ -40,11 +40,10 @@ node("master") {
 
             stage('SetUp') {
                 sh """
-                    cd "${WORKSPACE}/jenkins/scripts"
                     ls -al
                     """
                 script {
-                    util = load("${WORKSPACE}/jenkins/scripts/utilities.groovy")
+                    util = load(jenkins/scripts/utilities.groovy")
                     util.hello()
                 }
             }
