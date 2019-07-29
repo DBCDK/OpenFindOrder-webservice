@@ -11,7 +11,9 @@ def  copyDockerFiles(String version = '2.5') {
         // create folders
         dir('docker/webservice/www') {
             sh """
+              pwd
               mkdir ${version}
+              ls -al
               """
 
             sh """
