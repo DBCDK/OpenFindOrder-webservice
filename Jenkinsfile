@@ -1,13 +1,20 @@
 #!groovy
 
-def PRODUCT = 'openfindorder'
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: dscrumDefaults.numToKeepStr())),
+            pipelineTriggers([cron('H 6 * * *')]),
+            parameters([
+                    booleanParam(defaultValue: false, description: 'fetch version 2.5', name: 'Version_2_5'),
+                    booleanParam(defaultValue: false, description: 'fetch version 2.6', name: 'Version_2_6')]),
+            disableConcurrentBuilds(),
+])
 
+def PRODUCT = 'openfindorder'
 def DOCKER_HOST = 'tcp://dscrum-is:2375'
 def DOCKER_REPO = 'docker-dscrum.dbc.dk'
 def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk, niw@dbc.dk'
 def WORKSPACE = "workspace/$PRODUCT"
-def version_2_5 = params.Version_2_5
-def version_2_6 = params.Version_2_6
+def VERSION_2_5 = params.Version_2_5
+def VERSION_2_6 = params.Version_2_6
 
 // the image to use on different stages
 def ofoImage
@@ -42,7 +49,7 @@ node("master") {
             }
 
             stage("prepare website build (version 2.5)") {
-                if (version_2_5) {
+                if (VERSION_2_5) {
                     // cd www folder
                     // make index.php symbolic link
                     dir('docker/webservice/www') {
@@ -73,7 +80,7 @@ node("master") {
             }
 
             stage("prepare website build (version 2.5)") {
-                if (version_2_6) {
+                if (VERSION_2_6) {
                     // cd www folder
                     // make index.php symbolic link
                     dir('docker/webservice/www') {
