@@ -11,11 +11,13 @@ def  copyDockerFiles(String version = '2.5') {
         // create folders
         dir('docker/webservice/www') {
             sh """
-              pwd
-              mkdir ${version}
-              ls -al
-              """
+                pwd
+                mkdir ${version}
+                ls -al
+                """
+        }
 
+        dir('') {
             sh """
                 cp -r \
                 openfindorder.wsdl_INSTALL \
@@ -33,7 +35,7 @@ def  copyDockerFiles(String version = '2.5') {
                 NEWS.html \
                 license.txt \
                 xml/ \
-                ${version}/
+                docker/webservice/www/${version}/
                 """
         }
 
