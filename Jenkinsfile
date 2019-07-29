@@ -61,7 +61,6 @@ node("master") {
     	                    mkdir 2.5
     	                    """
                         sh """
-    	                    mkdir 2.5
     	                    mkdir next_2.5
     	                    mkdir test_2.5
     	                    """
