@@ -42,7 +42,7 @@ def  copyDockerFiles(String version = '2.5') {
     dir("docker/webservice") {
         if (${version} == '2.6') {
             def SED_STRING = '''
-                DIR=$APACHE_ROOT/''' + ${version} + '''
+                DIR=$APACHE_ROOT/2.6
                 INI=$DIR/openfindorder.ini
                 INSTALL=$INI"_INSTALL"
                 cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
@@ -60,7 +60,7 @@ def  copyDockerFiles(String version = '2.5') {
         }
         sh """
             print "Parameter: SED_STRING = ${SED_STRING}"
-            sed -i "s#@RUN-OFO@#${SED_STRING}#g" run-ofo.sh
+            // sed -i "s#@RUN-OFO@#${SED_STRING}#g" run-ofo.sh
             """
     }
 }
