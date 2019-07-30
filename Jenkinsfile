@@ -124,7 +124,7 @@ node("master") {
             }
 
             stage("Docker: build image") {
-                dir('docker/webservice) {
+                dir('docker/webservice') {
                     sh """
                         ls -al
                         pg run-ofo.sh
