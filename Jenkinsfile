@@ -73,11 +73,6 @@ node("master") {
                         ls -al
 	                      """
                 }
-                dir('docker/webservice/www') {
-                    sh """
-                        ls -al
-	                      """
-                }
             }
 
             stage("prepare website build (version 2.5)") {
