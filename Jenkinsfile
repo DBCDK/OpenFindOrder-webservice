@@ -127,7 +127,6 @@ node("master") {
                         echo 'No releases selected. '
                     """
                 }
-
             }
 
             stage("Docker: build image") {
@@ -140,11 +139,9 @@ node("master") {
                 docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
                     ofoImage.push()
                 }
-
                 sh """
                    docker rmi ${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}
                     """
-
             }
         }
     }
