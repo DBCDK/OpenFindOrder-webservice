@@ -46,6 +46,7 @@ node("master") {
                 // not the release branches which will get checked out later.
                 dir('docker') {
                     sh """
+                        rm -rf webservice/
                         cp -r install/ webservice/
                         """
                 }
