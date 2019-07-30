@@ -54,9 +54,11 @@ node("master") {
             stage("SVN: checkout externals") {
                 // get externals
                 // Check out OpenVersionWrapper & class_lib
-                sh """
-                    svn co 'https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/' OLS_class_lib
-                    """
+                dir('') {
+                    sh """
+                        svn co 'https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/' OLS_class_lib
+                        """
+                }
                 dir('docker/webservice') {
                     sh """
 	                      rm -rf www
