@@ -40,7 +40,7 @@ def  copyDockerFiles(String version = '2.5') {
 
     // Make index.php symbolic link.
     dir("docker/webservice") {
-        //  if (${version}.equals('2.6')) {
+        /*  if (${version}.equals('2.6')) {
             def SED_STRING = 'DIR=$APACHE_ROOT/2.6\n' +
                 'INI=$DIR/openfindorder.ini\n' +
                 'INSTALL=$INI"_INSTALL"\n' +
@@ -56,11 +56,12 @@ def  copyDockerFiles(String version = '2.5') {
                 '    sed -i "s#@LOGFILE@#v\$LOGFILE#g" \$INI\n' +
                 '    sed -i "s#@VERBOSE_LEVEL@#\$VERBOSE_LEVEL#g" \$INI\n' +
                 'fi\n'
-        // }
+        }
         sh """
             // sed -i "s#@RUN-OFO@#${SED_STRING}#g" foo.test
             cp foo.test www/foo.test
             """
+        */
     }
 }
 
