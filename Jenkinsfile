@@ -56,6 +56,10 @@ node("master") {
 	                      svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
                         cp OpenVersionWrapper/* www/
 	                      """
+                    sh """
+                        ls -al
+                        cp foo.test_INSTALL foo.test
+                        """
                 }
 
             }
