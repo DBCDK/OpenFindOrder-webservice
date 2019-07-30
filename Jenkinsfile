@@ -47,7 +47,7 @@ node("master") {
                 dir('docker') {
                     sh """
                         rm -rf webservice/
-                        cp -r install/ webservice/
+                        cp -rp install/ webservice/
                         ls -al
                         """
                 }
