@@ -50,8 +50,6 @@ if [ ! -f $INI ] ; then
     sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
 fi
 
-@RUN-OFO@
-
 if [ "$1" == '' ]; then
 	service memcached start
 	/usr/sbin/apache2ctl -D FOREGROUND
