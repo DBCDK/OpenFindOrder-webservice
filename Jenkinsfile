@@ -73,9 +73,8 @@ node("master") {
                         ls -al
 	                      """
                 }
-
             }
-/*
+
             stage("prepare website build (version 2.5)") {
                 if (VERSION_2_5) {
                     // checkout release
@@ -145,7 +144,6 @@ node("master") {
                     """
 
             }
-*/
         }
     }
 }
