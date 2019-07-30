@@ -58,7 +58,7 @@ def  copyDockerFiles(String version = '2.5') {
                 'fi\n'
         // }
         sh """
-            sed -i "s#@RUN-OFO@#${SED_STRING}#g" foo.test
+            // sed -i "s#@RUN-OFO@#${SED_STRING}#g" foo.test
             cp foo.test www/foo.test
             """
     }
