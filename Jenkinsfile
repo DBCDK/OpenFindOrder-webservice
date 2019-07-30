@@ -68,11 +68,6 @@ node("master") {
                         ls -al
 	                      """
                 }
-                dir('docker/webservice/www') {
-                    sh """
-                        ls -al
-	                      """
-                }
             }
 
             stage("prepare website build (version 2.5)") {
@@ -130,6 +125,8 @@ node("master") {
 
             stage("Docker: build image") {
                 dir("docker/webservice") {
+                    ls -al
+                    pg run-ofo.sh
                     ofoImage = docker.build("${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}")
                 }
             }
