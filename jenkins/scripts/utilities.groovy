@@ -41,6 +41,7 @@ def  copyDockerFiles(String version = '2.5') {
     // Make index.php symbolic link.
     dir("docker/webservice") {
         sh """
+            ls -al
             cp foo.test_INSTALL foo.test
             """
         //  if (${version}.equals('2.6')) {
