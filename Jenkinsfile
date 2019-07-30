@@ -65,8 +65,8 @@ node("master") {
                     sh """
 	                      rm -rf www
 	                      svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
-                        // add OpenVersionWrapper setup
-                        /* cp OpenVersionWrapper.install/* www/ */
+                        //  OpenVersionWrapper setup
+                        cp OpenVersionWrapper.install/* www/
 	                      """
                 }
                 dir('docker/webservice') {
