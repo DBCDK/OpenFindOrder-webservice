@@ -124,9 +124,13 @@ node("master") {
             }
 
             stage("Docker: build image") {
+                dir('docker/webservice) {
+                    sh """
+                        ls -al
+                        pg run-ofo.sh
+                        """
+                }
                 dir("docker/webservice") {
-                    ls -al
-                    pg run-ofo.sh
                     ofoImage = docker.build("${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}")
                 }
             }
