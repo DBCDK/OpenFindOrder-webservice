@@ -11,7 +11,7 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
 print "Parameter: Version_2_5 = ${Version_2_5}"
 print "Parameter: Version_2_6 = ${Version_2_6}"
 
-def PRODUCT = 'openfindorder'
+def PRODUCT = 'openfindordertest'
 def DOCKER_HOST = 'tcp://dscrum-is:2375'
 def DOCKER_REPO = 'docker-dscrum.dbc.dk'
 def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk, niw@dbc.dk'
@@ -56,10 +56,12 @@ node("master") {
 	                      svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
                         cp OpenVersionWrapper/* www/
 	                      """
+                    /*
                     sh """
                         ls -al
                         cp foo.test_INSTALL foo.test
                         """
+                    */
                 }
 
             }
