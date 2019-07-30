@@ -70,7 +70,7 @@ node("master") {
                 }
                 dir('docker/webservice/www') {
                     sh """
-                        print "fubar"
+                        echo "fubar"
                         ls -al
 	                      """
                 }
