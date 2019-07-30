@@ -42,6 +42,13 @@ node("master") {
                 script {
                     util = load("jenkins/scripts/utilities.groovy")
                 }
+                // We'll want to work from the master branch,
+                // not the release branches which will get checked out later.
+                dir('docker') {
+                    sh """
+                        cp -r install/ webservice/
+                        """
+                }
             }
 
             stage("SVN: checkout externals") {
@@ -56,12 +63,6 @@ node("master") {
 	                      svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
                         cp OpenVersionWrapper/* www/
 	                      """
-                    sh """
-                        cp foo.test_INSTALL foo.test
-                        cp run-ofo.install run-ofo.sh
-                        cp Dockerfile.install Dockerfile
-                        ls -al
-                        """
                 }
 
             }
