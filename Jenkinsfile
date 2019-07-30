@@ -61,12 +61,13 @@ node("master") {
                     sh """
 	                      rm -rf www
 	                      svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
+                        ls -al
                         cp OpenVersionWrapper/* www/
 	                      """
                 }
 
             }
-
+/*
             stage("prepare website build (version 2.5)") {
                 if (VERSION_2_5) {
                     // checkout release
@@ -136,6 +137,7 @@ node("master") {
                     """
 
             }
+*/
         }
     }
 }
