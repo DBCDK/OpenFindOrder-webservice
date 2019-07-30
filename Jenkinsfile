@@ -48,6 +48,7 @@ node("master") {
                     sh """
                         rm -rf webservice/
                         cp -r install/ webservice/
+                        ls -al
                         """
                 }
             }
