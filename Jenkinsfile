@@ -85,6 +85,7 @@ node("master") {
                     // checkout release
                     sh """
                       git checkout feature/release_2_5
+                      git pull
                       """
                     // copy files needed for docker image
                     util.copyDockerFiles('2.5')
@@ -103,6 +104,7 @@ node("master") {
                     // checkout release
                     sh """
                       git checkout feature/release_2_6
+                      git pull
                       """
                     // copy files needed for docker image
                     util.copyDockerFiles('2.6')
