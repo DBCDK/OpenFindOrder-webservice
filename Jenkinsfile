@@ -62,7 +62,12 @@ node("master") {
 	                      rm -rf www
 	                      svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
                         ls -al
-                        cp OpenVersionWrapper/* www/
+                        // cp OpenVersionWrapper/* www/
+	                      """
+                }
+                dir('docker/webservice/www') {
+                    sh """
+                        ls -al
 	                      """
                 }
 
