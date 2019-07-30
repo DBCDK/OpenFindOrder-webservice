@@ -58,7 +58,8 @@ node("master") {
 	                      """
                     sh """
                         cp foo.test_INSTALL foo.test
-                        cp run-ofo.sh run.openFindOrder.sh
+                        cp run-ofo.install run-ofo.sh
+                        cp Dockerfile.install Dockerfile
                         ls -al
                         """
                 }

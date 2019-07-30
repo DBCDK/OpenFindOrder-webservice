@@ -23,7 +23,7 @@ ENV CACHE_SETTINGS="cache_host = localhost\ncache_port = 11211\ncache_expire = 6
 
 COPY apache_security.conf /etc/apache2/conf-enabled/
 COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
-COPY run.openFindOrder.sh /
-RUN chmod 755 /run.openFindOrder.sh
+COPY run-ofo.sh /
+RUN chmod 755 /run-ofo.sh
 
-ENTRYPOINT ["/run.openFindOrder.sh"]
+ENTRYPOINT ["/run-ofo.sh"]
