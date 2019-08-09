@@ -79,7 +79,7 @@ class orsAgency{
         case 'no_userid_selected':
         case 'profile_not_found':
         case 'error_in_request':
-          VerboseJson::log(ERROR, array('openAgency error' => $agency_error));
+          VerboseJson::log(ERROR, array('openAgency error' => $agency_error . '; URL:' . $url));
           // no break
         case 'agency_not_found':
         case 'no_agencies_found':
@@ -88,7 +88,7 @@ class orsAgency{
         case 'service_unavailable':
         default:
           $this->setError('open find order service not available');
-          VerboseJson::log(ERROR, array('openAgency error' => $agency_error));
+          VerboseJson::log(ERROR, array('openAgency error' => $agency_error . '; URL:' . $url));
           break;
       }
     }
