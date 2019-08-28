@@ -76,7 +76,7 @@ node("master") {
             }
 
             stage("prepare website build (version 2.5)") {
-                if (true) {
+                if (VERSION_2_5) {
                     // checkout release
                     sh """
                       git checkout feature/release_2_5
@@ -95,7 +95,7 @@ node("master") {
             }
 
             stage("prepare website build (version 2.6)") {
-                if (true) {
+                if (VERSION_2_6) {
                     // checkout release
                     sh """
                       git checkout feature/release_2_6
@@ -114,7 +114,7 @@ node("master") {
             }
 
             stage("Set OpenVersionWrapper link") {
-                if (true) {
+                if (VERSION_2_5 || VERSION_2_6) {
                     // make index.php symbolic link
                     dir('docker/webservice/www') {
                         sh """
