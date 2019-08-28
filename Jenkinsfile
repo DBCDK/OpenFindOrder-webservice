@@ -76,7 +76,7 @@ node("master") {
             }
 
             stage("prepare website build (version 2.5)") {
-                if (VERSION_2_5) {
+                if (True) {
                     // checkout release
                     sh """
                       git checkout feature/release_2_5
