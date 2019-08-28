@@ -21,10 +21,10 @@ node('master') {
         stage('Promote') {
             def artyServer = Artifactory.server 'artytest'
 
-            def buildName = "${PRODUCT} :: master"
+            def buildName = "${PRODUCT}"
 
             def promotionConfig = [
-                    'buildName'          : 'openfindorder :: master',
+                    'buildName'          : 'openfindorder',
                     'buildNumber'        : Buildnumber,
                     'targetRepo'         : 'docker-dscrum-prod',
                     'comment'            : 'Released for production by ' + dscrumUtil.getBuildUserId() + '.',
