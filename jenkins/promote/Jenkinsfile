@@ -24,11 +24,11 @@ node('master') {
             def buildName = "${PRODUCT}"
 
             def promotionConfig = [
-                    'buildName'          : 'OpenFindOrder :: master',
+                    'buildName'          : 'openfindorder',
                     'buildNumber'        : Buildnumber,
                     'targetRepo'         : 'docker-dscrum-prod',
                     'comment'            : 'Released for production by ' + dscrumUtil.getBuildUserId() + '.',
-                    'sourceRepo'         : 'docker-dscrum-dev',
+                    'sourceRepo'         : 'openfindorder',
                     'status'             : 'Released',
                     'includeDependencies': true,
                     'copy'               : false
