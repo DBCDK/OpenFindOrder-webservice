@@ -22,7 +22,7 @@ node('master') {
             def artyServer = Artifactory.server 'arty'
 
             def promotionConfig = [
-                    'buildName'          : 'openfindorder :: master',
+                    'buildName'          : 'openfindorder',
                     'buildNumber'        : Buildnumber,
                     'targetRepo'         : 'docker-dscrum-prod',
                     'comment'            : 'Released for production by ' + dscrumUtil.getBuildUserId() + '.',
@@ -35,10 +35,6 @@ node('master') {
             echo "Promoting build ${Buildnumber} to production"
 
             artyServer.promote promotionConfig
-
-            // schedule deploy job - it will be run at 6 o'clock in the morning
-            // @TODO incomment this line
-            //build job: 'Deploy infomedia-production'
 
         }
     } catch (e) {
