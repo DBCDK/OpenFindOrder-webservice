@@ -13,7 +13,7 @@ def Buildnumber
 node('master') {
     try {
         stage('Get current build number') {
-            Buildnumber = dscrumArtifactory.getDockerLatest('docker-dscrum', 'openfindorder')
+            Buildnumber = dscrumArtifactory.getDockerLatest('docker-dscrum-dev', 'openfindorder')
         }
 
         manager.addShortText("Build ${Buildnumber}")
@@ -21,14 +21,12 @@ node('master') {
         stage('Promote') {
             def artyServer = Artifactory.server 'artytest'
 
-            def buildName = "${PRODUCT}"
-
             def promotionConfig = [
-                    'buildName'          : 'OpenFindOrder :: master',
+                    'buildName'          : 'openfindorder :: master',
                     'buildNumber'        : Buildnumber,
                     'targetRepo'         : 'docker-dscrum-prod',
                     'comment'            : 'Released for production by ' + dscrumUtil.getBuildUserId() + '.',
-                    'sourceRepo'         : 'openfindorder',
+                    'sourceRepo'         : 'docker-dscrum-dev',
                     'status'             : 'Released',
                     'includeDependencies': true,
                     'copy'               : false

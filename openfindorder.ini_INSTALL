@@ -91,7 +91,7 @@ schema=openfindorder.xsd
 
 ; --------------
 ; where to find openAgency
-; openagency_agency_list = http://some.server.dk/OpenAgency/?action=pickupAgencyList&agencyId=%s&libraryStatus=alle&outputType=php
+; openagency_agency_list = http://some.server.dk/OpenAgency/?action=pickupAgencyList&agencyId=%s&libraryStatus=alle&outputType=xml
 openagency_agency_list = @OPENAGENCY_AGENCY_LIST@
 
 ; --------------
