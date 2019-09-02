@@ -27,6 +27,11 @@ print "Parameter: DOCKER_REPO = ${DOCKER_REPO}"
 print "Parameter: MAIL_RECIPIENTS = ${MAIL_RECIPIENTS}"
 print "Parameter: WORKSPACE = ${WORKSPACE}"
 
+// Artifactory.
+def buildName = 'openfindorder :: master'
+def artyServer = Artifactory.server 'arty'
+def artyDocker = Artifactory.docker server: artyServer, host: env.DOCKER_HOST
+
 // the image to use on different stages
 def ofoImage
 
@@ -136,9 +141,14 @@ node("master") {
             }
 
             stage('Docker: push and cleanup') {
-                docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
-                    ofoImage.push()
-                }
+                // docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
+                //     ofoImage.push()
+                // }
+                def buildInfo = Artifactory.newBuildInfo()
+                buildInfo.name = buildName
+                buildInfo = artyDocker.push("${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}", 'docker-dscrum', buildInfo)
+                artyServer.publishBuildInfo buildInfo
+
                 sh """
                    docker rmi ${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}
                     """
