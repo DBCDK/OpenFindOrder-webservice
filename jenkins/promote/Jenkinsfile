@@ -6,7 +6,7 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
             gitLabConnection('dbc-gitlab')
 ])
 
-def PRODUCT = 'openfindorder'
+def PRODUCT = 'openfindorder :: master'
 
 def Buildnumber
 
@@ -22,14 +22,14 @@ node('master') {
             def artyServer = Artifactory.server 'arty'
 
             def promotionConfig = [
-                    'buildName'          : 'openfindorder',
-                    'buildNumber'        : Buildnumber,
-                    'targetRepo'         : 'docker-dscrum-prod',
-                    'comment'            : 'Released for production by ' + dscrumUtil.getBuildUserId() + '.',
-                    'sourceRepo'         : 'docker-dscrum-dev',
-                    'status'             : 'Released',
-                    'includeDependencies': true,
-                    'copy'               : false
+                'buildName'          : ${PRODUCT},
+                'buildNumber'        : ${Buildnumber},
+                'targetRepo'         : 'docker-dscrum-prod',
+                'comment'            : 'Released for production by ' + dscrumUtil.getBuildUserId() + '.',
+                'sourceRepo'         : 'docker-dscrum-dev',
+                'status'             : 'Released',
+                'includeDependencies': true,
+                'copy'               : false
             ]
 
             echo "Promoting build ${Buildnumber} to production"
