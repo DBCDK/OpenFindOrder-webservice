@@ -22,14 +22,14 @@ node('master') {
             def artyServer = Artifactory.server 'arty'
 
             def promotionConfig = [
-                'buildName'          : ${PRODUCT},
-                'buildNumber'        : ${Buildnumber},
-                'targetRepo'         : 'docker-dscrum-prod',
-                'comment'            : 'Released for production by ' + dscrumUtil.getBuildUserId() + '.',
-                'sourceRepo'         : 'docker-dscrum-dev',
-                'status'             : 'Released',
-                'includeDependencies': true,
-                'copy'               : false
+                    'buildName'          : PRODUCT,
+                    'buildNumber'        : Buildnumber,
+                    'targetRepo'         : 'docker-dscrum-prod',
+                    'comment'            : 'Released for production by ' + dscrumUtil.getBuildUserId() + '.',
+                    'sourceRepo'         : 'docker-dscrum-dev',
+                    'status'             : 'Released',
+                    'includeDependencies': true,
+                    'copy'               : false
             ]
 
             echo "Promoting build ${Buildnumber} to production"
