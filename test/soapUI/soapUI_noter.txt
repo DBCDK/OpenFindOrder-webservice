@@ -1,6 +1,10 @@
 
-SoapUI gemmer requests med ekstra return (\r). 
-Det får eksempelklienten til at fejle.
+/* test runner */
+Jenkins job: https://is.dbc.dk/view/Bibliotek.dk/job/openFindOrder_soapUI_testsuite
+
+/* troubleshooting */
+SoapUI gemmer requests med ekstra return (\r).
+Det fÃ¥r eksempelklienten til at fejle.
 
 f.ex.:
 <open:findAllIllOrdersRequest>\r

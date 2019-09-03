@@ -3,15 +3,15 @@
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: dscrumDefaults.numToKeepStr())),
             pipelineTriggers([cron('H 6 * * *')]),
             parameters([
-                    booleanParam(defaultValue: false, description: 'fetch version 2.5', name: 'Version_2_5'),
-                    booleanParam(defaultValue: false, description: 'fetch version 2.6', name: 'Version_2_6')]),
+                    booleanParam(defaultValue: true, description: 'fetch version 2.5', name: 'Version_2_5'),
+                    booleanParam(defaultValue: true, description: 'fetch version 2.6', name: 'Version_2_6')]),
             disableConcurrentBuilds(),
 ])
 
 print "Parameter: Version_2_5 = ${Version_2_5}"
 print "Parameter: Version_2_6 = ${Version_2_6}"
 
-def PRODUCT = 'openfindordertest'
+def PRODUCT = 'openfindorder'
 def DOCKER_HOST = 'tcp://dscrum-is:2375'
 def DOCKER_REPO = 'docker-dscrum.dbc.dk'
 def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk, niw@dbc.dk'
@@ -26,6 +26,11 @@ print "Parameter: DOCKER_HOST = ${DOCKER_HOST}"
 print "Parameter: DOCKER_REPO = ${DOCKER_REPO}"
 print "Parameter: MAIL_RECIPIENTS = ${MAIL_RECIPIENTS}"
 print "Parameter: WORKSPACE = ${WORKSPACE}"
+
+// Artifactory.
+def buildName = 'openfindorder :: master'
+def artyServer = Artifactory.server 'arty'
+def artyDocker = Artifactory.docker server: artyServer, host: env.DOCKER_HOST
 
 // the image to use on different stages
 def ofoImage
@@ -136,9 +141,14 @@ node("master") {
             }
 
             stage('Docker: push and cleanup') {
-                docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
-                    ofoImage.push()
-                }
+                // docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
+                //     ofoImage.push()
+                // }
+                def buildInfo = Artifactory.newBuildInfo()
+                buildInfo.name = buildName
+                buildInfo = artyDocker.push("${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}", 'docker-dscrum', buildInfo)
+                artyServer.publishBuildInfo buildInfo
+
                 sh """
                    docker rmi ${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}
                     """

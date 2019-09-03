@@ -51,10 +51,12 @@ class orsAgency{
     $agency = $this->strip_agency($agency);
     $is_main_agency = FALSE;
     $url = sprintf($this->agency_url, $agency);
+    $request = $this->curl->get($url);
+    $xml = new xmlconvert();
+    $res = $xml->soap2obj($request);
 
-    $res = unserialize($this->curl->get($url));
     if ($res && $res->pickupAgencyListResponse->_value->library) {
-      foreach ($res->pickupAgencyListResponse->_value->library[0]->_value->pickupAgency as $sublib) {
+      foreach ($res->pickupAgencyListResponse->_value->library->_value->pickupAgency as $sublib) {
         if (
           !empty($sublib->_value->branchType->_value) &&
           $sublib->_value->branchType->_value === 'H' &&
@@ -63,7 +65,7 @@ class orsAgency{
           $is_main_agency = TRUE;
         }
       }
-      foreach ($res->pickupAgencyListResponse->_value->library[0]->_value->pickupAgency as $sublib) {
+      foreach ($res->pickupAgencyListResponse->_value->library->_value->pickupAgency as $sublib) {
         if ($is_main_agency) {
           $libs[] = $sublib->_value->branchId->_value;
         }
