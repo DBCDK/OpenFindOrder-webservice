@@ -1,0 +1,70 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: openfindorder-staging
+  namespace: frontend-staging
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: openfindorder-staging
+      version: latest
+  template:
+    metadata:
+      labels:
+        app: openfindorder-staging
+        version: latest
+    spec:
+      containers:
+        - env:
+            - name: JAVA_MAX_HEAP_SIZE
+              value: 16G
+          image: docker-dscrum.dbc.dk/openfindorder:107
+          imagePullPolicy: Always
+          name: openfindorder-staging
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 1.0
+              memory: 16000Mi
+          livenessProbe:
+            httpGet:
+              path: /howRU.php
+              port: 80
+
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      schedulerName: default-scheduler
+      securityContext: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openfindorder-staging
+  namespace: frontend-staging
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: openfindorder-staging
+---
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  name: openfindorder-staging-ingress
+spec:
+  ingress:
+    - ports:
+        - port: 80
+          protocol: TCP
+  podSelector:
+    matchLabels:
+      app: openfindorder-staging
+  policyTypes:
+    - Ingress
