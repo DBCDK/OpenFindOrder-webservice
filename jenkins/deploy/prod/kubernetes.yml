@@ -1,27 +1,30 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: openfindorder-staging
-  namespace: frontend-staging
+  labels:
+    app: openfindorder-master
+    version: latest
+  name: openfindorder-master
+  namespace: frontend-prod
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: openfindorder-staging
+      app: openfindorder-master
       version: latest
   template:
     metadata:
       labels:
-        app: openfindorder-staging
+        app: openfindorder-master
         version: latest
     spec:
       containers:
         - env:
             - name: JAVA_MAX_HEAP_SIZE
               value: 16G
-          image: docker-dscrum.dbc.dk/openfindorder:107
+          image: docker-dscrum.dbc.dk/openfindorder:111
           imagePullPolicy: Always
-          name: openfindorder-staging
+          name: openfindorder-master
           ports:
             - containerPort: 80
               protocol: TCP
@@ -31,7 +34,7 @@ spec:
               memory: 16000Mi
           livenessProbe:
             httpGet:
-              path: /howRU.php
+              path: /2.6/howRU.php
               port: 80
 
       dnsPolicy: ClusterFirst
@@ -44,27 +47,37 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: openfindorder-staging
-  namespace: frontend-staging
+  name: openfindorder-master
+  namespace: frontend-prod
+  labels:
+    app: frontend-master
 spec:
   ports:
     - port: 80
       protocol: TCP
       targetPort: 80
   selector:
-    app: openfindorder-staging
+    app: openfindorder-master
 ---
 apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 metadata:
-  name: openfindorder-staging-ingress
+  name: openfindorder-network-policy
+  namespace: frontend-prod
 spec:
   ingress:
     - ports:
-        - port: 80
-          protocol: TCP
+      - port: 80
+        protocol: TCP
+  egress:
+  - ports:
+    - port: 80
+      protocol: TCP
+    - port: 8080
+      protocol: TCP
   podSelector:
     matchLabels:
-      app: openfindorder-staging
+      app: openfindorder-master
   policyTypes:
     - Ingress
+    - Egress
