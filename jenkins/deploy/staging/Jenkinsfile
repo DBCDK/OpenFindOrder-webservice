@@ -79,8 +79,8 @@ pipeline {
             script {
                 def URL = 'http://' + PRODUCT + '-' + BRANCH + '.' + NAMESPACE + '.svc.cloud.dbc.dk' + '/server.php'
 
-                // dscrumSlack.notifyProduction('d-scrum-jenkins', "${PRODUCT}", LATEST, URL)
-                // dscrumSlack.notifyProduction('d-scrum', "${PRODUCT}", LATEST, URL)
+                dscrumSlack.notifyProduction('d-scrum-jenkins', "${PRODUCT}", LATEST, URL)
+                dscrumSlack.notifyProduction('d-scrum', "${PRODUCT}", LATEST, URL)
             }
         }
         failure {
