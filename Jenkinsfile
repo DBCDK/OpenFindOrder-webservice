@@ -1,7 +1,6 @@
 #!groovy
 
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: dscrumDefaults.numToKeepStr())),
-            pipelineTriggers([cron('H 6 * * *')]),
             parameters([
                     booleanParam(defaultValue: true, description: 'fetch version 2.5', name: 'Version_2_5'),
                     booleanParam(defaultValue: true, description: 'fetch version 2.6', name: 'Version_2_6')]),
