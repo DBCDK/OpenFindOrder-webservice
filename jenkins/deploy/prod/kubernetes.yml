@@ -1,0 +1,80 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: openfindorder
+    version: latest
+  name: APPNAME
+  namespace: NAMESPACE
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: APPNAME
+      version: latest
+  template:
+    metadata:
+      labels:
+        app: APPNAME
+        version: latest
+    spec:
+      containers:
+        - image: IMAGETAG
+          imagePullPolicy: Always
+          name: APPNAME
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 1.0
+              memory: 16000Mi
+          livenessProbe:
+            httpGet:
+              path: /2.6/howRU.php
+              port: 80
+
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      schedulerName: default-scheduler
+      securityContext: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: APPNAME
+  namespace: NAMESPACE
+  labels:
+    app: frontend-master
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: APPNAME
+---
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  name: openfindorder-network-policy
+  namespace: frontend-prod
+spec:
+  ingress:
+    - ports:
+      - port: 80
+        protocol: TCP
+  egress:
+  - ports:
+    - port: 80
+      protocol: TCP
+    - port: 8080
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      app: APPNAME
+  policyTypes:
+    - Ingress
+    - Egress
