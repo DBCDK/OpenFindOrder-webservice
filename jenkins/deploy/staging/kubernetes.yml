@@ -2,29 +2,26 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: openfindorder-staging
+    app: openfindorder
     version: latest
-  name: openfindorder-staging
-  namespace: frontend-staging
+  name: APPNAME
+  namespace: NAMESPACE
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: openfindorder-staging
+      app: APPNAME
       version: latest
   template:
     metadata:
       labels:
-        app: openfindorder-staging
+        app: APPNAME
         version: latest
     spec:
       containers:
-        - env:
-            - name: JAVA_MAX_HEAP_SIZE
-              value: 16G
-          image: docker-dscrum.dbc.dk/openfindorder:111
+        - image: IMAGETAG
           imagePullPolicy: Always
-          name: openfindorder-staging
+          name: APPNAME
           ports:
             - containerPort: 80
               protocol: TCP
@@ -47,8 +44,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: openfindorder-staging
-  namespace: frontend-staging
+  name: APPNAME
+  namespace: NAMESPACE
   labels:
     app: frontend-staging
 spec:
@@ -57,7 +54,7 @@ spec:
       protocol: TCP
       targetPort: 80
   selector:
-    app: openfindorder-staging
+    app: APPNAME
 ---
 apiVersion: extensions/v1beta1
 kind: NetworkPolicy
@@ -77,7 +74,7 @@ spec:
       protocol: TCP
   podSelector:
     matchLabels:
-      app: openfindorder-staging
+      app: APPNAME
   policyTypes:
     - Ingress
     - Egress
