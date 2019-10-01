@@ -1,6 +1,4 @@
-# FROM docker.dbc.dk/dbc-apache-php7
-# Quick fix: Use branch until dbc-apache-php7 issue is solved:
-FROM docker.dbc.dk/dbc-apache-php7:no_php_ini
+FROM docker.dbc.dk/dbc-apache-php7
 
 RUN apt-get update && apt-get -q -y install php-mbstring ca-certificates
 
