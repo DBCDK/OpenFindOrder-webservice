@@ -38,7 +38,7 @@ class howRU {
     $url = parse_url($this->config->get_value('openagency_agency_list', 'setup'));
     $url['scheme'] = (!empty($url['scheme'])) ? $url['scheme'] . '://' : NULL;
     $url['port'] = (!empty($url['port'])) ? '[' . $url['port'] . ']' : NULL;
-    $url['path'] = (!empty($url['path'])) ? '/' . $url['path'] : NULL;
+    $url['path'] = (!empty($url['path'])) ? $url['path'] : '/';
     $this->curl->get($url['scheme '] . $url['host'] . $url['port'] . $url['path']);
     $status = $this->curl->get_status();
     if ($this->curl->has_error()) {
