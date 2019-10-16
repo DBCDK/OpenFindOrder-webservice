@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: openfindorder
+    app: openfindorder-master
     version: latest
   name: APPNAME
   namespace: NAMESPACE
@@ -46,8 +46,13 @@ kind: Service
 metadata:
   name: APPNAME
   namespace: NAMESPACE
+  annotations:
+    healthcheck.severity: error
+    healthcheck.path: /2.6/howRU.php
   labels:
-    app: frontend-master
+    app: openfindorder-master
+    app.dbc.dk/team: frontend
+    healthcheck.type: http
 spec:
   ports:
     - port: 80

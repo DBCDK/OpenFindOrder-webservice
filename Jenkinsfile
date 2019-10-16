@@ -40,6 +40,10 @@ node("master") {
         withEnv(["DOCKER_HOST=${DOCKER_HOST}"]) {
             stage('GIT: checkout code') {
                 checkout scm
+                // get externals
+        				dir('OLS_class_lib') {
+        					git url: 'https://github.com/DBCDK/class_lib-webservice', branch: 'master'
+        				}
             }
 
             stage('SetUp') {
@@ -59,12 +63,7 @@ node("master") {
 
             stage("SVN: checkout externals") {
                 // get externals
-                // Check out OpenVersionWrapper & class_lib
-                dir('') {
-                    sh """
-                        svn co 'https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/' OLS_class_lib
-                        """
-                }
+                // Check out OpenVersionWrapper
                 dir('docker/webservice') {
                     sh """
 	                      rm -rf www

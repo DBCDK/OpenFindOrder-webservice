@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: openfindorder
+    app: openfindorder-staging
     version: latest
   name: APPNAME
   namespace: NAMESPACE
@@ -47,7 +47,7 @@ metadata:
   name: APPNAME
   namespace: NAMESPACE
   labels:
-    app: frontend-staging
+    app: openfindorder-staging
 spec:
   ports:
     - port: 80
