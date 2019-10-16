@@ -21,7 +21,7 @@ pipeline {
         stage('get latest build') {
             steps {
                 script {
-                    LATEST = dscrumArtifactory.getDockerLatest('docker-dscrum-prod', "${PRODUCT}")
+                    LATEST = dscrumArtifactory.getDockerLatest('docker-dscrum', "${PRODUCT}")
                 }
                 echo "Buildnumber:  ${LATEST}"
             }
