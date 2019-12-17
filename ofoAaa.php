@@ -23,15 +23,15 @@
       $this->group = $this->stripAgency($param->authentication->_value->groupIdAut->_value);
       $this->agency = $param->agency->_value;
       $orsAgency = new orsAgency($this->openagencyAgencyList);
-      $branches = $orsAgency->fetch_library_list($this->group);
+      $branches = $orsAgency->fetch_library_list($this->user);
       if ($orsAgency->getError()) {
         self::local_verbose(WARNING, 'ofoAaa(' . __LINE__ . '):: orsAgency error: ' . $orsAgency->getErrorMsg());
         $this->authorizationError = 'authentication_error';
         return FALSE;
       }
+      // Is ofo:agency part of authentication:userIdAut branches?.
       if (!in_array($this->agency, $branches)) {
         // TO DO:update openfindorder.xsd -> add errorType.
-        // $this->authorizationError = 'authorization_error';
         $this->authorizationError = 'authentication_error';
         return FALSE;
       }
