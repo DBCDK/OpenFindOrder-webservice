@@ -14,6 +14,7 @@ do
         sed -i "s#@CACHE_SETTINGS@#$CACHE_SETTINGS#g" $INI
         sed -i "s#@MY_DOMAIN@#$MY_DOMAIN#g" $INI
         sed -i "s#@MY_DOMAIN_IP_LIST@#$MY_DOMAIN_IP_LIST#g" $INI
+        sed -i "s#@HERNING_IP_LIST@#$HERNING_IP_LIST#g" $INI
         sed -i "s#@AAA_FORS_RIGHTS@#$AAA_FORS_RIGHTS#g" $INI
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
@@ -35,6 +36,7 @@ do
         sed -i "s#@CACHE_SETTINGS@#$CACHE_SETTINGS#g" $INI
         sed -i "s#@MY_DOMAIN@#$MY_DOMAIN#g" $INI
         sed -i "s#@MY_DOMAIN_IP_LIST@#$MY_DOMAIN_IP_LIST#g" $INI
+        sed -i "s#@HERNING_IP_LIST@#$HERNING_IP_LIST#g" $INI
         sed -i "s#@AAA_FORS_RIGHTS@#$AAA_FORS_RIGHTS#g" $INI
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
@@ -56,6 +58,7 @@ do
         sed -i "s#@CACHE_SETTINGS@#$CACHE_SETTINGS#g" $INI
         sed -i "s#@MY_DOMAIN@#$MY_DOMAIN#g" $INI
         sed -i "s#@MY_DOMAIN_IP_LIST@#$MY_DOMAIN_IP_LIST#g" $INI
+        sed -i "s#@HERNING_IP_LIST@#$HERNING_IP_LIST#g" $INI
         sed -i "s#@AAA_FORS_RIGHTS@#$AAA_FORS_RIGHTS#g" $INI
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI

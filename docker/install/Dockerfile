@@ -12,6 +12,7 @@ ENV CACHE_SETTINGS="cache_host = localhost\ncache_port = 11211\ncache_expire = 6
     #SECURITY_IP_LIST="172.16.0.0-172.31.255.255;193.111.162.0-193.111.162.255"\
     MY_DOMAIN=".dbc.dk" \
     MY_DOMAIN_IP_LIST="127.0.0.1;172.16.0.0-172.31.255.255;193.111.162.0-193.111.162.255;10.232.0.0-10.239.255.255" \
+    HERNING_IP_LIST="213.32.246.57" \
     OPENAGENCY_AGENCY_LIST_PROD="http://openagency.addi.dk/2.34/?action=pickupAgencyList\&agencyId=%s\&libraryStatus=aktive\&outputType=xml" \
     OPENAGENCY_AGENCY_LIST_STAGING="http://openagency.addi.dk/next_2.34/?action=pickupAgencyList\&agencyId=%s\&libraryStatus=aktive\&outputType=xml" \
     LOGFILE="php://stdout" \
