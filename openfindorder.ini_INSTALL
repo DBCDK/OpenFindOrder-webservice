@@ -141,6 +141,8 @@ dump_timer = openfindorder(%s)
 ;
 aaa_ip_rights[dbc][ip_list] = @MY_DOMAIN_IP_LIST@
 aaa_ip_rights[dbc][ressource]['netpunkt.dk'] = 500
+aaa_ip_rights[herning][ip_list] = @HERNING_IP_LIST@
+aaa_ip_rights[herning][ressource]['netpunkt.dk'] = 500
 ;
 ; if not found in aaa_ip_rights the authentication object is created from the FORS
 ; either by using the WS specified by aaa_fors_rights or by OCI specified by aaa_credentials
