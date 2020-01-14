@@ -1,0 +1,93 @@
+#! groovy
+
+def DOCKER_REPO = "docker-dscrum.dbc.dk"
+def PRODUCT = 'openfindorder'
+def BRANCH = 'master'
+def LATEST
+def NAMESPACE = 'frontend-prod'
+
+pipeline {
+    agent {
+        node { label 'master' }
+    }
+    options {
+        buildDiscarder(logRotator(artifactDaysToKeepStr: "", artifactNumToKeepStr: "", daysToKeepStr: "", numToKeepStr: "5"))
+        timestamps()
+        gitLabConnection('gitlab.dbc.dk')
+        // Limit concurrent builds to one pr. branch.
+        disableConcurrentBuilds()
+    }
+    stages {
+        stage('get latest build') {
+            steps {
+                script {
+                    LATEST = dscrumArtifactory.getDockerLatest('docker-dscrum', "${PRODUCT}")
+                }
+                echo "Buildnumber:  ${LATEST}"
+            }
+        }
+        stage('build and stash k8s conf') {
+            steps {
+                dir('jenkins/deploy/tools') {
+                    git branch: 'develop',
+                        credentialsId: 'jenkins (dscrum-is SSH key)',
+                        url: 'gitlab@gitlab.dbc.dk:d-scrum/kubernetes/kubernetes_tools.git'
+                    sh """
+                        mv create_config.py ../prod/
+                    """
+                   }
+                // generate config file for k8s
+                dir('jenkins/deploy/prod') {
+                    script {
+                        def APPNAME = "${PRODUCT}-${BRANCH}"
+                        def IMAGETAG = "${DOCKER_REPO}/${PRODUCT}:${LATEST}"
+                        sh """
+                            ls -al
+                            . /var/lib/jenkins/venv/bin/activate
+                            pip install pyyaml
+                            python create_config.py -n $NAMESPACE -i $IMAGETAG -a $APPNAME
+                        """
+                    }
+                    stash name: "config", includes: "config.yml"
+                }
+            }
+        }
+        stage('deploy to k8s') {
+            // use k8s-deploy-env docker agent - so we do not need to install kubectl
+            agent {
+                docker {
+                    image "docker.dbc.dk/k8s-deploy-env:latest"
+                    alwaysPull true
+                    label "master"
+                }
+            }
+            steps {
+                unstash "config"
+                script {
+                    withCredentials([file(credentialsId: 'frontend-kubecert', variable: 'KUBECONFIG')]) {
+                        sh """
+                        kubectl -n $NAMESPACE --kubeconfig '${KUBECONFIG}' apply -f config.yml
+                        """
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            script {
+                def URL = 'http://' + PRODUCT + '-' + BRANCH + '.' + NAMESPACE + '.svc.cloud.dbc.dk' + '/server.php'
+
+                dscrumSlack.notifyProduction('d-scrum-jenkins', "${PRODUCT}", LATEST, URL)
+                dscrumSlack.notifyProduction('d-scrum', "${PRODUCT}", LATEST, URL)
+            }
+        }
+        failure {
+
+            // @TODO do something meaningfull
+            echo 'FAIL'
+
+        }
+    }
+}

@@ -29,9 +29,9 @@
         $this->authorizationError = 'authentication_error';
         return FALSE;
       }
+      // Is ofo:agency part of authentication:groupIdAut branches?.
       if (!in_array($this->agency, $branches)) {
         // TO DO:update openfindorder.xsd -> add errorType.
-        // $this->authorizationError = 'authorization_error';
         $this->authorizationError = 'authentication_error';
         return FALSE;
       }

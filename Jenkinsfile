@@ -1,7 +1,6 @@
 #!groovy
 
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: dscrumDefaults.numToKeepStr())),
-            pipelineTriggers([cron('H 6 * * *')]),
             parameters([
                     booleanParam(defaultValue: true, description: 'fetch version 2.5', name: 'Version_2_5'),
                     booleanParam(defaultValue: true, description: 'fetch version 2.6', name: 'Version_2_6')]),
@@ -41,6 +40,10 @@ node("master") {
         withEnv(["DOCKER_HOST=${DOCKER_HOST}"]) {
             stage('GIT: checkout code') {
                 checkout scm
+                // get externals
+        				dir('OLS_class_lib') {
+        					git url: 'https://github.com/DBCDK/class_lib-webservice', branch: 'master'
+        				}
             }
 
             stage('SetUp') {
@@ -60,12 +63,7 @@ node("master") {
 
             stage("SVN: checkout externals") {
                 // get externals
-                // Check out OpenVersionWrapper & class_lib
-                dir('') {
-                    sh """
-                        svn co 'https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/' OLS_class_lib
-                        """
-                }
+                // Check out OpenVersionWrapper
                 dir('docker/webservice') {
                     sh """
 	                      rm -rf www
@@ -84,7 +82,7 @@ node("master") {
                 if (VERSION_2_5) {
                     // checkout release
                     sh """
-                      git checkout feature/release_2_5
+                      git checkout release/2.5
                       git pull
                       """
                     // copy files needed for docker image
@@ -103,7 +101,7 @@ node("master") {
                 if (VERSION_2_6) {
                     // checkout release
                     sh """
-                      git checkout feature/release_2_6
+                      git checkout release/2.6
                       git pull
                       """
                     // copy files needed for docker image
@@ -141,9 +139,6 @@ node("master") {
             }
 
             stage('Docker: push and cleanup') {
-                // docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
-                //     ofoImage.push()
-                // }
                 def buildInfo = Artifactory.newBuildInfo()
                 buildInfo.name = buildName
                 buildInfo = artyDocker.push("${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}", 'docker-dscrum', buildInfo)
