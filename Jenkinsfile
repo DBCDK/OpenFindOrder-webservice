@@ -82,7 +82,7 @@ node("master") {
                 if (VERSION_2_5) {
                     // checkout release
                     sh """
-                      git checkout feature/release_2_5
+                      git checkout release/2.5
                       git pull
                       """
                     // copy files needed for docker image
@@ -101,7 +101,7 @@ node("master") {
                 if (VERSION_2_6) {
                     // checkout release
                     sh """
-                      git checkout feature/release_2_6
+                      git checkout release/2.6
                       git pull
                       """
                     // copy files needed for docker image
@@ -139,9 +139,6 @@ node("master") {
             }
 
             stage('Docker: push and cleanup') {
-                // docker.withRegistry('https://' + DOCKER_REPO, 'artifactory-api-key') {
-                //     ofoImage.push()
-                // }
                 def buildInfo = Artifactory.newBuildInfo()
                 buildInfo.name = buildName
                 buildInfo = artyDocker.push("${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}", 'docker-dscrum', buildInfo)
