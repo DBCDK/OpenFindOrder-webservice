@@ -180,7 +180,7 @@ pipeline {
     stage('Deploy') {
       // Deploy to Kubernetes frontend-staging namespace.
       if (BRANCH_NAME == 'master') {
-        build job: 'Deploy OpenFindOrder', parameters: [
+        build job: 'Deploy openfindorder', parameters: [
           string(name: 'Branch', value: BRANCH_NAME),
           string(name: 'BuildId', value: currentBuild.number.toString()),
           string(name: 'Namespace', value: 'staging'),
@@ -188,7 +188,7 @@ pipeline {
       }
       // Deploy to Kubernetes frontend-features namespace.
       else {
-        build job: 'Deploy OpenFindOrder', parameters: [
+        build job: 'Deploy openfindorder', parameters: [
           string(name: 'Branch', value: BRANCH_NAME),
           string(name: 'BuildId', value: currentBuild.number.toString()),
           string(name: 'Namespace', value: 'features'),
