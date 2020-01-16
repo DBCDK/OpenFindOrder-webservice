@@ -30,17 +30,21 @@ pipeline {
     disableConcurrentBuilds()
   }
   stages {
+  stage("Docker: build image") {
+    steps {
+      dir('docker/www') {
+        script {
+
     stage('GIT: checkout code') {
       steps {
-        script {
-          checkout scm
-          // get externals
-          dir('src/OLS_class_lib') {
-            git url: 'https://github.com/DBCDK/class_lib-webservice', branch: 'master'
-          }
+        checkout scm
+        // get externals
+        dir('src/OLS_class_lib') {
+          git url: 'https://github.com/DBCDK/class_lib-webservice', branch: 'master'
         }
       }
     }
+
     stage('SetUp') {
       steps {
         // We'll want to work from the current branch,
@@ -146,27 +150,33 @@ pipeline {
     }
 
     stage("Docker: build image") {
-      dir("docker/webservice") {
-        IMAGE = docker.build(IMAGENAME)
+      steps {
+        dir('docker/www') {
+          script {
+            IMAGE = docker.build(IMAGENAME)
+          }
+        }
       }
     }
 
     stage('Push to artifactory ') {
       steps {
-        def artyServer = Artifactory.server 'arty'
-        def artyDocker = Artifactory.docker server: artyServer, host: env.DOCKER_HOST
-        def buildInfo  = Artifactory.newBuildInfo()
+        script {
+          def artyServer = Artifactory.server 'arty'
+          def artyDocker = Artifactory.docker server: artyServer, host: env.DOCKER_HOST
+          def buildInfo  = Artifactory.newBuildInfo()
 
-        buildInfo.name = BUILDNAME
-        buildInfo = artyDocker.push(IMAGENAME, 'docker-dscrum', buildInfo)
-        buildInfo.env.capture = true
-        buildInfo.env.collect()
+          buildInfo.name = BUILDNAME
+          buildInfo = artyDocker.push(IMAGENAME, 'docker-dscrum', buildInfo)
+          buildInfo.env.capture = true
+          buildInfo.env.collect()
 
-        artyServer.publishBuildInfo buildInfo
+          artyServer.publishBuildInfo buildInfo
 
-        sh """
-          docker rmi ${IMAGENAME}
-        """
+          sh """
+            docker rmi ${IMAGENAME}
+          """
+        }
       }
     }
 
