@@ -30,10 +30,6 @@ pipeline {
     disableConcurrentBuilds()
   }
   stages {
-  stage("Docker: build image") {
-    steps {
-      dir('docker/www') {
-        script {
 
     stage('GIT: checkout code') {
       steps {
