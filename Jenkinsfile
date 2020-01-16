@@ -77,15 +77,17 @@ pipeline {
             sh """
               git checkout release/2.5
               git pull
+              pwd
+              ls -al
             """
             // Create folders & copy files needed for docker image.
             sh """
               mkdir 'docker/webservice/www/2.5'
               mkdir 'docker/webservice/www/next_2.5'
               mkdir 'docker/webservice/www/test_2.5'
-              cp -r src/* docker/webservice/www/2.5/
-              cp -r src/* docker/webservice/www/next_2.5/
-              cp -r src/* docker/webservice/www/test_2.5/
+              cp -r src/* docker/webservice/www/2.5
+              cp -r src/* docker/webservice/www/next_2.5
+              cp -r src/* docker/webservice/www/test_2.5
             """
           }
           else {
@@ -105,6 +107,8 @@ pipeline {
             sh """
               git checkout release/2.5
               git pull
+              pwd
+              ls -al
             """
             // Create folders & copy files needed for docker image.
             sh """
