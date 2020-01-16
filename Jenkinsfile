@@ -31,100 +31,112 @@ pipeline {
   }
   stages {
     stage('GIT: checkout code') {
-      checkout scm
-      // get externals
-      dir('src/OLS_class_lib') {
-        git url: 'https://github.com/DBCDK/class_lib-webservice', branch: 'master'
+      steps {
+        checkout scm
+        // get externals
+        dir('src/OLS_class_lib') {
+          git url: 'https://github.com/DBCDK/class_lib-webservice', branch: 'master'
+        }
       }
     }
     stage('SetUp') {
-      script {
-        util = load("jenkins/scripts/utilities.groovy")
-      }
-      // We'll want to work from the current branch,
-      // not the release branches which will get checked out later.
-      dir('docker') {
-        sh """
-          rm -rf webservice/
-          cp -rp install/ webservice/
-          ls -al
-        """
+      steps {
+        script {
+          util = load("jenkins/scripts/utilities.groovy")
+        }
+        // We'll want to work from the current branch,
+        // not the release branches which will get checked out later.
+        dir('docker') {
+          sh """
+            rm -rf webservice/
+            cp -rp install/ webservice/
+            ls -al
+          """
+        }
       }
     }
 
     stage("SVN: checkout externals") {
-      // Check out OpenVersionWrapper
-      dir('docker/webservice') {
-        sh """
-          rm -rf www
-          svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
-          cp OpenVersionWrapper.install/* www/
-          ls -al
-        """
+      steps {
+        // Check out OpenVersionWrapper
+        dir('docker/webservice') {
+          sh """
+            rm -rf www
+            svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
+            cp OpenVersionWrapper.install/* www/
+            ls -al
+          """
+        }
       }
     }
 
     stage("prepare website build (version 2.5)") {
-      if (VERSION_2_5) {
-        // checkout release
-        sh """
-          git checkout release/2.5
-          git pull
-        """
-        // Create folders & copy files needed for docker image.
-        sh """
-          mkdir 'docker/webservice/www/2.5'
-          mkdir 'docker/webservice/www/next_2.5'
-          mkdir 'docker/webservice/www/test_2.5'
-          cp -r src/ docker/webservice/www/2.5/
-          cp -r src/ docker/webservice/www/next_2.5/
-          cp -r src/ docker/webservice/www/test_2.5/
-        """
-      }
-      else {
-        sh """
-          echo 'skipping release/2.5'
-        """
+      steps {
+        if (VERSION_2_5) {
+          // checkout release
+          sh """
+            git checkout release/2.5
+            git pull
+          """
+          // Create folders & copy files needed for docker image.
+          sh """
+            mkdir 'docker/webservice/www/2.5'
+            mkdir 'docker/webservice/www/next_2.5'
+            mkdir 'docker/webservice/www/test_2.5'
+            cp -r src/ docker/webservice/www/2.5/
+            cp -r src/ docker/webservice/www/next_2.5/
+            cp -r src/ docker/webservice/www/test_2.5/
+          """
+        }
+        else {
+          sh """
+            echo 'skipping release/2.5'
+          """
+        }
       }
     }
 
     stage("prepare website build (version 2.6)") {
-      if (VERSION_2_6) {
-        // checkout release
-        sh """
-          git checkout release/2.5
-          git pull
-        """
-        // Create folders & copy files needed for docker image.
-        sh """
-          mkdir 'docker/webservice/www/2.6'
-          mkdir 'docker/webservice/www/next_2.6'
-          mkdir 'docker/webservice/www/test_2.6'
-          cp -r src/ docker/webservice/www/2.6/
-          cp -r src/ docker/webservice/www/next_2.6/
-          cp -r src/ docker/webservice/www/test_2.6/
-        """
-      }
-      else {
-        sh """
-          echo 'skipping release/2.6'
-        """
+      steps {
+        if (VERSION_2_6) {
+          // checkout release
+          sh """
+            git checkout release/2.5
+            git pull
+          """
+          // Create folders & copy files needed for docker image.
+          sh """
+            mkdir 'docker/webservice/www/2.6'
+            mkdir 'docker/webservice/www/next_2.6'
+            mkdir 'docker/webservice/www/test_2.6'
+            cp -r src/ docker/webservice/www/2.6/
+            cp -r src/ docker/webservice/www/next_2.6/
+            cp -r src/ docker/webservice/www/test_2.6/
+          """
+        }
+        else {
+          sh """
+            echo 'skipping release/2.6'
+          """
+        }
       }
     }
 
     stage("Set OpenVersionWrapper link") {
-      if (VERSION_2_5 || VERSION_2_6) {
-        // make index.php symbolic link
-        dir('docker/webservice/www') {
+      steps {
+        if (VERSION_2_5 || VERSION_2_6) {
+          // make index.php symbolic link
+          dir('docker/webservice/www') {
+            sh """
+              ln -s versions.php index.php
+            """
+          }
+        }
+        else {
           sh """
-            ln -s versions.php index.php
+            echo 'No releases selected. '
           """
         }
-      }
-      else {
-        sh """
-          echo 'No releases selected. '
-        """
       }
     }
 
@@ -135,20 +147,22 @@ pipeline {
     }
 
     stage('Push to artifactory ') {
-      def artyServer = Artifactory.server 'arty'
-      def artyDocker = Artifactory.docker server: artyServer, host: env.DOCKER_HOST
-      def buildInfo  = Artifactory.newBuildInfo()
+      steps {
+        def artyServer = Artifactory.server 'arty'
+        def artyDocker = Artifactory.docker server: artyServer, host: env.DOCKER_HOST
+        def buildInfo  = Artifactory.newBuildInfo()
 
-      buildInfo.name = BUILDNAME
-      buildInfo = artyDocker.push(IMAGENAME, 'docker-dscrum', buildInfo)
-      buildInfo.env.capture = true
-      buildInfo.env.collect()
+        buildInfo.name = BUILDNAME
+        buildInfo = artyDocker.push(IMAGENAME, 'docker-dscrum', buildInfo)
+        buildInfo.env.capture = true
+        buildInfo.env.collect()
 
-      artyServer.publishBuildInfo buildInfo
+        artyServer.publishBuildInfo buildInfo
 
-      sh """
-        docker rmi ${IMAGENAME}
-      """
+        sh """
+          docker rmi ${IMAGENAME}
+        """
+      }
     }
 
   }
