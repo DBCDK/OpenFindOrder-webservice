@@ -32,18 +32,17 @@ pipeline {
   stages {
     stage('GIT: checkout code') {
       steps {
-        checkout scm
-        // get externals
-        dir('src/OLS_class_lib') {
-          git url: 'https://github.com/DBCDK/class_lib-webservice', branch: 'master'
+        script {
+          checkout scm
+          // get externals
+          dir('src/OLS_class_lib') {
+            git url: 'https://github.com/DBCDK/class_lib-webservice', branch: 'master'
+          }
         }
       }
     }
     stage('SetUp') {
       steps {
-        script {
-          util = load("jenkins/scripts/utilities.groovy")
-        }
         // We'll want to work from the current branch,
         // not the release branches which will get checked out later.
         dir('docker') {
@@ -72,70 +71,76 @@ pipeline {
 
     stage("prepare website build (version 2.5)") {
       steps {
-        if (VERSION_2_5) {
-          // checkout release
-          sh """
-            git checkout release/2.5
-            git pull
-          """
-          // Create folders & copy files needed for docker image.
-          sh """
-            mkdir 'docker/webservice/www/2.5'
-            mkdir 'docker/webservice/www/next_2.5'
-            mkdir 'docker/webservice/www/test_2.5'
-            cp -r src/ docker/webservice/www/2.5/
-            cp -r src/ docker/webservice/www/next_2.5/
-            cp -r src/ docker/webservice/www/test_2.5/
-          """
-        }
-        else {
-          sh """
-            echo 'skipping release/2.5'
-          """
+        script {
+          if (VERSION_2_5) {
+            // checkout release
+            sh """
+              git checkout release/2.5
+              git pull
+            """
+            // Create folders & copy files needed for docker image.
+            sh """
+              mkdir 'docker/webservice/www/2.5'
+              mkdir 'docker/webservice/www/next_2.5'
+              mkdir 'docker/webservice/www/test_2.5'
+              cp -r src/ docker/webservice/www/2.5/
+              cp -r src/ docker/webservice/www/next_2.5/
+              cp -r src/ docker/webservice/www/test_2.5/
+            """
+          }
+          else {
+            sh """
+              echo 'skipping release/2.5'
+            """
+          }
         }
       }
     }
 
     stage("prepare website build (version 2.6)") {
       steps {
-        if (VERSION_2_6) {
-          // checkout release
-          sh """
-            git checkout release/2.5
-            git pull
-          """
-          // Create folders & copy files needed for docker image.
-          sh """
-            mkdir 'docker/webservice/www/2.6'
-            mkdir 'docker/webservice/www/next_2.6'
-            mkdir 'docker/webservice/www/test_2.6'
-            cp -r src/ docker/webservice/www/2.6/
-            cp -r src/ docker/webservice/www/next_2.6/
-            cp -r src/ docker/webservice/www/test_2.6/
-          """
-        }
-        else {
-          sh """
-            echo 'skipping release/2.6'
-          """
+        script {
+          if (VERSION_2_6) {
+            // checkout release
+            sh """
+              git checkout release/2.5
+              git pull
+            """
+            // Create folders & copy files needed for docker image.
+            sh """
+              mkdir 'docker/webservice/www/2.6'
+              mkdir 'docker/webservice/www/next_2.6'
+              mkdir 'docker/webservice/www/test_2.6'
+              cp -r src/ docker/webservice/www/2.6/
+              cp -r src/ docker/webservice/www/next_2.6/
+              cp -r src/ docker/webservice/www/test_2.6/
+            """
+          }
+          else {
+            sh """
+              echo 'skipping release/2.6'
+            """
+          }
         }
       }
     }
 
     stage("Set OpenVersionWrapper link") {
       steps {
-        if (VERSION_2_5 || VERSION_2_6) {
-          // make index.php symbolic link
-          dir('docker/webservice/www') {
+        script {
+          if (VERSION_2_5 || VERSION_2_6) {
+            // make index.php symbolic link
+            dir('docker/webservice/www') {
+              sh """
+                ln -s versions.php index.php
+              """
+            }
+          }
+          else {
             sh """
-              ln -s versions.php index.php
+              echo 'No releases selected. '
             """
           }
-        }
-        else {
-          sh """
-            echo 'No releases selected. '
-          """
         }
       }
     }
