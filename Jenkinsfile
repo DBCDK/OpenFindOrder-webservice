@@ -111,9 +111,9 @@ pipeline {
               mkdir 'docker/webservice/www/2.6'
               mkdir 'docker/webservice/www/next_2.6'
               mkdir 'docker/webservice/www/test_2.6'
-              cp -r src/ docker/webservice/www/2.6/
-              cp -r src/ docker/webservice/www/next_2.6/
-              cp -r src/ docker/webservice/www/test_2.6/
+              cp -r src/* docker/webservice/www/2.6/
+              cp -r src/* docker/webservice/www/next_2.6/
+              cp -r src/* docker/webservice/www/test_2.6/
             """
           }
           else {
