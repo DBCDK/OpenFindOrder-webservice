@@ -133,6 +133,7 @@ pipeline {
             dir('docker/webservice/www') {
               sh """
                 ln -s versions.php index.php
+                ls -al
               """
             }
           }
@@ -147,7 +148,7 @@ pipeline {
 
     stage("Docker: build image") {
       steps {
-        dir('docker/www') {
+        dir('docker/webservice/www') {
           script {
             IMAGE = docker.build(IMAGENAME)
           }
