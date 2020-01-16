@@ -148,7 +148,7 @@ pipeline {
 
     stage("Docker: build image") {
       steps {
-        dir('docker/webservice/www') {
+        dir('docker/webservice') {
           script {
             IMAGE = docker.build(IMAGENAME)
           }
