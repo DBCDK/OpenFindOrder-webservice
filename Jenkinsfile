@@ -3,7 +3,7 @@
 def PRODUCT = 'openfindorder'
 def DOCKER_REPO = 'docker-dscrum.dbc.dk'
 def BRANCH = BRANCH_NAME.replaceAll("feature/", "").replace("_", "-")
-def IMAGENAME = 'docker-dscrum.dbc.dk/openfindorder' + BRANCH + ':' + currentBuild.number
+def IMAGENAME = 'docker-dscrum.dbc.dk/openfindorder-' + BRANCH + ':' + currentBuild.number
 def BUILDNAME = PRODUCT + ' :: ' + BRANCH
 
 print "Parameter: Version_2_5 = ${VERSION_2_5}"
@@ -177,6 +177,24 @@ pipeline {
       }
     }
 
+    stage('Deploy') {
+      // Deploy to Kubernetes frontend-staging namespace.
+      if (BRANCH_NAME == 'master') {
+        build job: 'Deploy OpenFindOrder', parameters: [
+          string(name: 'Branch', value: BRANCH_NAME),
+          string(name: 'BuildId', value: currentBuild.number.toString()),
+          string(name: 'Namespace', value: 'staging'),
+        ]
+      }
+      // Deploy to Kubernetes frontend-features namespace.
+      else {
+        build job: 'Deploy OpenFindOrder', parameters: [
+          string(name: 'Branch', value: BRANCH_NAME),
+          string(name: 'BuildId', value: currentBuild.number.toString()),
+          string(name: 'Namespace', value: 'features'),
+        ]
+      }
+    }
   }
 
   post {
