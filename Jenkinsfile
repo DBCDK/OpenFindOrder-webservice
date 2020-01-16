@@ -1,11 +1,154 @@
 #!groovy
 
-properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: dscrumDefaults.numToKeepStr())),
-            parameters([
-                    booleanParam(defaultValue: true, description: 'fetch version 2.5', name: 'Version_2_5'),
-                    booleanParam(defaultValue: true, description: 'fetch version 2.6', name: 'Version_2_6')]),
-            disableConcurrentBuilds(),
-])
+def PRODUCT = 'openfindorder'
+def DOCKER_REPO = 'docker-dscrum.dbc.dk'
+def IMAGENAME_WWW = 'docker-dscrum.dbc.dk/openfindorder' + BRANCH + ':' + currentBuild.number
+
+print "Parameter: Version_2_5 = ${Version_2_5}"
+print "Parameter: Version_2_6 = ${Version_2_6}"
+
+// the image to use on different stages
+def ofoImage
+
+pipeline {
+  agent {
+      node { label 'd8-php7-builder' }
+  }
+  environment {
+    DOCKER_HOST = 'tcp://dscrum-is:2375'
+  }
+  parameters {
+    booleanParam(name: 'VERSION_2_5', defaultValue: 'true', description: 'Fetch version 2.5')
+    booleanParam(name: 'VERSION_2_6', defaultValue: 'true', description: 'Fetch version 2.6')
+  }
+  options {
+    buildDiscarder(logRotator(artifactDaysToKeepStr: "", artifactNumToKeepStr: "", daysToKeepStr: "", numToKeepStr: "5"))
+    timestamps()
+    gitLabConnection('gitlab.dbc.dk')
+    disableConcurrentBuilds()
+  }
+  stages {
+    stage('GIT: checkout code') {
+      checkout scm
+      // get externals
+      dir('OLS_class_lib') {
+        git url: 'https://github.com/DBCDK/class_lib-webservice', branch: 'master'
+      }
+    }
+    stage('SetUp') {
+      script {
+        util = load("jenkins/scripts/utilities.groovy")
+      }
+      // We'll want to work from the current branch,
+      // not the release branches which will get checked out later.
+      dir('docker') {
+        sh """
+          rm -rf webservice/
+          cp -rp install/ webservice/
+          ls -al
+        """
+      }
+    }
+    stage("SVN: checkout externals") {
+      // Check out OpenVersionWrapper
+      dir('docker/webservice') {
+        sh """
+          rm -rf www
+          svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
+          cp OpenVersionWrapper.install/* www/
+        """
+      }
+      dir('docker/webservice') {
+        sh """
+          ls -al
+        """
+      }
+    }
+    stage("prepare website build (version 2.5)") {
+      if (VERSION_2_5) {
+        // checkout release
+        sh """
+          git checkout release/2.5
+          git pull
+        """
+        // copy files needed for docker image
+        util.copyDockerFiles('2.5')
+        util.copyDockerFiles('next_2.5')
+        util.copyDockerFiles('test_2.5')
+      }
+      else {
+        sh """
+          echo 'skipping release/2.5'
+        """
+      }
+    }
+
+    stage("prepare website build (version 2.6)") {
+      if (VERSION_2_6) {
+        // checkout release
+        sh """
+          git checkout release/2.6
+          git pull
+        """
+        // copy files needed for docker image
+        util.copyDockerFiles('2.6')
+        util.copyDockerFiles('next_2.6')
+        util.copyDockerFiles('test_2.6')
+      }
+      else {
+        sh """
+          echo 'skipping release/2.6'
+        """
+      }
+    }
+
+    stage("Set OpenVersionWrapper link") {
+      if (VERSION_2_5 || VERSION_2_6) {
+        // make index.php symbolic link
+        dir('docker/webservice/www') {
+          sh """
+            ln -s versions.php index.php
+          """
+        }
+      }
+      else {
+        sh """
+          echo 'No releases selected. '
+        """
+      }
+    }
+
+    stage("Docker: build image") {
+      dir("docker/webservice") {
+        ofoImage = docker.build("${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}")
+      }
+    }
+
+    stage('Docker: push and cleanup') {
+      def buildInfo = Artifactory.newBuildInfo()
+      buildInfo.name = buildName
+      buildInfo = artyDocker.push("${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}", 'docker-dscrum', buildInfo)
+      artyServer.publishBuildInfo buildInfo
+
+      sh """
+       docker rmi ${DOCKER_REPO}/${PRODUCT}:${currentBuild.number}
+      """
+    }
+  }
+
+  post {
+    success {
+      script {
+        def BUILD = DOCKER_REPO + '/' + PRODUCT + ':' +  currentBuild.number
+        echo BUILD
+      }
+    }
+    failure {
+      // @TODO do something meaningfull
+      echo 'FAIL'
+    }
+  }
+}
 
 print "Parameter: Version_2_5 = ${Version_2_5}"
 print "Parameter: Version_2_6 = ${Version_2_6}"
