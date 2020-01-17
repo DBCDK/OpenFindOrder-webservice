@@ -1,0 +1,598 @@
+; Inifile for openfindorder
+
+[setup]
+; To close a service, set service_http_error
+; service status - values:
+;service_http_error = HTTP/1.0 404 Not Found
+;service_http_error = HTTP/1.1 410 Gone
+;service_http_error = HTTP/1.0 503 Service Unavailable
+
+; --------------
+;version
+version = 2.5
+
+; --------------
+; set only_https to accept https call only
+;only_https = 1
+
+; --------------
+; wsdl and service location for service. Used to replace __LOCATION__ in wsdl
+wsdl = openfindorder.wsdl
+
+;service location used as endpoint in the wsdl-file. If not set, the actual address/location is used
+;service_location = openfindorder.addi.dk/2.5/
+
+; --------------
+; in_house_domain may use ?ShowInfo and use create_sample form
+in_house_domain = @MY_DOMAIN@
+in_house_ip_list = @MY_DOMAIN_IP_LIST@
+
+; set to TRUE to expose the create_sample form
+;show_samples = 1
+;show_samples_ip_list = 127.0.0.1-127.0.0.2
+
+; --------------
+; path to xml-examples
+xmldir = ./xml
+
+; --------------
+; validate
+;validate[request] = openfindorder.xsd
+;validate[response] = openfindorder.xsd
+
+; --------------
+; soapActions and their corresponding request structure
+; Can be found in the wsdl but is stated here for convenience
+soapAction[bibliographicSearch] = bibliographicSearchRequest
+soapAction[findAllOrders] = findAllOrdersRequest
+soapAction[findAllIllOrders] = findAllIllOrdersRequest
+soapAction[findAllNonIllOrders] = findAllNonIllOrdersRequest
+soapAction[findAllOpenEndUserOrders] = findAllOpenEndUserOrdersRequest
+soapAction[findAutomatedOrders] = findAutomatedOrdersRequest
+soapAction[findClosedIllOrders] = findClosedIllOrdersRequest
+soapAction[findLocalizedEndUserOrders] = findLocalizedEndUserOrdersRequest
+soapAction[findManuallyFinishedIllOrders] = findManuallyFinishedIllOrdersRequest
+soapAction[findNonLocalizedEndUserOrders] = findNonLocalizedEndUserOrdersRequest
+soapAction[findNonAutomatedOrders] = findNonAutomatedOrdersRequest
+soapAction[findOpenIllOrders] = findOpenIllOrdersRequest
+soapAction[findOrdersFromUnknownUser] = findOrdersFromUnknownUserRequest
+soapAction[findOrdersFromUser] = findOrdersFromUserRequest
+soapAction[findOrdersWithAutoForwardReason] = findOrdersWithAutoForwardReasonRequest
+soapAction[findOrderOfType] = findOrderOfTypeRequest
+soapAction[findOwnAutomatedOrders] = findOwnAutomatedOrdersRequest
+soapAction[findSpecificOrder] = findSpecificOrderRequest
+soapAction[getReceipts] = getReceiptsRequest
+soapAction[formatReceipt] = formatReceiptRequest
+
+; --------------
+; url_override
+; url_override[url_command] = functionToCall
+; if start of the request equals url_command and functionToCall exists, it will be called
+; like: myservice.dk/myversion?url_command
+; functions ShowInfo, Version, HowRU, Wsdl and RegressionTest are found in the abstract service
+; if not specified, defaults to HowRU, ShowInfo, wsdl and Version
+;url_override[RegressionTest] = RegressionTest
+
+; --------------
+; prefixes and namespaces
+default_namespace_prefix = ofo
+
+xmlns[NONE] = http://oss.dbc.dk/ns/openfindorder
+xmlns[xml] = http://www.w3.org/XML/1998/namespace
+xmlns[wsdl] = http://schemas.xmlsoap.org/wsdl/
+xmlns[xs] = http://www.w3.org/2001/XMLSchema
+xmlns[ofow] = http://oss.dbc.dk/ns/openfindorder_wsdl
+xmlns[ofo] = http://oss.dbc.dk/ns/openfindorder
+xmlns[soap] = http://schemas.xmlsoap.org/wsdl/soap
+
+; --------------
+; schema-file
+schema=openfindorder.xsd
+
+; --------------
+; where to find openAgency
+; openagency_agency_list = http://some.server.dk/OpenAgency/?action=pickupAgencyList&agencyId=%s&libraryStatus=alle&outputType=xml
+openagency_agency_list = @OPENAGENCY_AGENCY_LIST@
+
+; --------------
+; where to find solr indexes
+solr_order_uri = http://some.server.dk:8081/solr/select?
+
+; --------------
+connectionstring = ora_user/ora_passwd@some.server.dk
+vip = ora_user/ora_passwd@some.server.dk
+
+; --------------
+; logfile for verbose output
+logfile = @LOGFILE@
+; logging to syslog is defined like:
+;logfile = syslog://LOG_LOCAL0
+; ident for syslog is set like where _VERSION_ is replaced by version setting above
+;syslog_id = trlog[opensearch__VERSION_]
+
+
+; --------------
+; set verboselevel
+;   WARNING - simple warnings
+;   ERROR   - errors in response
+;   FATAL   - major errors
+;   STAT    - Statístical logging
+;   TIMER   - timer logging
+;   TRACE   - program trace
+;   DEBUG   - debugging info
+;   Z3959   - calls to z3950 services
+;   OCI     - oracle
+verbose = @VERBOSE_LEVEL@
+
+; format for automatic timer dump %s is the soap-action used
+dump_timer = openfindorder(%s)
+
+; ==============
+
+[aaa]
+; aaa Authentication, Access control and Accounting
+;
+; Creates a authentication object from aaa_ip_rights, aaa_fors_rights or aaa_credentials - in that order
+;
+; Rights can be set here for selected ip-addresses
+; aaa_ip_rights[group-identifier][ip_list] = list of ip's
+; aaa_ip_rights[group-identifier][ressource][<named ressource>] = right to <named ressource>
+; aaa_ip_rights[group-identifier][ressource][<named ressource 2>] = right to <named ressource 2>
+;
+aaa_ip_rights[dbc][ip_list] = @MY_DOMAIN_IP_LIST@
+aaa_ip_rights[dbc][ressource]['netpunkt.dk'] = 500
+aaa_ip_rights[herning][ip_list] = @HERNING_IP_LIST@
+aaa_ip_rights[herning][ressource]['netpunkt.dk'] = 500
+;
+; if not found in aaa_ip_rights the authentication object is created from the FORS
+; either by using the WS specified by aaa_fors_rights or by OCI specified by aaa_credentials
+;
+; uri for a fors rights webservice - aaa_fors_rights have precedence over aaa_credentials
+aaa_fors_rights = @AAA_FORS_RIGHTS@
+;
+; oci credentials for FORS server
+;aaa_credentials = ora_user/ora_passwd@some.server.dk
+;
+; memcache server for the authentication object - use localhost in one-webserver environment
+;aaa_cache_address = localhost:11211
+; number of seconds to cache authentication and access rights info
+;aaa_cache_seconds = 3600
+;
+
+@CACHE_SETTINGS@
+
+; ==============
+
+[rest]
+; REST parameters for SOAPAction
+;
+; use xml.path.to.par notation to solve name-conflicts
+; action[thisSoapAction][foo][] = some.number
+; action[thisSoapAction][bar][] = another.number
+; to build
+; <thisSoapAction>
+;   <foo>
+;     <number>nn</number>
+;   </foo>
+;   <bar>
+;     <number>mm</number>
+;   </bar>
+; </thisSoapAction>
+; from url: action=thisSoapAction&some.number=nn&another.number=mm
+;
+
+action[bibliographicSearch][authentication][] = groupIdAut
+action[bibliographicSearch][authentication][] = passwordAut
+action[bibliographicSearch][authentication][] = userIdAut
+action[bibliographicSearch][] = requesterAgencyId
+action[bibliographicSearch][] = responderAgencyId
+action[bibliographicSearch][] = author
+action[bibliographicSearch][] = bibliographicFreeText
+action[bibliographicSearch][] = orderType
+action[bibliographicSearch][] = title
+action[bibliographicSearch][] = agency
+action[bibliographicSearch][] = fromDate
+action[bibliographicSearch][] = toDate
+action[bibliographicSearch][] = outputType
+action[bibliographicSearch][] = callback
+action[bibliographicSearch][] = sortKey
+action[bibliographicSearch][] = start
+action[bibliographicSearch][] = stepValue
+
+action[findAllOrders][authentication][] = groupIdAut
+action[findAllOrders][authentication][] = passwordAut
+action[findAllOrders][authentication][] = userIdAut
+action[findAllOrders][] = requesterAgencyId
+action[findAllOrders][] = responderAgencyId
+action[findAllOrders][] = agency
+action[findAllOrders][] = fromDate
+action[findAllOrders][] = toDate
+action[findAllOrders][] = outputType
+action[findAllOrders][] = callback
+action[findAllOrders][] = sortKey
+action[findAllOrders][] = start
+action[findAllOrders][] = stepValue
+
+action[findAllIllOrders][authentication][] = groupIdAut
+action[findAllIllOrders][authentication][] = passwordAut
+action[findAllIllOrders][authentication][] = userIdAut
+action[findAllIllOrders][] = requesterAgencyId
+action[findAllIllOrders][] = responderAgencyId
+action[findAllIllOrders][] = agency
+action[findAllIllOrders][] = fromDate
+action[findAllIllOrders][] = toDate
+action[findAllIllOrders][] = outputType
+action[findAllIllOrders][] = callback
+action[findAllIllOrders][] = sortKey
+action[findAllIllOrders][] = start
+action[findAllIllOrders][] = stepValue
+
+action[findAllNonIllOrders][authentication][] = groupIdAut
+action[findAllNonIllOrders][authentication][] = passwordAut
+action[findAllNonIllOrders][authentication][] = userIdAut
+action[findAllNonIllOrders][] = requesterAgencyId
+action[findAllNonIllOrders][] = responderAgencyId
+action[findAllNonIllOrders][] = agency
+action[findAllNonIllOrders][] = fromDate
+action[findAllNonIllOrders][] = toDate
+action[findAllNonIllOrders][] = outputType
+action[findAllNonIllOrders][] = callback
+action[findAllNonIllOrders][] = sortKey
+action[findAllNonIllOrders][] = start
+action[findAllNonIllOrders][] = stepValue
+
+action[findAllOpenEndUserOrders][authentication][] = groupIdAut
+action[findAllOpenEndUserOrders][authentication][] = passwordAut
+action[findAllOpenEndUserOrders][authentication][] = userIdAut
+action[findAllOpenEndUserOrders][] = requesterAgencyId
+action[findAllOpenEndUserOrders][] = responderAgencyId
+action[findAllOpenEndUserOrders][] = agency
+action[findAllOpenEndUserOrders][] = fromDate
+action[findAllOpenEndUserOrders][] = toDate
+action[findAllOpenEndUserOrders][] = outputType
+action[findAllOpenEndUserOrders][] = callback
+action[findAllOpenEndUserOrders][] = sortKey
+action[findAllOpenEndUserOrders][] = start
+action[findAllOpenEndUserOrders][] = stepValue
+
+action[findAutomatedOrders][authentication][] = groupIdAut
+action[findAutomatedOrders][authentication][] = passwordAut
+action[findAutomatedOrders][authentication][] = userIdAut
+action[findAutomatedOrders][] = requesterAgencyId
+action[findAutomatedOrders][] = responderAgencyId
+action[findAutomatedOrders][] = agency
+action[findAutomatedOrders][] = fromDate
+action[findAutomatedOrders][] = toDate
+action[findAutomatedOrders][] = outputType
+action[findAutomatedOrders][] = callback
+action[findAutomatedOrders][] = sortKey
+action[findAutomatedOrders][] = start
+action[findAutomatedOrders][] = stepValue
+
+action[findClosedIllOrders][authentication][] = groupIdAut
+action[findClosedIllOrders][authentication][] = passwordAut
+action[findClosedIllOrders][authentication][] = userIdAut
+action[findClosedIllOrders][] = requesterAgencyId
+action[findClosedIllOrders][] = responderAgencyId
+action[findClosedIllOrders][] = orderStatus
+action[findClosedIllOrders][] = agency
+action[findClosedIllOrders][] = fromDate
+action[findClosedIllOrders][] = toDate
+action[findClosedIllOrders][] = outputType
+action[findClosedIllOrders][] = callback
+action[findClosedIllOrders][] = sortKey
+action[findClosedIllOrders][] = start
+action[findClosedIllOrders][] = stepValue
+
+action[findLocalizedEndUserOrders][authentication][] = groupIdAut
+action[findLocalizedEndUserOrders][authentication][] = passwordAut
+action[findLocalizedEndUserOrders][authentication][] = userIdAut
+action[findLocalizedEndUserOrders][] = requesterAgencyId
+action[findLocalizedEndUserOrders][] = responderAgencyId
+action[findLocalizedEndUserOrders][] = closed
+action[findLocalizedEndUserOrders][] = orderSystem
+action[findLocalizedEndUserOrders][] = agency
+action[findLocalizedEndUserOrders][] = fromDate
+action[findLocalizedEndUserOrders][] = toDate
+action[findLocalizedEndUserOrders][] = outputType
+action[findLocalizedEndUserOrders][] = callback
+action[findLocalizedEndUserOrders][] = sortKey
+action[findLocalizedEndUserOrders][] = start
+action[findLocalizedEndUserOrders][] = stepValue
+
+action[findManuallyFinishedIllOrders][authentication][] = groupIdAut
+action[findManuallyFinishedIllOrders][authentication][] = passwordAut
+action[findManuallyFinishedIllOrders][authentication][] = userIdAut
+action[findManuallyFinishedIllOrders][] = requesterAgencyId
+action[findManuallyFinishedIllOrders][] = responderAgencyId
+action[findManuallyFinishedIllOrders][] = providerOrderState
+action[findManuallyFinishedIllOrders][] = requesterOrderState
+action[findManuallyFinishedIllOrders][] = agency
+action[findManuallyFinishedIllOrders][] = fromDate
+action[findManuallyFinishedIllOrders][] = toDate
+action[findManuallyFinishedIllOrders][] = outputType
+action[findManuallyFinishedIllOrders][] = callback
+action[findManuallyFinishedIllOrders][] = sortKey
+action[findManuallyFinishedIllOrders][] = start
+action[findManuallyFinishedIllOrders][] = stepValue
+
+action[findNonLocalizedEndUserOrders][authentication][] = groupIdAut
+action[findNonLocalizedEndUserOrders][authentication][] = passwordAut
+action[findNonLocalizedEndUserOrders][authentication][] = userIdAut
+action[findNonLocalizedEndUserOrders][] = requesterAgencyId
+action[findNonLocalizedEndUserOrders][] = responderAgencyId
+action[findNonLocalizedEndUserOrders][] = closed
+action[findNonLocalizedEndUserOrders][] = agency
+action[findNonLocalizedEndUserOrders][] = fromDate
+action[findNonLocalizedEndUserOrders][] = toDate
+action[findNonLocalizedEndUserOrders][] = outputType
+action[findNonLocalizedEndUserOrders][] = callback
+action[findNonLocalizedEndUserOrders][] = sortKey
+action[findNonLocalizedEndUserOrders][] = start
+action[findNonLocalizedEndUserOrders][] = stepValue
+
+action[findNonAutomatedOrders][authentication][] = groupIdAut
+action[findNonAutomatedOrders][authentication][] = passwordAut
+action[findNonAutomatedOrders][authentication][] = userIdAut
+action[findNonAutomatedOrders][] = requesterAgencyId
+action[findNonAutomatedOrders][] = responderAgencyId
+action[findNonAutomatedOrders][] = agency
+action[findNonAutomatedOrders][] = fromDate
+action[findNonAutomatedOrders][] = toDate
+action[findNonAutomatedOrders][] = outputType
+action[findNonAutomatedOrders][] = callback
+action[findNonAutomatedOrders][] = sortKey
+action[findNonAutomatedOrders][] = start
+action[findNonAutomatedOrders][] = stepValue
+
+action[findOpenIllOrders][authentication][] = groupIdAut
+action[findOpenIllOrders][authentication][] = passwordAut
+action[findOpenIllOrders][authentication][] = userIdAut
+action[findOpenIllOrders][] = requesterAgencyId
+action[findOpenIllOrders][] = responderAgencyId
+action[findOpenIllOrders][] = agency
+action[findOpenIllOrders][] = fromDate
+action[findOpenIllOrders][] = toDate
+action[findOpenIllOrders][] = outputType
+action[findOpenIllOrders][] = callback
+action[findOpenIllOrders][] = sortKey
+action[findOpenIllOrders][] = start
+action[findOpenIllOrders][] = stepValue
+
+action[findOrdersFromUnknownUser][authentication][] = groupIdAut
+action[findOrdersFromUnknownUser][authentication][] = passwordAut
+action[findOrdersFromUnknownUser][authentication][] = userIdAut
+action[findOrdersFromUnknownUser][] = requesterAgencyId
+action[findOrdersFromUnknownUser][] = responderAgencyId
+action[findOrdersFromUnknownUser][] = agency
+action[findOrdersFromUnknownUser][] = fromDate
+action[findOrdersFromUnknownUser][] = toDate
+action[findOrdersFromUnknownUser][] = outputType
+action[findOrdersFromUnknownUser][] = callback
+action[findOrdersFromUnknownUser][] = sortKey
+action[findOrdersFromUnknownUser][] = start
+action[findOrdersFromUnknownUser][] = stepValue
+
+action[findOrdersFromUser][authentication][] = groupIdAut
+action[findOrdersFromUser][authentication][] = passwordAut
+action[findOrdersFromUser][authentication][] = userIdAut
+action[findOrdersFromUser][] = requesterAgencyId
+action[findOrdersFromUser][] = responderAgencyId
+action[findOrdersFromUser][] = orderType
+action[findOrdersFromUser][] = userFreeText
+action[findOrdersFromUser][] = userId
+action[findOrdersFromUser][] = userMail
+action[findOrdersFromUser][] = userName
+action[findOrdersFromUser][] = agency
+action[findOrdersFromUser][] = fromDate
+action[findOrdersFromUser][] = toDate
+action[findOrdersFromUser][] = outputType
+action[findOrdersFromUser][] = callback
+action[findOrdersFromUser][] = sortKey
+action[findOrdersFromUser][] = start
+action[findOrdersFromUser][] = stepValue
+
+action[findOrdersWithAutoForwardReason][authentication][] = groupIdAut
+action[findOrdersWithAutoForwardReason][authentication][] = passwordAut
+action[findOrdersWithAutoForwardReason][authentication][] = userIdAut
+action[findOrdersWithAutoForwardReason][] = requesterAgencyId
+action[findOrdersWithAutoForwardReason][] = responderAgencyId
+action[findOrdersWithAutoForwardReason][] = autoForwardReason
+action[findOrdersWithAutoForwardReason][] = agency
+action[findOrdersWithAutoForwardReason][] = fromDate
+action[findOrdersWithAutoForwardReason][] = toDate
+action[findOrdersWithAutoForwardReason][] = outputType
+action[findOrdersWithAutoForwardReason][] = callback
+action[findOrdersWithAutoForwardReason][] = sortKey
+action[findOrdersWithAutoForwardReason][] = start
+action[findOrdersWithAutoForwardReason][] = stepValue
+
+action[findOrderType][authentication][] = groupIdAut
+action[findOrderType][authentication][] = passwordAut
+action[findOrderType][authentication][] = userIdAut
+action[findOrderType][] = requesterAgencyId
+action[findOrderType][] = responderAgencyId
+action[findOrderType][] = articleDirect
+action[findOrderType][] = kvik
+action[findOrderType][] = norfri
+action[findOrderType][] = agency
+action[findOrderType][] = fromDate
+action[findOrderType][] = toDate
+action[findOrderType][] = outputType
+action[findOrderType][] = callback
+action[findOrderType][] = sortKey
+action[findOrderType][] = start
+action[findOrderType][] = stepValue
+
+action[findOwnAutomatedOrders][authentication][] = groupIdAut
+action[findOwnAutomatedOrders][authentication][] = passwordAut
+action[findOwnAutomatedOrders][authentication][] = userIdAut
+action[findOwnAutomatedOrders][] = requesterAgencyId
+action[findOwnAutomatedOrders][] = responderAgencyId
+action[findOwnAutomatedOrders][] = agency
+action[findOwnAutomatedOrders][] = fromDate
+action[findOwnAutomatedOrders][] = toDate
+action[findOwnAutomatedOrders][] = outputType
+action[findOwnAutomatedOrders][] = callback
+action[findOwnAutomatedOrders][] = sortKey
+action[findOwnAutomatedOrders][] = start
+action[findOwnAutomatedOrders][] = stepValue
+
+action[findSpecificOrder][authentication][] = groupIdAut
+action[findSpecificOrder][authentication][] = passwordAut
+action[findSpecificOrder][authentication][] = userIdAut
+action[findSpecificOrder][] = requesterAgencyId
+action[findSpecificOrder][] = responderAgencyId
+action[findSpecificOrder][] = orderId
+action[findSpecificOrder][] = orderType
+action[findSpecificOrder][] = agency
+action[findSpecificOrder][] = fromDate
+action[findSpecificOrder][] = toDate
+action[findSpecificOrder][] = outputType
+action[findSpecificOrder][] = callback
+action[findSpecificOrder][] = sortKey
+action[findSpecificOrder][] = start
+action[findSpecificOrder][] = stepValue
+
+action[getReceipts][authentication][] = groupIdAut
+action[getReceipts][authentication][] = passwordAut
+action[getReceipts][authentication][] = userIdAut
+action[getReceipts][] = requesterAgencyId
+action[getReceipts][] = responderAgencyId
+action[getReceipts][] = orderId
+action[getReceipts][] = agency
+action[getReceipts][] = fromDate
+action[getReceipts][] = toDate
+action[getReceipts][] = outputType
+action[getReceipts][] = callback
+action[getReceipts][] = sortKey
+action[getReceipts][] = start
+action[getReceipts][] = stepValue
+
+action[formatReceipt][authentication][] = groupIdAut
+action[formatReceipt][authentication][] = passwordAut
+action[formatReceipt][authentication][] = userIdAut
+action[formatReceipt][] = json
+action[formatReceipt][] = outputType
+action[formatReceipt][] = callback
+
+; ============== TODO: we no longer need this section - DELETE
+
+; this part is database-specific.
+; map fields in databasetable(ors_order)
+[ors_order]
+ACTIVE=
+ACTIVEID=
+ARTICLEDIRECT=
+ARTICLEFIRSTNOTE=
+o.AUTHOR=
+AUTHOROFCOMPONENT=
+AUTOFORWARDDELIVERTODAY=
+AUTOFORWARDREASON=
+AUTOFORWARDRESULT=
+BIBLIOGRAPHICCATEGORY=
+BIBLIOGRAPHICRECORDAGENCYID=
+BIBLIOGRAPHICRECORDID=
+CALLNUMBER=
+CANCELLED=
+CANCELLEDDATE=to_char(CANCELLEDDATE,'YYYY-MM-DD') CANCELLEDDATE
+CLOSED=
+CLOSEDDATE=to_char(CLOSEDDATE,'YYYY-MM-DD') CLOSEDDATE
+COPY=
+;CREATIONDATE=to_char(CREATIONDATE,'YYYY-MM-DD HH24:MI:SS') CREATIONDATE
+CREATIONDATE=to_char(SYS_EXTRACT_UTC(CREATIONDATE),'YYYY-MM-DD HH24:MI:SS') CREATIONDATE
+;CREATIONDATE=SYS_EXTRACT_UTC(CREATIONDATE) CREATIONDATE
+DATEDUE=to_char(DATEDUE,'YYYY-MM-DD') DATEDUE
+DESIREDDATEDUE=to_char(DESIREDDATEDUE,'YYYY-MM-DD') DESIREDDATEDUE
+EDITION=
+EXACTEDITION=
+EXPECTEDDELIVERY=to_char(EXPECTEDDELIVERY,'YYYY-MM-DD') EXPECTEDDELIVERY
+FORWARDORDERID=
+ISBN=
+ISSHIPPED=
+ISSN=
+ISSUE=
+ITEMID=
+KVIK=
+LANGUAGE=
+LASTMODIFICATION=to_char(LASTMODIFICATION,'YYYY-MM-DD') LASTMODIFICATION
+LASTRENEWALDATE=to_char(LASTRENEWALDATE,'YYYY-MM-DD') LASTRENEWALDATE
+LATESTPROVIDERNOTE=
+LATESTREQUESTERNOTE=
+LOCALHOLDINGSID=
+LOOKEDUPUSERID=
+MEDIUMTYPE=
+NEEDBEFOREDATE=to_char(NEEDBEFOREDATE,'YYYY-MM-DD') NEEDBEFOREDATE
+NORFRI=
+NUMBEROFRENEWALS=
+o.ORDERID=
+ORDERSYSTEM=
+ORDERTYPE=
+ORIGINALORDERID=
+PAGINATION=
+PICKUPAGENCYID=
+PICKUPAGENCYSUBDIVISION=
+PLACEOFPUBLICATION=
+PLACEONHOLD=
+PROVIDERANSWER=
+PROVIDERANSWERDATE=to_char(PROVIDERANSWERDATE,'YYYY-MM-DD') PROVIDERANSWERDATE
+PROVIDERANSWERREASON=
+PROVIDERORDERSTATE=
+PUBLICATIONDATE=
+PUBLICATIONDATEOFCOMPONENT=
+PUBLISHER=
+RECEIVEDDATE=
+RENEWED=
+RENEWPENDINGDATE=to_char(RENEWPENDINGDATE,'YYYY-MM-DD') RENEWPENDINGDATE
+o.REQUESTERID=
+REQUESTERINITIALS=
+REQUESTERORDERSTATE=
+RESENDTOREQUESTERDATE=to_char(RESENDTOREQUESTERDATE,'YYYY-MM-DD') RESENDTOREQUESTERDATE
+RESENDTORESPONDERDATE=to_char(RESENDTORESPONDERDATE,'YYYY-MM-DD') RESENDTORESPONDERDATE
+RESPONDERID=
+RETURNEDDATE=to_char(RETURNEDDATE,'YYYY-MM-DD') RETURNEDDATE
+SERIESTITLENUMBER=
+SHIPPEDDATE=to_char(SHIPPEDDATE,'YYYY-MM-DD') SHIPPEDDATE
+SHIPPEDSERVICETYPE=
+o.TITLE=
+TITLEOFCOMPONENT=
+USERADDRESS=
+USERAGENCYID=
+USERDATEOFBIRTH=
+USERID=
+USERIDAUTHENTICATED=
+USERIDTYPE=
+USERMAIL=
+o.USERNAME=
+USERREFERENCESOURCE=
+USERTELEPHONE=
+VERIFICATIONREFERENCESOURCE=
+VOLUME=
+WANTSRECEIPT=
+WORLDCATNOTE=
+
+; ==============
+
+; section to dump setting online
+[showinfo]
+; make one or more line to display if ?ShowInfo is part of the url
+; __var__ will be replace by the corresponding ini-file setting - if it exists
+; __var.section__ will be replace by the corresponding ini-file setting from section [section]
+; this will only work if the user from in_house_domain - see above
+;showinfo[] = <pre>
+;showinfo[] = version:            __version.setup__
+;showinfo[] = logfile:            __logfile.setup__
+;showinfo[] = verbose:            __verbose__
+;showinfo[] = aaa_credentials:    __aaa_credentials__
+;showinfo[] = show_samples:       __show_samples__
+;showinfo[] = </pre>
+
+; ==============
+
+[howru]
+test[] = findAllOrders&requesterAgencyId=716702&agency=716700&orderSystem=pallesgavebod
+preg_match[] = result
+error[] = ERROR findAllOrders&requesterAgencyId=716702&agency=716700&orderSystem=pallesgavebod
+
+[ORS]
+ors2_url = @ORS2_URL@

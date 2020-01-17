@@ -1,0 +1,30 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope" xmlns:ofo="http://oss.dbc.dk/ns/openfindorder">
+<SOAP-ENV:Body>
+<ofo:findOrdersFromUserRequest>
+  <ofo:authentication>
+    <ofo:groupIdAut>?</ofo:groupIdAut>
+    <ofo:passwordAut>?</ofo:passwordAut>
+    <ofo:userIdAut>?</ofo:userIdAut>
+  </ofo:authentication>
+  <!--You have a CHOICE of the next 2 items at this level-->
+  <!--1 or more repetitions:-->
+  <ofo:requesterAgencyId>?</ofo:requesterAgencyId>
+  <!--1 or more repetitions:-->
+  <ofo:responderAgencyId>?</ofo:responderAgencyId>
+  <ofo:orderType>?</ofo:orderType>
+  <!--You have a CHOICE of the next 4 items at this level-->
+  <ofo:userFreeText>?</ofo:userFreeText>
+  <ofo:userId>?</ofo:userId>
+  <ofo:userMail>?</ofo:userMail>
+  <ofo:userName>?</ofo:userName>
+  <ofo:agency>?</ofo:agency>
+  <ofo:fromDate>?</ofo:fromDate>
+  <ofo:toDate>?</ofo:toDate>
+  <ofo:outputType>?</ofo:outputType>
+  <ofo:callback>?</ofo:callback>
+  <ofo:sortKey>?</ofo:sortKey>
+  <ofo:start>?</ofo:start>
+  <ofo:stepValue>?</ofo:stepValue>
+</ofo:findOrdersFromUserRequest>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

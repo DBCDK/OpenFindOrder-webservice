@@ -1,0 +1,56 @@
+<pre>
+2.5 patch 1
+===
+bug 21102: findOpenIllOrders now excludes orders shipped ie. -isshipped:Y 
+
+2.5
+===
+US 1511:  OpenReceipt: kode&aelig;ndringer i ors-js efter ny xsd 
+formatReceipt set pickUpAgencyId, requesterId & responderid and their corresponding Type with DK- and ISIL, DNUCNI
+wsdl using __LOCATION__
+
+2.4
+===
+xsd: autoForwardOwn added - US 1210
+findOwnAutomatedOrders operation US 1210
+formatReceipt operation
+
+2.3
+===
+added pid, pidOfComponent and pidOfPrimaryObject
+removed operation getOrderStatus
+getReceipts operation - US #1156 (US #1161)
+
+2.2
+===
+xsd: added orderType to result->order
+xsd: debugInfo added to result - contains currently the solr_search done
+xsd: added orderType to findAutomatedOrdersRequest, added enduser_request and enduser_illrequest to orderTypeType
+handling orderType in bibliographicSearch
+xsd: Moved orderType in findOrdersFromUser
+xsd: autoForwardReasonType: added delivery_before_deadline new_for_aut_own test_aut_own
+
+2.1
+===
+requesterAgencyId and responderAgencyId are now expanded to the braches the agency contains
+use proximity for multi-term searches
+
+2.0
+===
+xsd: added lastModification
+xsd: changed creationDate to xs:date
+authenticate to FORS-product netpunkt.dk
+use openagency instead of oracle
+Using solr instead of oracle
+dropped orderSystem in requests
+
+1.1
+===
+support for manually finished orders
+bugfix - removed specialcharacters/wildcards from searches
+
+1.0
+===
+first version
+
+</pre>
