@@ -86,6 +86,9 @@ pipeline {
               cp -r src/* docker/webservice/www/2.5
               cp -r src/* docker/webservice/www/next_2.5
               cp -r src/* docker/webservice/www/test_2.5
+              ln -s server.php docker/webservice/www/2.5/index.php
+              ln -s server.php docker/webservice/www/test_2.5/index.php
+              ln -s server.php docker/webservice/www/next_2.5/index.php  
             """
           }
           else {
@@ -116,6 +119,9 @@ pipeline {
               cp -r src/* docker/webservice/www/2.6/
               cp -r src/* docker/webservice/www/next_2.6/
               cp -r src/* docker/webservice/www/test_2.6/
+              ln -s server.php docker/webservice/www/2.6/index.php
+              ln -s server.php docker/webservice/www/test_2.6/index.php
+              ln -s server.php docker/webservice/www/next_2.6/index.php
             """
           }
           else {
