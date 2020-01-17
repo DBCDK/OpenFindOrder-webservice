@@ -1,4 +1,3 @@
-OLS_class_lib/
-openfindorder.ini
-openfindorder.wsdl
-docker/webservice
+src/OLS_class_lib/
+src/openfindorder.ini
+src/openfindorder.wsdl
