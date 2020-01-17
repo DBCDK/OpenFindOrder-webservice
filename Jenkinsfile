@@ -5,12 +5,10 @@ def DOCKER_REPO = 'docker-dscrum.dbc.dk'
 def BRANCH = BRANCH_NAME.replaceAll("feature/", "").replace("_", "-")
 def IMAGENAME = 'docker-dscrum.dbc.dk/openfindorder-' + BRANCH + ':' + currentBuild.number
 def BUILDNAME = PRODUCT + ' :: ' + BRANCH
-
-print "Parameter: Version_2_5 = ${VERSION_2_5}"
-print "Parameter: Version_2_6 = ${VERSION_2_6}"
-
-// the image to use on different stages
 def IMAGE
+
+print "Parameter: Version_2_5 = " + VERSION_2_5
+print "Parameter: Version_2_6 = " + VERSION_2_6
 
 pipeline {
   agent {

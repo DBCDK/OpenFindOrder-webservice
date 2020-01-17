@@ -4,9 +4,9 @@ versions=(2.5 2.6)
 for u in "${versions[@]}"
 do
     DIR=$APACHE_ROOT/$u
-    INI=$DIR/src/openfindorder.ini
+    INI=$DIR/openfindorder.ini
     INSTALL=$INI"_INSTALL"
-    cp $DIR/src/openfindorder.wsdl_INSTALL $DIR/src/openfindorder.wsdl
+    cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
         sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_PROD#g" $INI
@@ -26,9 +26,9 @@ versions=(next_2.5 next_2.6)
 for u in "${versions[@]}"
 do
     DIR=$APACHE_ROOT/$u
-    INI=$DIR/src/openfindorder.ini
+    INI=$DIR/openfindorder.ini
     INSTALL=$INI"_INSTALL"
-    cp $DIR/src/openfindorder.wsdl_INSTALL $DIR/src/openfindorder.wsdl
+    cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
         sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_STAGING#g" $INI
@@ -48,9 +48,9 @@ versions=(test_2.5 test_2.6)
 for u in "${versions[@]}"
 do
     DIR=$APACHE_ROOT/$u
-    INI=$DIR/src/openfindorder.ini
+    INI=$DIR/openfindorder.ini
     INSTALL=$INI"_INSTALL"
-    cp $DIR/src/openfindorder.wsdl_INSTALL $DIR/src/openfindorder.wsdl
+    cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
         sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_PROD#g" $INI
