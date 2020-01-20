@@ -5,12 +5,10 @@ def DOCKER_REPO = 'docker-dscrum.dbc.dk'
 def BRANCH = BRANCH_NAME.replaceAll("feature/", "").replace("_", "-")
 def IMAGENAME = 'docker-dscrum.dbc.dk/openfindorder-' + BRANCH + ':' + currentBuild.number
 def BUILDNAME = PRODUCT + ' :: ' + BRANCH
-
-print "Parameter: Version_2_5 = ${VERSION_2_5}"
-print "Parameter: Version_2_6 = ${VERSION_2_6}"
-
-// the image to use on different stages
 def IMAGE
+
+print "Parameter: Version_2_5 = " + VERSION_2_5
+print "Parameter: Version_2_6 = " + VERSION_2_6
 
 pipeline {
   agent {
@@ -88,6 +86,9 @@ pipeline {
               cp -r src/* docker/webservice/www/2.5
               cp -r src/* docker/webservice/www/next_2.5
               cp -r src/* docker/webservice/www/test_2.5
+              ln -s server.php docker/webservice/www/2.5/index.php
+              ln -s server.php docker/webservice/www/test_2.5/index.php
+              ln -s server.php docker/webservice/www/next_2.5/index.php  
             """
           }
           else {
@@ -118,6 +119,9 @@ pipeline {
               cp -r src/* docker/webservice/www/2.6/
               cp -r src/* docker/webservice/www/next_2.6/
               cp -r src/* docker/webservice/www/test_2.6/
+              ln -s server.php docker/webservice/www/2.6/index.php
+              ln -s server.php docker/webservice/www/test_2.6/index.php
+              ln -s server.php docker/webservice/www/next_2.6/index.php
             """
           }
           else {
