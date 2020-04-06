@@ -7,19 +7,12 @@ def IMAGENAME = 'docker-dscrum.dbc.dk/openfindorder-' + BRANCH + ':' + currentBu
 def BUILDNAME = PRODUCT + ' :: ' + BRANCH
 def IMAGE
 
-print "Parameter: Version_2_5 = " + VERSION_2_5
-print "Parameter: Version_2_6 = " + VERSION_2_6
-
 pipeline {
   agent {
       node { label 'd8-php7-builder' }
   }
   environment {
     DOCKER_HOST = 'tcp://dscrum-is:2375'
-  }
-  parameters {
-    booleanParam(name: 'VERSION_2_5', defaultValue: 'true', description: 'Fetch version 2.5')
-    booleanParam(name: 'VERSION_2_6', defaultValue: 'true', description: 'Fetch version 2.6')
   }
   options {
     buildDiscarder(logRotator(artifactDaysToKeepStr: "", artifactNumToKeepStr: "", daysToKeepStr: "", numToKeepStr: "5"))
@@ -70,32 +63,25 @@ pipeline {
     stage("prepare website build (version 2.5)") {
       steps {
         script {
-          if (VERSION_2_5) {
-            // checkout release
-            sh """
-              git checkout release/2.5
-              git pull
-              pwd
-              ls -al
-            """
-            // Create folders & copy files needed for docker image.
-            sh """
-              mkdir 'docker/webservice/www/2.5'
-              mkdir 'docker/webservice/www/next_2.5'
-              mkdir 'docker/webservice/www/test_2.5'
-              cp -r src/* docker/webservice/www/2.5
-              cp -r src/* docker/webservice/www/next_2.5
-              cp -r src/* docker/webservice/www/test_2.5
-              ln -s server.php docker/webservice/www/2.5/index.php
-              ln -s server.php docker/webservice/www/test_2.5/index.php
-              ln -s server.php docker/webservice/www/next_2.5/index.php  
-            """
-          }
-          else {
-            sh """
-              echo 'skipping release/2.5'
-            """
-          }
+          // checkout release
+          sh """
+            git checkout release/2.5
+            git pull
+            pwd
+            ls -al
+          """
+          // Create folders & copy files needed for docker image.
+          sh """
+            mkdir 'docker/webservice/www/2.5'
+            mkdir 'docker/webservice/www/next_2.5'
+            mkdir 'docker/webservice/www/test_2.5'
+            cp -r src/* docker/webservice/www/2.5
+            cp -r src/* docker/webservice/www/next_2.5
+            cp -r src/* docker/webservice/www/test_2.5
+            ln -s server.php docker/webservice/www/2.5/index.php
+            ln -s server.php docker/webservice/www/test_2.5/index.php
+            ln -s server.php docker/webservice/www/next_2.5/index.php
+          """
         }
       }
     }
@@ -103,32 +89,25 @@ pipeline {
     stage("prepare website build (version 2.6)") {
       steps {
         script {
-          if (VERSION_2_6) {
-            // checkout release
-            sh """
-              git checkout release/2.5
-              git pull
-              pwd
-              ls -al
-            """
-            // Create folders & copy files needed for docker image.
-            sh """
-              mkdir 'docker/webservice/www/2.6'
-              mkdir 'docker/webservice/www/next_2.6'
-              mkdir 'docker/webservice/www/test_2.6'
-              cp -r src/* docker/webservice/www/2.6/
-              cp -r src/* docker/webservice/www/next_2.6/
-              cp -r src/* docker/webservice/www/test_2.6/
-              ln -s server.php docker/webservice/www/2.6/index.php
-              ln -s server.php docker/webservice/www/test_2.6/index.php
-              ln -s server.php docker/webservice/www/next_2.6/index.php
-            """
-          }
-          else {
-            sh """
-              echo 'skipping release/2.6'
-            """
-          }
+          // checkout release
+          sh """
+            git checkout release/2.5
+            git pull
+            pwd
+            ls -al
+          """
+          // Create folders & copy files needed for docker image.
+          sh """
+            mkdir 'docker/webservice/www/2.6'
+            mkdir 'docker/webservice/www/next_2.6'
+            mkdir 'docker/webservice/www/test_2.6'
+            cp -r src/* docker/webservice/www/2.6/
+            cp -r src/* docker/webservice/www/next_2.6/
+            cp -r src/* docker/webservice/www/test_2.6/
+            ln -s server.php docker/webservice/www/2.6/index.php
+            ln -s server.php docker/webservice/www/test_2.6/index.php
+            ln -s server.php docker/webservice/www/next_2.6/index.php
+          """
         }
       }
     }
@@ -136,18 +115,11 @@ pipeline {
     stage("Set OpenVersionWrapper link") {
       steps {
         script {
-          if (VERSION_2_5 || VERSION_2_6) {
-            // make index.php symbolic link
-            dir('docker/webservice/www') {
-              sh """
-                ln -s versions.php index.php
-                ls -al
-              """
-            }
-          }
-          else {
+          // make index.php symbolic link
+          dir('docker/webservice/www') {
             sh """
-              echo 'No releases selected. '
+              ln -s versions.php index.php
+              ls -al
             """
           }
         }
