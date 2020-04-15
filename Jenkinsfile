@@ -91,7 +91,7 @@ pipeline {
         script {
           // checkout release
           sh """
-            git checkout release/2.5
+            git checkout release/2.6
             git pull
             pwd
             ls -al
