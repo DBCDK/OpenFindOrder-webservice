@@ -22,15 +22,15 @@ pipeline {
   }
   stages {
 
-    stage('GIT: checkout code') {
-      steps {
-        checkout scm
-        // get externals
-        dir('src/OLS_class_lib') {
-          git url: 'https://github.com/DBCDK/class_lib-webservice', branch: 'master'
-        }
-      }
-    }
+    stage('SVN: checkout OLS_class_lib') {
+			steps {
+				dir('src') {
+					sh """
+						svn co https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/ OLS_class_lib
+					"""
+				}
+			}
+		}
 
     stage('SetUp') {
       steps {
@@ -40,7 +40,6 @@ pipeline {
           sh """
             rm -rf webservice/
             cp -rp install/ webservice/
-            ls -al
           """
         }
       }
@@ -54,7 +53,6 @@ pipeline {
             rm -rf www
             svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
             cp OpenVersionWrapper.install/* www/
-            ls -al
           """
         }
       }
@@ -67,8 +65,6 @@ pipeline {
           sh """
             git checkout release/2.5
             git pull
-            pwd
-            ls -al
           """
           // Create folders & copy files needed for docker image.
           sh """
@@ -93,8 +89,6 @@ pipeline {
           sh """
             git checkout release/2.6
             git pull
-            pwd
-            ls -al
           """
           // Create folders & copy files needed for docker image.
           sh """
@@ -119,7 +113,6 @@ pipeline {
           dir('docker/webservice/www') {
             sh """
               ln -s versions.php index.php
-              ls -al
             """
           }
         }
