@@ -53,7 +53,7 @@ pipeline {
     stage("SVN: checkout OpenVersionWrapper") {
 			steps {
 				// Check out OpenVersionWrapper
-				dir('docker/webservice') {
+				dir('docker/install') {
 					sh """
 						svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
 						cp OpenVersionWrapper.install/* www/
@@ -72,15 +72,15 @@ pipeline {
           """
           // Create folders & copy files needed for docker image.
           sh """
-            mkdir 'docker/webservice/www/2.5'
-            mkdir 'docker/webservice/www/next_2.5'
-            mkdir 'docker/webservice/www/test_2.5'
-            cp -r src/* docker/webservice/www/2.5
-            cp -r src/* docker/webservice/www/next_2.5
-            cp -r src/* docker/webservice/www/test_2.5
-            ln -s server.php docker/webservice/www/2.5/index.php
-            ln -s server.php docker/webservice/www/test_2.5/index.php
-            ln -s server.php docker/webservice/www/next_2.5/index.php
+            mkdir 'docker/install/www/2.5'
+            mkdir 'docker/install/www/next_2.5'
+            mkdir 'docker/install/www/test_2.5'
+            cp -r src/* docker/install/www/2.5
+            cp -r src/* docker/install/www/next_2.5
+            cp -r src/* docker/install/www/test_2.5
+            ln -s server.php docker/install/www/2.5/index.php
+            ln -s server.php docker/install/www/test_2.5/index.php
+            ln -s server.php docker/install/www/next_2.5/index.php
           """
         }
       }
@@ -89,21 +89,21 @@ pipeline {
     stage("prepare website build (version 2.6)") {
       steps {
         script {
-          // checkout  current version
+          // checkout current version
           sh """
             git checkout $BRANCH_NAME
           """
           // Create folders & copy files needed for docker image.
           sh """
-            mkdir 'docker/webservice/www/2.6'
-            mkdir 'docker/webservice/www/next_2.6'
-            mkdir 'docker/webservice/www/test_2.6'
-            cp -r src/* docker/webservice/www/2.6/
-            cp -r src/* docker/webservice/www/next_2.6/
-            cp -r src/* docker/webservice/www/test_2.6/
-            ln -s server.php docker/webservice/www/2.6/index.php
-            ln -s server.php docker/webservice/www/test_2.6/index.php
-            ln -s server.php docker/webservice/www/next_2.6/index.php
+            mkdir 'docker/install/www/2.6'
+            mkdir 'docker/install/www/next_2.6'
+            mkdir 'docker/install/www/test_2.6'
+            cp -r src/* docker/install/www/2.6/
+            cp -r src/* docker/install/www/next_2.6/
+            cp -r src/* docker/install/www/test_2.6/
+            ln -s server.php docker/install/www/2.6/index.php
+            ln -s server.php docker/install/www/test_2.6/index.php
+            ln -s server.php docker/install/www/next_2.6/index.php
           """
         }
       }
@@ -113,7 +113,7 @@ pipeline {
       steps {
         script {
           // make index.php symbolic link
-          dir('docker/webservice/www') {
+          dir('docker/install/www') {
             sh """
               ln -s versions.php index.php
             """
@@ -124,7 +124,7 @@ pipeline {
 
     stage("Docker: build image") {
       steps {
-        dir('docker/webservice') {
+        dir('docker/install') {
           script {
             def image = docker.build(IMAGENAME)
           }
