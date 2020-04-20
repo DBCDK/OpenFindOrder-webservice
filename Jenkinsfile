@@ -68,7 +68,6 @@ pipeline {
           // checkout release
           sh """
             git checkout release/2.5
-            git pull
           """
           // Create folders & copy files needed for docker image.
           sh """
