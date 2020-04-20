@@ -1,18 +1,28 @@
 #!groovy
+@Library('frontend-dscrum')
 
 def PRODUCT = 'openfindorder'
+def BRANCH = BRANCH_NAME.replaceAll(/[\/._ ]/, "-")
+// def VERSION = '1.5'
+
+// Docker setup
+def DOCKER_HOST = 'tcp://dscrum-is:2375'
 def DOCKER_REPO = 'docker-dscrum.dbc.dk'
-def BRANCH = BRANCH_NAME.replaceAll("feature/", "").replace("_", "-")
+def ARTIFACTORY_SERVER = Artifactory.server 'arty'
+def ARTIFACTORY_DOCKER = Artifactory.docker server: ARTIFACTORY_SERVER, host: env.DOCKER_HOST
 def IMAGENAME = 'docker-dscrum.dbc.dk/openfindorder-' + BRANCH + ':' + currentBuild.number
+
+// Artifactory setup
 def BUILDNAME = PRODUCT + ' :: ' + BRANCH
-def IMAGE
+def NAMESPACE = (BRANCH == 'master') ? 'staging' : 'features'
+
+// Post stages
+def URL = 'http://' + PRODUCT  + '-' + BRANCH + '.' + "frontend-" + NAMESPACE + '.svc.cloud.dbc.dk' + '/'
+// def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk, nwi@dbc.dk'
 
 pipeline {
   agent {
-      node { label 'd8-php7-builder' }
-  }
-  environment {
-    DOCKER_HOST = 'tcp://dscrum-is:2375'
+    node { label 'devel10-head' }
   }
   options {
     buildDiscarder(logRotator(artifactDaysToKeepStr: "", artifactNumToKeepStr: "", daysToKeepStr: "", numToKeepStr: "5"))
@@ -20,8 +30,16 @@ pipeline {
     gitLabConnection('gitlab.dbc.dk')
     disableConcurrentBuilds()
   }
-  stages {
+  triggers {
+		gitlab(
+			triggerOnPush: true,
+			triggerOnMergeRequest: true,
+			branchFilterType: 'All',
+			addVoteOnMergeRequest: true
+		)
+	}
 
+  stages {
     stage('SVN: checkout OLS_class_lib') {
 			steps {
 				dir('src') {
@@ -32,31 +50,17 @@ pipeline {
 			}
 		}
 
-    stage('SetUp') {
-      steps {
-        // We'll want to work from the current branch,
-        // not the release branches which will get checked out later.
-        dir('docker') {
-          sh """
-            rm -rf webservice/
-            cp -rp install/ webservice/
-          """
-        }
-      }
-    }
-
-    stage("SVN: checkout externals") {
-      steps {
-        // Check out OpenVersionWrapper
-        dir('docker/webservice') {
-          sh """
-            rm -rf www
-            svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
-            cp OpenVersionWrapper.install/* www/
-          """
-        }
-      }
-    }
+    stage("SVN: checkout OpenVersionWrapper") {
+			steps {
+				// Check out OpenVersionWrapper
+				dir('docker/webservice') {
+					sh """
+						svn co https://svn.dbc.dk/repos/php/OpenLibrary/OpenVersionWrapper/trunk/ www
+						cp OpenVersionWrapper.install/* www/
+					"""
+				}
+			}
+		}
 
     stage("prepare website build (version 2.5)") {
       steps {
@@ -85,10 +89,9 @@ pipeline {
     stage("prepare website build (version 2.6)") {
       steps {
         script {
-          // checkout release
+          // checkout  current version
           sh """
-            git checkout release/2.6
-            git pull
+            git checkout $BRANCH_NAME
           """
           // Create folders & copy files needed for docker image.
           sh """
@@ -123,7 +126,7 @@ pipeline {
       steps {
         dir('docker/webservice') {
           script {
-            IMAGE = docker.build(IMAGENAME)
+            def image = docker.build(IMAGENAME)
           }
         }
       }
@@ -132,16 +135,12 @@ pipeline {
     stage('Push to artifactory ') {
       steps {
         script {
-          def artyServer = Artifactory.server 'arty'
-          def artyDocker = Artifactory.docker server: artyServer, host: env.DOCKER_HOST
           def buildInfo  = Artifactory.newBuildInfo()
 
           buildInfo.name = BUILDNAME
-          buildInfo = artyDocker.push(IMAGENAME, 'docker-dscrum', buildInfo)
-          buildInfo.env.capture = true
-          buildInfo.env.collect()
+          buildInfo = ARTIFACTORY_DOCKER.push(IMAGENAME, 'docker-dscrum', buildInfo)
 
-          artyServer.publishBuildInfo buildInfo
+          ARTIFACTORY_SERVER.publishBuildInfo buildInfo
 
           sh """
             docker rmi ${IMAGENAME}
@@ -155,15 +154,15 @@ pipeline {
         script {
           // Deploy to Kubernetes frontend-staging namespace.
           if (BRANCH_NAME == 'master') {
-            build job: 'OpenFindOrder/Deploy openfindorder', parameters: [
-              string(name: 'Branch', value: BRANCH_NAME),
+            build job: 'PHP Webservices/OpenFindOrder/openfindorder-deploy/staging', parameters: [
+              string(name: 'Branch', value: 'master'),
               string(name: 'BuildId', value: currentBuild.number.toString()),
               string(name: 'Namespace', value: 'staging'),
             ]
           }
           // Deploy to Kubernetes frontend-features namespace.
           else {
-            build job: 'OpenFindOrder/Deploy openfindorder', parameters: [
+            build job: 'PHP Webservices/OpenFindOrder/openfindorder-deploy/features', parameters: [
               string(name: 'Branch', value: BRANCH_NAME),
               string(name: 'BuildId', value: currentBuild.number.toString()),
               string(name: 'Namespace', value: 'features'),
@@ -177,13 +176,19 @@ pipeline {
   post {
     success {
       script {
-        def BUILD = DOCKER_REPO + '/' + PRODUCT + ':' +  currentBuild.number
+				echo URL
+        def BUILD = DOCKER_REPO + '/' + PRODUCT + ':' +  currentBuild.number.toString()
         echo BUILD
       }
     }
     failure {
       // @TODO do something meaningfull
       echo 'FAIL'
+    }
+		always {
+      echo 'Clean up workspace.'
+      deleteDir()
+      cleanWs()
     }
   }
 }
