@@ -19,6 +19,7 @@ do
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
     fi
+    sed -i "s/@VERSION@/$u/g" $INI
     echo "replaced openfindorder.ini variables in version $u"
 done
 
@@ -41,6 +42,7 @@ do
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
     fi
+    sed -i "s/@VERSION@/$u/g" $INI
     echo "replaced openfindorder.ini variables in version $u"
 done
 
@@ -63,6 +65,7 @@ do
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
     fi
+    sed -i "s/@VERSION@/$u/g" $INI
     echo "replaced openfindorder.ini variables in version $u"
 done
 
