@@ -15,10 +15,12 @@ do
         sed -i "s#@MY_DOMAIN@#$MY_DOMAIN#g" $INI
         sed -i "s#@MY_DOMAIN_IP_LIST@#$MY_DOMAIN_IP_LIST#g" $INI
         sed -i "s#@HERNING_IP_LIST@#$HERNING_IP_LIST#g" $INI
+        sed -i "s#@REINDEX_IP_LIST@#$REINDEX_IP_LIST#g" $INI
         sed -i "s#@AAA_FORS_RIGHTS@#$AAA_FORS_RIGHTS#g" $INI
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
     fi
+    sed -i "s/@VERSION@/$u/g" $INI
     echo "replaced openfindorder.ini variables in version $u"
 done
 
@@ -37,10 +39,12 @@ do
         sed -i "s#@MY_DOMAIN@#$MY_DOMAIN#g" $INI
         sed -i "s#@MY_DOMAIN_IP_LIST@#$MY_DOMAIN_IP_LIST#g" $INI
         sed -i "s#@HERNING_IP_LIST@#$HERNING_IP_LIST#g" $INI
+        sed -i "s#@REINDEX_IP_LIST@#$REINDEX_IP_LIST#g" $INI
         sed -i "s#@AAA_FORS_RIGHTS@#$AAA_FORS_RIGHTS#g" $INI
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
     fi
+    sed -i "s/@VERSION@/$u/g" $INI
     echo "replaced openfindorder.ini variables in version $u"
 done
 
@@ -59,10 +63,12 @@ do
         sed -i "s#@MY_DOMAIN@#$MY_DOMAIN#g" $INI
         sed -i "s#@MY_DOMAIN_IP_LIST@#$MY_DOMAIN_IP_LIST#g" $INI
         sed -i "s#@HERNING_IP_LIST@#$HERNING_IP_LIST#g" $INI
+        sed -i "s#@REINDEX_IP_LIST@#$REINDEX_IP_LIST#g" $INI
         sed -i "s#@AAA_FORS_RIGHTS@#$AAA_FORS_RIGHTS#g" $INI
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
     fi
+    sed -i "s/@VERSION@/$u/g" $INI
     echo "replaced openfindorder.ini variables in version $u"
 done
 
