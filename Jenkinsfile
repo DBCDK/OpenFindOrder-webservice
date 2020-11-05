@@ -51,6 +51,7 @@ pipeline {
             mv src/AuditTrail.php ..
             ls -lat
             ls -lat src
+            rm -rf ../AuditTrail
             ls -lat ..
           """
         }
