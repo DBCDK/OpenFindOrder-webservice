@@ -40,6 +40,15 @@ pipeline {
 	}
 
   stages {
+    stage('GIT: checkout AuditTrail') {
+      steps {
+        dir('src') {
+          git url:'ssh://gitlab.dbc.dk/pu/audit/audit-trail-php-library.git'
+          sh "ls -lat"
+          sh "ls -lat src"
+        }
+      }
+    }
     stage('SVN: checkout OLS_class_lib') {
 			steps {
 				dir('src') {
