@@ -44,15 +44,10 @@ pipeline {
       steps {
         dir('src/AuditTrail') {
           git (url:'gitlab@gitlab.dbc.dk:pu/audit/audit-trail-php-library.git', branch: 'master', credentialsId: 'gitlab-isworker')
-          sh """
-            pwd
-            ls -lat
-            ls -lat src
-            mv src/AuditTrail.php ..
-            ls -lat
-            ls -lat src
-            ls -lat ..
-          """
+        }
+        dir('src') {
+          sh "mv AuditTrail/src/AuditTrail.php ./"
+          sh "ls -lat"
         }
       }
     }
