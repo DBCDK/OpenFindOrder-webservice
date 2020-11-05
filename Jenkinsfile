@@ -48,7 +48,10 @@ pipeline {
             pwd
             ls -lat
             ls -lat src
-            ls -lat src/AuditTrail
+            mv src/AuditTrail.php ..
+            ls -lat
+            ls -lat src
+            ls -lat ..
           """
         }
       }
