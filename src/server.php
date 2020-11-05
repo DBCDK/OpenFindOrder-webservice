@@ -19,6 +19,10 @@
  * along with Open Library System.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+
 define('DEBUG', FALSE);
 
 require_once('OLS_class_lib/webServiceServer_class.php');
@@ -26,6 +30,7 @@ require_once('OLS_class_lib/aaa_class.php');
 require_once "orsClass.php";
 require_once "ofoAaa.php";
 require_once "ofoAuthentication.php";
+require_once "AuditTrail.php";
 require_once "openFindOrder.php";
 
 
