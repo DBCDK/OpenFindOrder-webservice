@@ -43,6 +43,7 @@ pipeline {
     stage('GIT: checkout AuditTrail') {
       steps {
         dir('src/AuditTrail') {
+          sh "ls -lat .."
           git (url:'gitlab@gitlab.dbc.dk:pu/audit/audit-trail-php-library.git', branch: 'master', credentialsId: 'gitlab-isworker')
         }
         dir('src') {
@@ -50,6 +51,7 @@ pipeline {
           sh "ls -lat"
           sh "rm -rf AuditTrail"
           sh "ls -lat"
+          sh "ls -lat AuditTrail@tmp"
         }
       }
     }
