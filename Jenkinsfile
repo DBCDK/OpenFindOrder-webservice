@@ -49,7 +49,6 @@ pipeline {
           sh """
             mv AuditTrail/src/* ./
             rm -rf AuditTrail
-            ls -lat ./
           """
         }
       }
