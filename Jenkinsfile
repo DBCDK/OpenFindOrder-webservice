@@ -48,6 +48,8 @@ pipeline {
         dir('src') {
           sh "mv AuditTrail/src/AuditTrail.php ./"
           sh "ls -lat"
+          sh "rm -rf AuditTrail"
+          sh "ls -lat"
         }
       }
     }
