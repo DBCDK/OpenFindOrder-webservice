@@ -396,16 +396,10 @@ class openFindOrder extends webServiceServer {
   }
 
   /**
-   * @param $param
-   * @throws Exception
+   * Call AuditTrail::log with user request and authentication info
    *
-   * AuditTrail:
-   *   string $accessingUser The login token retrieved from Adgangsplatformen.
-   *   array $clientIps The client ip addresses and perhaps a proxy etc.
-   *   string $appName The application that calls this method, Bobbasen, Netpunkt, BibliotekDK etc.
-   *   string $action Are we writing or reading to/from the system.
-   *   string $owningUser The owner of the data being watched or written.
-   *   array $accessInfo The data that are being handled for the request.
+   * @param $param Object containing the actual request
+   *
    */
   private function auditTrail($param) {
     $user = $param->authentication->_value->groupIdAut->_value . '::' . $param->authentication->_value->userIdAut->_value;

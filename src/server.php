@@ -19,10 +19,6 @@
  * along with Open Library System.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-
 define('DEBUG', FALSE);
 
 require_once('OLS_class_lib/webServiceServer_class.php');
