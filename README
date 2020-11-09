@@ -43,6 +43,8 @@ Installation
 The webservice requires [class_lib](svn://oss.dbc.dk/sync_php/php/OpenLibrary/class_lib) 
 to be installed in ./OLS_class_lib
 
+AuditTrail.php is required and a local version is found in: gitlab.dbc.dk/pu/audit/audit-trail-php-library
+
 In the php.ini file:
 - make sure that always_populate_raw_post_data = On
 

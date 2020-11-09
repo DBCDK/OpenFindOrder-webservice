@@ -50,6 +50,8 @@ class openFindOrder extends webServiceServer {
    * @param; request parameters in request-xml object.
    */
   public function requestHandler($param, $method = NULL) {
+    self::auditTrail($param);
+
     if ($error = ofoAuthentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
     }
@@ -391,6 +393,48 @@ class openFindOrder extends webServiceServer {
     }
 
     return $response;
+  }
+
+  /**
+   * Call AuditTrail::log with user request and authentication info
+   *
+   * @param $param Object containing the actual request
+   *
+   */
+  private function auditTrail($param) {
+    $user = $param->authentication->_value->groupIdAut->_value . '::' . $param->authentication->_value->userIdAut->_value;
+    try {
+      \DBC\AT\AuditTrail::log(
+          $user == '::' ? 'no-user-specified' : $user,
+          [$_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER['REMOTE_ADDR']],
+          'openFindOrder' . '::' . $this->soap_action,
+          'read',
+          $param->requesterAgencyId->_value,
+          [json_encode(self::cleanBadgerfish($param))]
+      );
+    } catch (Exception $e) {
+      VerboseJson::log(ERROR, 'Cannot write audit trail. Message: ' . $e->getMessage());
+    }
+  }
+
+  /** remove namespace objects and implode value level
+   *
+   * @param $misc
+   * @return bool|float|int|stdClass|string
+   */
+  private function cleanBadgerfish($misc) {
+    if (is_scalar($misc)) return $misc;
+    $ret = new stdClass();
+    foreach ($misc as $key => $value) {
+      if ($key !== '_namespace') {
+        if ($key === '_value') {
+            return self::cleanBadgerfish($value);
+        } else {
+          $ret->$key = self::cleanBadgerfish($value);
+        }
+      }
+    }
+    return $ret;
   }
 }
 
