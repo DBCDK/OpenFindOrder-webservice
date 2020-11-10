@@ -410,16 +410,20 @@ class openFindOrder extends webServiceServer {
   private function auditTrail($param) {
     $user = $param->authentication->_value->groupIdAut->_value . '::' . $param->authentication->_value->userIdAut->_value;
     try {
-      \DBC\AT\AuditTrail::log(
-          $user == '::' ? 'no-user-specified' : $user,
-          [$_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER['REMOTE_ADDR']],
-          'openFindOrder' . '::' . $this->soap_action,
-          'read',
-          json_encode(self::cleanBadgerfish($param->requesterAgencyId)),
-          [json_encode(self::cleanBadgerfish($param))]
-      );
-    } catch (Exception $e) {
-      VerboseJson::log(ERROR, 'Cannot write audit trail. Message: ' . $e->getMessage());
+      try {
+        \DBC\AT\AuditTrail::log(
+            $user == '::' ? 'no-user-specified' : $user,
+            [$_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER['REMOTE_ADDR']],
+            'openFindOrder' . '::' . $this->soap_action,
+            'read',
+            json_encode(self::cleanBadgerfish($param->requesterAgencyId)),
+            [json_encode(self::cleanBadgerfish($param))]
+        );
+      } catch (Exception $e) {
+        VerboseJson::log(ERROR, 'Cannot write audit trail. Message: ' . $e->getMessage());
+      }
+    } catch (TypeError $e) {
+      VerboseJson::log(ERROR, 'TypeError calling audit trail. Message: ' . $e->getMessage());
     }
   }
 
