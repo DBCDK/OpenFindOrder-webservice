@@ -73,7 +73,6 @@ class openFindOrder extends webServiceServer {
     switch ($method) {
       case 'getReceipts':
         return $this->getReceiptsResponse($ors->getResponse(), $ors->getTotal(), $ors->getQuery());
-        break;
       default:
         return $this->findOrderResponse($ors);
     }
@@ -246,6 +245,7 @@ class openFindOrder extends webServiceServer {
       return $this->send_error('Error decoding json string', 'formatReceipt');
     }
 
+    $order = new stdClass();
     $order->resultPosition->_value = 1;
     $order->resultPosition->_namespace = THIS_NAMESPACE;
     self::isil_or_dnucni($receipt->pickUpAgencyId, $receipt->pickUpAgencyIdType);
@@ -257,6 +257,7 @@ class openFindOrder extends webServiceServer {
         $order->$key->_namespace = THIS_NAMESPACE;
       }
     }
+    $orders = [];
     $orders[0]->_value = $order;
     $orders[0]->_namespace = THIS_NAMESPACE;
 
@@ -277,6 +278,7 @@ class openFindOrder extends webServiceServer {
     $debug_info = $ors->getQuery();
     $status = $ors->getStatus();
 
+    $response = new stdClass();
     $response->findOrdersResponse->_namespace = THIS_NAMESPACE;
 
     if ($status == 'ERROR') {
@@ -316,6 +318,7 @@ class openFindOrder extends webServiceServer {
    */
   private function getReceiptsResponse($receipts, $number_of_receipts = 0, $debug_info = '') {
 
+    $response = new stdClass();
     $response->getReceiptsResponse->_namespace = THIS_NAMESPACE;
 
     if ($receipts === FALSE) {
@@ -381,12 +384,15 @@ class openFindOrder extends webServiceServer {
    * send errormessage as xml response-object
    */
   private function send_error($message, $response_tag = 'findOrdersResponse', $debug_info = null) {
+    $response = new stdClass();
     $response->$response_tag->_namespace = THIS_NAMESPACE;
+    $error = new stdClass();
     $error->_namespace = THIS_NAMESPACE;
     $error->_value = $message;
     $response->$response_tag->_value->error = $error;
 
     if ($debug_info) {
+      $debug = new stdClass();
       $debug->_namespace = THIS_NAMESPACE;
       $debug->_value = $debug_info;
       $response->$response_tag->_value->debugInfo = $debug;
@@ -404,16 +410,20 @@ class openFindOrder extends webServiceServer {
   private function auditTrail($param) {
     $user = $param->authentication->_value->groupIdAut->_value . '::' . $param->authentication->_value->userIdAut->_value;
     try {
-      \DBC\AT\AuditTrail::log(
-          $user == '::' ? 'no-user-specified' : $user,
-          [$_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER['REMOTE_ADDR']],
-          'openFindOrder' . '::' . $this->soap_action,
-          'read',
-          $param->requesterAgencyId->_value,
-          [json_encode(self::cleanBadgerfish($param))]
-      );
-    } catch (Exception $e) {
-      VerboseJson::log(ERROR, 'Cannot write audit trail. Message: ' . $e->getMessage());
+      try {
+        \DBC\AT\AuditTrail::log(
+            $user == '::' ? 'no-user-specified' : $user,
+            [$_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER['REMOTE_ADDR']],
+            'openFindOrder' . '::' . $this->soap_action,
+            'read',
+            json_encode(self::cleanBadgerfish($param->requesterAgencyId)),
+            [json_encode(self::cleanBadgerfish($param))]
+        );
+      } catch (Exception $e) {
+        VerboseJson::log(ERROR, 'Cannot write audit trail. Message: ' . $e->getMessage());
+      }
+    } catch (TypeError $e) {
+      VerboseJson::log(ERROR, 'TypeError calling audit trail. Message: ' . $e->getMessage());
     }
   }
 
@@ -423,12 +433,12 @@ class openFindOrder extends webServiceServer {
    * @return bool|float|int|stdClass|string
    */
   private function cleanBadgerfish($misc) {
-    if (is_scalar($misc)) return $misc;
+    if (is_scalar($misc) || empty($misc)) return $misc;
     $ret = new stdClass();
     foreach ($misc as $key => $value) {
       if ($key !== '_namespace') {
         if ($key === '_value') {
-            return self::cleanBadgerfish($value);
+          return self::cleanBadgerfish($value);
         } else {
           $ret->$key = self::cleanBadgerfish($value);
         }
@@ -437,5 +447,3 @@ class openFindOrder extends webServiceServer {
     return $ret;
   }
 }
-
-?>
