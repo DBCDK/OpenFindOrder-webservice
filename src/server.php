@@ -26,7 +26,6 @@ require_once('OLS_class_lib/aaa_class.php');
 require_once "orsClass.php";
 require_once "ofoAaa.php";
 require_once "ofoAuthentication.php";
-require_once "AuditTrail.php";
 require_once "openFindOrder.php";
 
 
