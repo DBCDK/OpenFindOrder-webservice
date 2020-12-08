@@ -279,6 +279,7 @@ class openFindOrder extends webServiceServer {
     $status = $ors->getStatus();
 
     $response = new stdClass();
+    $response->findOrdersResponse = new stdClass();
     $response->findOrdersResponse->_namespace = THIS_NAMESPACE;
 
     if ($status == 'ERROR') {
@@ -302,10 +303,14 @@ class openFindOrder extends webServiceServer {
     }
 
     $result = &$response->findOrdersResponse->_value->result;
+    $result = new stdClass();
     $result->_namespace = THIS_NAMESPACE;
+    $result->_value = new stdClass();
+    $result->_value->numberOfOrders = new stdClass();
     $result->_value->numberOfOrders->_namespace = THIS_NAMESPACE;
     $result->_value->numberOfOrders->_value = $total;
     $result->_value->order = $orders;
+    $result->_value->debugInfo = new stdClass();
     $result->_value->debugInfo->_value = $debug_info;
 
     return $response;
@@ -385,10 +390,12 @@ class openFindOrder extends webServiceServer {
    */
   private function send_error($message, $response_tag = 'findOrdersResponse', $debug_info = null) {
     $response = new stdClass();
+    $response->$response_tag = new stdClass();
     $response->$response_tag->_namespace = THIS_NAMESPACE;
     $error = new stdClass();
     $error->_namespace = THIS_NAMESPACE;
     $error->_value = $message;
+    $response->$response_tag->_value = new stdClass();
     $response->$response_tag->_value->error = $error;
 
     if ($debug_info) {
