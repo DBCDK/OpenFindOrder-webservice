@@ -74,9 +74,7 @@ class orsClass {
    * @param stdClass $param
    */
   public function setQuery($param) {
-    $orsAgency = new orsAgency(
-        $this->config->get_value('openagency_agency_list', 'setup'),
-        $this->config->get_value('vipcore', 'setup'));
+    $orsAgency = new orsAgency($this->config->get_value('vipcore', 'setup'));
 
     $consistency = $orsAgency->check_agency_consistency($param);
     if (!$consistency) {
