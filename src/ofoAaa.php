@@ -1,14 +1,14 @@
 <?php
   class ofoAaa extends aaa {
 
-    private $openagencyAgencyList;
     private $authorizationError;
+    private $vipCoreSettings;
 
     /**
-     * \brief set $openagencyAgencyList
+     * \brief set $vipCoreSettings
      **/
     public function setOpenagencyList($setup) {
-      $this->openagencyAgencyList = $setup['openagency_agency_list'];
+      $this->vipCoreSettings = $setup['vipcore'];
     }
 
     /**
@@ -22,7 +22,7 @@
       $this->user = $param->authentication->_value->userIdAut->_value;
       $this->group = $this->stripAgency($param->authentication->_value->groupIdAut->_value);
       $this->agency = $param->agency->_value;
-      $orsAgency = new orsAgency($this->openagencyAgencyList);
+      $orsAgency = new orsAgency($this->vipCoreSettings);
       $branches = $orsAgency->fetch_library_list($this->group);
       if ($orsAgency->getError()) {
         self::local_verbose(WARNING, 'ofoAaa(' . __LINE__ . '):: orsAgency error: ' . $orsAgency->getErrorMsg());
@@ -78,4 +78,3 @@
     }
 
   }
-?>

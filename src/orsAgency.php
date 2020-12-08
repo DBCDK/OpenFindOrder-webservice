@@ -1,18 +1,22 @@
 <?php
 
+require_once 'vendor/autoload.php';
+
 /**
  * Class orsAgency
  *
  * handle ors specific requests to openagency - in this case pickupagencylistrequest only
  */
 class orsAgency{
-  private $agency_url;
+  private $vip_core;
+  private $VipCore;
   private $curl;
   private $error;
   private $err_msg;
 
-  public function __construct($agency_url){
-    $this->agency_url = $agency_url;
+  public function __construct($vip_core){
+    $this->vip_core = $vip_core;
+    $this->VipCore = $this->initVipCore($this->vip_core);
     $this->curl = new curl();
     $this->error = FALSE;
     $this->err_msg = NULL;
@@ -50,74 +54,33 @@ class orsAgency{
 
     $agency = $this->strip_agency($agency);
     $is_main_agency = FALSE;
-    $url = sprintf($this->agency_url, $agency);
-    $request = $this->curl->get($url);
-    $xml = new xmlconvert();
-    $res = $xml->soap2obj($request);
 
-    if ($res && $res->pickupAgencyListResponse->_value->library) {
-      foreach ($res->pickupAgencyListResponse->_value->library->_value->pickupAgency as $sublib) {
-        if (
-          !empty($sublib->_value->branchType->_value) &&
-          $sublib->_value->branchType->_value === 'H' &&
-          $sublib->_value->branchId->_value === $agency
-        ) {
-          $is_main_agency = TRUE;
+    $start = $this->time_since();
+    try {
+      $aList = $this->VipCore->pickupAgencyList([$agency], [], [], [], [], [], 'aktive');
+      if (isset($aList->library) && isset($aList->library[0]) && isset($aList->library[0]->pickupAgency)) {
+        foreach ($aList->library[0]->pickupAgency as $lib) {
+          if (isset($lib->branchType) && $lib->branchType === 'H' && $lib->branchId === $agency) {
+            $is_main_agency = TRUE;
+          }
+        }
+        foreach ($aList->library[0]->pickupAgency as $lib) {
+          $libs[] = $is_main_agency ? $lib->branchId : $agency;
         }
       }
-      foreach ($res->pickupAgencyListResponse->_value->library->_value->pickupAgency as $sublib) {
-        if ($is_main_agency) {
-          $libs[] = $sublib->_value->branchId->_value;
-        }
-        else {
-          $libs[] = $agency;
-        }
+      if (empty($libs)) {
+        $this->setError('cannot_find_agency');
       }
+    } catch (Exception $e) {
+      $this->setError('open find order service not available: ' . $e->getMessage());
+      VerboseJson::log(ERROR, 'VipCore::pickupAgencyList returned ' . $e->getMessage());
     }
-    else if ($res && $res->pickupAgencyListResponse->_value->error) {
-      $agency_error = $res->pickupAgencyListResponse->_value->error->_value;
-      switch ($agency_error) {
-        case 'authentication_error':
-        case 'no_userid_selected':
-        case 'profile_not_found':
-        case 'error_in_request':
-          VerboseJson::log(ERROR, array('openAgency error' => $agency_error . '; URL:' . $url));
-          // no break
-        case 'agency_not_found':
-        case 'no_agencies_found':
-          $this->setError('cannot_find_agency');
-          break;
-        case 'service_unavailable':
-        default:
-          $this->setError('open find order service not available');
-          VerboseJson::log(ERROR, array('openAgency error' => $agency_error . '; URL:' . $url));
-          break;
-      }
-    }
-
-    // Check cURL response.
-    $status = $this->curl->get_status();
-    if ($this->curl->has_error()) {
-      VerboseJson::log(ERROR, array(
-        'system' => 'ORS2',
-        'query' => $json,
-        'url' => $status['url'],
-        'total_time' => $status['total_time'],
-        'http_code' => $status['http_code'] ,
-        'errno' => $status['errno'] ,
-        'error' => $status['error'])
-      );
-      $this->setError('open find order service not available');
-    }
-    else {
-      VerboseJson::log(TRACE, array(
-        'system' => 'ORS2',
-        'query' => $json ,
-        'url' => $status['url'],
-        'total_time' => $status['total_time'])
-      );
-    }
-
+    VerboseJson::log(TRACE, array(
+            'system' => 'ORS2',
+            'query' => $agency,
+            'url' => $this->vip_core['url'],
+            'total_time' => $this->time_since($start))
+    );
     return $libs;
   }
 
@@ -189,4 +152,42 @@ class orsAgency{
   private function strip_agency($id) {
     return preg_replace('/\D/', '', $id);
   }
+
+  private function time_since($start = 0) {
+    list($usec, $sec) = explode(" ", microtime());
+    return ((float)$usec + (float)$sec) - $start;
+  }
+
+  /** Initialize VipCore with memcached or redis
+   *
+   * @param $config
+   * @return \DBC\VC\VipCore|null
+   */
+  private function initVipCore($config) {
+    try {
+      $cacheMiddleware = null;
+      if ($config['memcached']) {
+        $memcached = [['url' => $config['memcached']['url'], 'port' => $config['memcached']['port']]];
+        $cacheMiddleware = \DBC\VC\CacheMiddleware\MemcachedCacheMiddleware::createCacheMiddleware(
+            $memcached, $config['memcached']['expire'], 'OS'
+        );
+      }
+      elseif ($config['redis']) {
+        $redis = ['url' => $config['redis']['url'], 'port' => $config['redis']['port']];
+        $cacheMiddleware = \DBC\VC\CacheMiddleware\PredisCacheMiddleware::createCacheMiddleware(
+            $redis, $config['redis']['expire'], 'OS'
+        );
+      }
+      else {
+        VerboseJson::log(ERROR, 'No cache settings for vipCore');
+      }
+      return new \DBC\VC\VipCore(
+          $config['url'], $config['timeout'], VerboseJson::$tracking_id, $cacheMiddleware);
+    } catch (Error $e) {
+      VerboseJson::log(FATAL, 'Error initializing vipCore: ' . $e->getMessage());
+    }
+    return null;
+  }
+
 }
+
