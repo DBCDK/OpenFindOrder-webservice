@@ -15,9 +15,6 @@ do
         sed -i "s#@AAA_FORS_RIGHTS@#$AAA_FORS_RIGHTS#g" $INI
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
-        sed -i "s#@VIPCORE_CACHE_HOST@#$VIPCORE_CACHE_HOST#g" $INI
-        sed -i "s#@VIPCORE_CACHE_PORT@#$VIPCORE_CACHE_PORT#g" $INI
-        sed -i "s#@VIPCORE_CACHE_EXPIRE@#$VIPCORE_CACHE_EXPIRE#g" $INI
         sed -i "s#@CACHE_HOST@#$CACHE_HOST#g" $INI
         sed -i "s#@CACHE_PORT@#$CACHE_PORT#g" $INI
         sed -i "s#@CACHE_EXPIRE@#$CACHE_EXPIRE#g" $INI
