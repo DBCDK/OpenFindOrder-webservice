@@ -1,6 +1,7 @@
 <?php
 
-class openFindOrder extends webServiceServer {
+class OpenFindOrder extends webServiceServer
+{
   //public $stat;
 
   /** \brief
@@ -12,7 +13,7 @@ class openFindOrder extends webServiceServer {
     define('THIS_NAMESPACE', $this->xmlns['ofo']);
     $this->watch->start('openfindorderWS');
 
-    $this->aaa = new ofoAaa($this->config->get_section('aaa'));
+    $this->aaa = new OfoAaa($this->config->get_section('aaa'));
     $this->aaa->setOpenagencyList($this->config->get_section('setup'));
   }
 
@@ -52,7 +53,7 @@ class openFindOrder extends webServiceServer {
   public function requestHandler($param, $method = NULL) {
     self::auditTrail($param);
 
-    if ($error = ofoAuthentication::authenticate($this->aaa, __FUNCTION__)) {
+    if ($error = OfoAuthentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error);
     }
 
@@ -236,7 +237,7 @@ class openFindOrder extends webServiceServer {
    */
   public function formatReceipt($param) {
 
-    if ($error = ofoAuthentication::authenticate($this->aaa, __FUNCTION__)) {
+    if ($error = OfoAuthentication::authenticate($this->aaa, __FUNCTION__)) {
       return $this->send_error($error, 'formatReceipt');
     }
 

@@ -24,15 +24,15 @@ define('DEBUG', FALSE);
 require_once('OLS_class_lib/webServiceServer_class.php');
 require_once('OLS_class_lib/aaa_class.php');
 require_once "orsClass.php";
-require_once "ofoAaa.php";
-require_once "ofoAuthentication.php";
-require_once "openFindOrder.php";
+require_once "OfoAaa.php";
+require_once "OfoAuthentication.php";
+require_once "OpenFindOrder.php";
 
 
 /*
  * MAIN
  */
 
-$ws = new openFindOrder();
+$ws = new OpenFindOrder();
 
 $ws->handle_request();

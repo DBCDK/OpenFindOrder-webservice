@@ -11,7 +11,7 @@
  */
 
 // include class to look up pickupagencies
-require_once "orsAgency.php";
+require_once "OrsAgency.php";
 require_once "xsdparse.php";
 
 class orsClass {
@@ -74,7 +74,7 @@ class orsClass {
    * @param stdClass $param
    */
   public function setQuery($param) {
-    $orsAgency = new orsAgency($this->config->get_value('vipcore', 'setup'));
+    $orsAgency = new OrsAgency($this->config->get_value('vipcore', 'setup'));
 
     $consistency = $orsAgency->check_agency_consistency($param);
     if (!$consistency) {

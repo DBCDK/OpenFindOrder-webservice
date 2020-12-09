@@ -7,13 +7,18 @@ require_once 'vendor/autoload.php';
  *
  * handle ors specific requests to openagency - in this case pickupagencylistrequest only
  */
-class orsAgency{
+class OrsAgency
+{
   private $vip_core;
   private $VipCore;
   private $curl;
   private $error;
   private $err_msg;
 
+  /**
+   * orsAgency constructor.
+   * @param $vip_core
+   */
   public function __construct($vip_core){
     $this->vip_core = $vip_core;
     $this->VipCore = $this->initVipCore($this->vip_core);
@@ -24,8 +29,8 @@ class orsAgency{
 
   /**\brief Expands one or more library object to the corresponding branch objects
    *
-   * @agencies; zero or more agencies
-   * return; array of objects contaning all branch-ids in $agencies
+   * @param $agencies zero or more agencies
+   * @return array of objects contaning all branch-ids in $agencies
    */
   public function expand_library($agencies) {
     $ret = $libs = $help = array();
@@ -46,8 +51,9 @@ class orsAgency{
 
   /**\brief Expands one or more libraries using openagency::pickupAgencyList
    *
-   * @agency; agency to fetch pickupAgencyList for
-   * return; array of branch-ids in agency
+   * @param $agency; agency to fetch pickupAgencyList for
+   * @return array of branch-ids in agency
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function fetch_library_list($agency) {
     $libs = array();
@@ -86,8 +92,9 @@ class orsAgency{
 
   /**\brief
    * Fetch branches for the agency and check against requesterAgencyId or responderAgencyId
-   * @param; request parameters as xml-object
-   * return; FALSE if requesterAgencyId or responderAgencyId contains non-valid agency
+   * @param $param request parameters as xml-object
+   * @return bool FALSE if requesterAgencyId or responderAgencyId contains non-valid agency
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function check_agency_consistency(&$param) {
     $libs = $this->fetch_library_list($param->agency->_value);
@@ -103,6 +110,12 @@ class orsAgency{
     return FALSE;
   }
 
+  /**
+   * @param $valid_list
+   * @param $selected_list
+   * @param $error_text
+   * @return bool
+   */
   private function check_in_list($valid_list, $selected_list, $error_text) {
     if (is_array($selected_list)) {
       foreach ($selected_list as $sel) {
@@ -123,6 +136,7 @@ class orsAgency{
 
   /**
    * Set errors.
+   * @param $msg
    */
   private function setError($msg) {
     $this->error = TRUE;
@@ -148,11 +162,17 @@ class orsAgency{
 
   /** \brief
    *  return only digits, so something like DK-710100 returns 710100
+   * @param $id
+   * @return string|string[]|null
    */
   private function strip_agency($id) {
     return preg_replace('/\D/', '', $id);
   }
 
+  /**
+   * @param int $start
+   * @return float|int|mixed
+   */
   private function time_since($start = 0) {
     list($usec, $sec) = explode(" ", microtime());
     return ((float)$usec + (float)$sec) - $start;
@@ -190,4 +210,3 @@ class orsAgency{
   }
 
 }
-

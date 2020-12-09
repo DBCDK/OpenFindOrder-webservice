@@ -52,7 +52,7 @@ class howRU {
       $this->error_msg[] = $status['http_code'] . ': ' . $status['error'] . ' (' . $status['errno'] . ')';
     }
 
-    $orsAgency = new orsAgency($vip_core);
+    $orsAgency = new OrsAgency($vip_core);
     $list = $orsAgency->fetch_library_list('790900');
     if (!count($list)) {
       $this->error = TRUE;
