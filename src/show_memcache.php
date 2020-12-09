@@ -41,7 +41,6 @@ function tr_me($txt, $val) {
 }
 function cache_info($status){
   $percCacheHit = sprintf(' (%s%%)', round(((real) $status['get_hits'] / (real) $status['cmd_get'] * 100), 2));
-  //$percCacheHit = ' (' . round(((real) $status['get_hits'] / (real) $status['cmd_get'] * 100), 2) . '%)';
   $percCacheMiss = sprintf(' (%s%%)', round(((real) $status['get_misses'] / (real) $status['cmd_get'] * 100), 2));
 
   printf('<html><head>%s</head><body><table>', style());
