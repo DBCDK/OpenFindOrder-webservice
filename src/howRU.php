@@ -1,10 +1,9 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-error_reporting(E_ALL & ~E_NOTICE);
-
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+//error_reporting(E_ALL & ~E_NOTICE);
 
 require_once('OLS_class_lib/inifile_class.php');
 require_once('OLS_class_lib/curl_class.php');
