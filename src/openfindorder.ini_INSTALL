@@ -107,11 +107,6 @@ vipcore['memcached']['expire'] = ${VIPCORE_CACHE_EXPIRE}
 ;vipcore['redis']['expire'] = ${VIPCORE_CACHE_EXPIRE}
 
 ; --------------
-; where to find openAgency
-; openagency_agency_list = http://some.server.dk/OpenAgency/?action=pickupAgencyList&agencyId=%s&libraryStatus=alle&outputType=xml
-openagency_agency_list = @OPENAGENCY_AGENCY_LIST@
-
-; --------------
 ; where to find solr indexes
 solr_order_uri = http://some.server.dk:8081/solr/select?
 
