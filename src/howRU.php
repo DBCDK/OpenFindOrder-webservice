@@ -1,5 +1,10 @@
 <?php
 
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+//error_reporting(E_ALL & ~E_NOTICE);
+
 require_once('OLS_class_lib/inifile_class.php');
 require_once('OLS_class_lib/curl_class.php');
 require_once('OLS_class_lib/xmlconvert_class.php');
@@ -34,12 +39,12 @@ class howRU {
     }
     $this->config = new inifile($inifile);
 
+    $vip_core = $this->config->get_value('vipcore', 'setup');
+    $xmlns = $this->config->get_value('xmlns', 'setup');
+    define('THIS_NAMESPACE', $xmlns['ofo']);
+
     // Check openAgency.
-    $url = parse_url($this->config->get_value('openagency_agency_list', 'setup'));
-    $url['scheme'] = (!empty($url['scheme'])) ? $url['scheme'] . '://' : NULL;
-    $url['port'] = (!empty($url['port'])) ? '[' . $url['port'] . ']' : NULL;
-    $url['path'] = (!empty($url['path'])) ? $url['path'] : '/';
-    $this->curl->get($url['scheme '] . $url['host'] . $url['port'] . $url['path']);
+    $this->curl->get($vip_core['url'] . 'domainlist');
     $status = $this->curl->get_status();
     if ($this->curl->has_error()) {
       $this->error = TRUE;
@@ -47,13 +52,12 @@ class howRU {
       $this->error_msg[] = $status['http_code'] . ': ' . $status['error'] . ' (' . $status['errno'] . ')';
     }
 
-    $openagency = $this->config->get_value('openagency_agency_list', 'setup');
-    $orsAgency = new orsAgency($openagency);
-    $orsAgency->fetch_library_list('790900');
-    if ($orsAgency->getError()) {
+    $orsAgency = new OrsAgency($vip_core);
+    $list = $orsAgency->fetch_library_list('790900');
+    if (!count($list)) {
       $this->error = TRUE;
-      $this->error_msg[] = 'orsAgency request failed.';
-      $this->error_msg[] = $orsAgency->getErrorMsg();
+      $this->error_msg[] = 'orsAgency->fetch_library_list(790900) request failed.';
+      $this->error_msg[] = json_encode($list);
     }
 
     // Check ORS2.

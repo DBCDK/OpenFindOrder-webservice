@@ -1,6 +1,7 @@
 <?php
 
-class ofoAuthentication {
+class OfoAuthentication
+{
   public static function authenticate(&$aaa, $function) {
     if ($aaa->has_right('netpunkt.dk', 500)) {
       return;
