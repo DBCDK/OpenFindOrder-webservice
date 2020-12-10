@@ -9,7 +9,7 @@ require_once 'vendor/autoload.php';
  */
 class OrsAgency
 {
-  private $vip_core;
+  private $vipcore_config;
   private $VipCore;
   private $curl;
   private $error;
@@ -17,11 +17,11 @@ class OrsAgency
 
   /**
    * orsAgency constructor.
-   * @param $vip_core
+   * @param $vipcore_config
    */
-  public function __construct($vip_core){
-    $this->vip_core = $vip_core;
-    $this->VipCore = $this->initVipCore($this->vip_core);
+  public function __construct($vipcore_config){
+    $this->vipcore_config = $vipcore_config;
+    $this->VipCore = $this->initVipCore($this->vipcore_config);
     $this->curl = new curl();
     $this->error = FALSE;
     $this->err_msg = NULL;
@@ -84,7 +84,7 @@ class OrsAgency
     VerboseJson::log(TRACE, array(
             'system' => 'ORS2',
             'query' => $agency,
-            'url' => $this->vip_core['url'],
+            'url' => $this->vipcore_config['url'],
             'total_time' => $this->time_since($start))
     );
     return $libs;
