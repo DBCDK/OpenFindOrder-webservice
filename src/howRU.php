@@ -11,7 +11,7 @@ require_once('OLS_class_lib/xmlconvert_class.php');
 require_once('OLS_class_lib/verbose_json_class.php');
 
 require_once "xsdparse.php";
-require_once "orsAgency.php";
+require_once "OrsAgency.php";
 require_once "orsClass.php";
 
 $howru = new howRU('openfindorder.ini');
