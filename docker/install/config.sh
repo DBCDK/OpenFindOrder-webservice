@@ -9,7 +9,6 @@ do
     cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
-        sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_PROD#g" $INI
         sed -i "s#@ORS2_URL@#$ORS2_URL_PROD#g" $INI
         sed -i "s#@MY_DOMAIN@#$MY_DOMAIN#g" $INI
         sed -i "s#@MY_DOMAIN_IP_LIST@#$MY_DOMAIN_IP_LIST#g" $INI
@@ -19,6 +18,10 @@ do
         sed -i "s#@CACHE_HOST@#$CACHE_HOST#g" $INI
         sed -i "s#@CACHE_PORT@#$CACHE_PORT#g" $INI
         sed -i "s#@CACHE_EXPIRE@#$CACHE_EXPIRE#g" $INI
+        sed -i "s#@VIPCORE_END_POINT@#$VIPCORE_END_POINT_PROD#g" $INI
+        sed -i "s#@VIPCORE_CACHE_HOST@#$VIPCORE_CACHE_HOST#g" $INI
+        sed -i "s#@VIPCORE_CACHE_PORT@#$VIPCORE_CACHE_PORT#g" $INI
+        sed -i "s#@VIPCORE_CACHE_EXPIRE@#$VIPCORE_CACHE_EXPIRE#g" $INI
     fi
     sed -i "s/@VERSION@/$u/g" $INI
     echo "replaced openfindorder.ini variables in version $u"
@@ -33,7 +36,6 @@ do
     cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
-        sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_STAGING#g" $INI
         sed -i "s#@ORS2_URL@#$ORS2_URL_NEXT#g" $INI
         sed -i "s#@CACHE_SETTINGS@#$CACHE_SETTINGS#g" $INI
         sed -i "s#@MY_DOMAIN@#$MY_DOMAIN#g" $INI
@@ -41,6 +43,10 @@ do
         sed -i "s#@AAA_FORS_RIGHTS@#$AAA_FORS_RIGHTS#g" $INI
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
+        sed -i "s#@VIPCORE_END_POINT@#$VIPCORE_END_POINT_PROD#g" $INI
+        sed -i "s#@VIPCORE_CACHE_HOST@#$VIPCORE_CACHE_HOST#g" $INI
+        sed -i "s#@VIPCORE_CACHE_PORT@#$VIPCORE_CACHE_PORT#g" $INI
+        sed -i "s#@VIPCORE_CACHE_EXPIRE@#$VIPCORE_CACHE_EXPIRE#g" $INI
     fi
     sed -i "s/@VERSION@/$u/g" $INI
     echo "replaced openfindorder.ini variables in version $u"
@@ -55,7 +61,6 @@ do
     cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
-        sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_PROD#g" $INI
         sed -i "s#@ORS2_URL@#$ORS2_URL_TEST#g" $INI
         sed -i "s#@CACHE_SETTINGS@#$CACHE_SETTINGS#g" $INI
         sed -i "s#@MY_DOMAIN@#$MY_DOMAIN#g" $INI
@@ -63,6 +68,10 @@ do
         sed -i "s#@AAA_FORS_RIGHTS@#$AAA_FORS_RIGHTS#g" $INI
         sed -i "s#@LOGFILE@#$LOGFILE#g" $INI
         sed -i "s#@VERBOSE_LEVEL@#$VERBOSE_LEVEL#g" $INI
+        sed -i "s#@VIPCORE_END_POINT@#$VIPCORE_END_POINT_PROD#g" $INI
+        sed -i "s#@VIPCORE_CACHE_HOST@#$VIPCORE_CACHE_HOST#g" $INI
+        sed -i "s#@VIPCORE_CACHE_PORT@#$VIPCORE_CACHE_PORT#g" $INI
+        sed -i "s#@VIPCORE_CACHE_EXPIRE@#$VIPCORE_CACHE_EXPIRE#g" $INI
     fi
     sed -i "s/@VERSION@/$u/g" $INI
     echo "replaced openfindorder.ini variables in version $u"

@@ -11,7 +11,7 @@
  */
 
 // include class to look up pickupagencies
-require_once "orsAgency.php";
+require_once "OrsAgency.php";
 require_once "xsdparse.php";
 
 class orsClass {
@@ -74,7 +74,7 @@ class orsClass {
    * @param stdClass $param
    */
   public function setQuery($param) {
-    $orsAgency = new orsAgency($this->config->get_value('openagency_agency_list', 'setup'));
+    $orsAgency = new OrsAgency($this->config->get_value('vipcore', 'setup'));
 
     $consistency = $orsAgency->check_agency_consistency($param);
     if (!$consistency) {
@@ -285,12 +285,17 @@ class orsClass {
 
       $pid = NULL;
 
+      $orders[$n] = new stdClass();
+      $orders[$n]->_value = new stdClass();
+      $orders[$n]->_value->resultPosition = new stdClass();
       $orders[$n]->_value->resultPosition->_namespace = THIS_NAMESPACE;
       $orders[$n]->_value->resultPosition->_value = $n + 1;
 
+      $orders[$n]->_value->orderId = new stdClass();
       $orders[$n]->_value->orderId->_namespace = THIS_NAMESPACE;
       $orders[$n]->_value->orderId->_value = $resultObject['orderKey'];
 
+      $orders[$n]->_value->requesterId = new stdClass();
       $orders[$n]->_value->requesterId->_namespace = THIS_NAMESPACE;
       $orders[$n]->_value->requesterId->_value = $resultObject['requesterId'];
 
@@ -378,11 +383,13 @@ class orsClass {
       ksort($buffer, SORT_NATURAL | SORT_FLAG_CASE);
 
       foreach ($buffer as $key => $orderItem) {
+        $orders[$n]->_value->$key = new stdClass();
         $orders[$n]->_value->$key->_namespace = THIS_NAMESPACE;
         $orders[$n]->_value->$key->_value = $orderItem;
       }
       // Handle pid as array.
       if ($pid) {
+        $orders[$n]->_value->pid[0] = new stdClass();
         $orders[$n]->_value->pid[0]->_namespace = THIS_NAMESPACE;
         $orders[$n]->_value->pid[0]->_value = $pid;
       }

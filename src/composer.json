@@ -1,0 +1,32 @@
+{
+  "name": "dbc/openfindorder",
+  "description": "OpenFindOrder webservice",
+  "type": "webservice",
+  "license": "GPL-2.0-or-later",
+  "homepage": "http://dbc.dk",
+  "authors": [
+  {
+    "name": "DBC",
+    "email": "support@dbc.dk"
+  }
+  ],
+  "support": {
+    "issues": "https://support.dbc.dk"
+  },
+  "repositories": [
+  {
+    "type": "git",
+    "url": "gitlab@gitlab.dbc.dk:pu/vip-core/vip-core-php.git"
+  },
+  {
+    "type": "git",
+    "url": "gitlab@gitlab.dbc.dk:pu/audit/audit-trail-php-library.git"
+  }
+  ],
+  "require": {
+    "dbc/php-vipcore": "dev-master",
+    "dbc/audittrail": "dev-master"
+  },
+  "require-dev": {
+  }
+}
