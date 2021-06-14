@@ -20,7 +20,7 @@ version = @VERSION@
 wsdl = openfindorder.wsdl
 
 ;service location used as endpoint in the wsdl-file. If not set, the actual address/location is used
-;service_location = openfindorder.addi.dk/2.5/
+;service_location = openfindorder.addi.dk/2.6/
 
 ; --------------
 ; in_house_domain may use ?ShowInfo and use create_sample form

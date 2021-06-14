@@ -71,29 +71,6 @@ pipeline {
 			}
 		}
 
-    stage("prepare website build (version 2.5)") {
-      steps {
-        script {
-          // checkout release
-          sh """
-            git checkout release/2.5
-          """
-          // Create folders & copy files needed for docker image.
-          sh """
-            mkdir 'docker/install/www/2.5'
-            mkdir 'docker/install/www/next_2.5'
-            mkdir 'docker/install/www/test_2.5'
-            cp -r src/* docker/install/www/2.5
-            cp -r src/* docker/install/www/next_2.5
-            cp -r src/* docker/install/www/test_2.5
-            ln -s server.php docker/install/www/2.5/index.php
-            ln -s server.php docker/install/www/test_2.5/index.php
-            ln -s server.php docker/install/www/next_2.5/index.php
-          """
-        }
-      }
-    }
-
     stage("prepare website build (version 2.6)") {
       steps {
         script {

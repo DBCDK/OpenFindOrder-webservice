@@ -1,6 +1,6 @@
 #!/bin/bash
 
-versions=(2.5 2.6)
+versions=(2.6)
 for u in "${versions[@]}"
 do
     DIR=$APACHE_ROOT/$u
@@ -28,7 +28,7 @@ do
     echo "replaced openfindorder.ini variables in version $u"
 done
 
-versions=(next_2.5 next_2.6)
+versions=(next_2.6)
 for u in "${versions[@]}"
 do
     DIR=$APACHE_ROOT/$u
@@ -54,7 +54,7 @@ do
     echo "replaced openfindorder.ini variables in version $u"
 done
 
-versions=(test_2.5 test_2.6)
+versions=(test_2.6)
 for u in "${versions[@]}"
 do
     DIR=$APACHE_ROOT/$u
