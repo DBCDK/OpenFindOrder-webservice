@@ -144,7 +144,7 @@ dump_timer = openfindorder(%s)
 [aaa]
 ; aaa Authentication, Access control and Accounting
 ;
-; Creates a authentication object from aaa_ip_rights, aaa_fors_rights or aaa_credentials - in that order
+; Creates a authentication object from aaa_ip_rights, aaa_dbcidp_rights or aaa_fors_rights - in that order
 ;
 ; Rights can be set here for selected ip-addresses
 ; aaa_ip_rights[group-identifier][ip_list] = list of ip's
@@ -154,14 +154,14 @@ dump_timer = openfindorder(%s)
 aaa_ip_rights[dbc][ip_list] = @MY_DOMAIN_IP_LIST@
 aaa_ip_rights[dbc][ressource]['netpunkt.dk'] = 500
 ;
-; if not found in aaa_ip_rights the authentication object is created from the FORS
-; either by using the WS specified by aaa_fors_rights or by OCI specified by aaa_credentials
+; if not found in aaa_ip_rights the authentication object is created from the DBCIDP or FORS
+; either by using the WS specified by aaa_dbcidp_rights or aaa_fors_rights
 ;
-; uri for a fors rights webservice - aaa_fors_rights have precedence over aaa_credentials
+; uri for a dcbidp rights webservice - aaa_dcbidp_rights have precedence over aaa_fors_rights
+aaa_dbcidp_rights = @AAA_DBCIDP_RIGHTS@
+;
+; uri for a fors rights webservice
 aaa_fors_rights = @AAA_FORS_RIGHTS@
-;
-; oci credentials for FORS server
-;aaa_credentials = ora_user/ora_passwd@some.server.dk
 ;
 ; memcache server for the authentication object - use localhost in one-webserver environment
 ;aaa_cache_address = localhost:11211
