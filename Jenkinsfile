@@ -1,28 +1,39 @@
 #!groovy
 @Library('frontend-dscrum')
 
+def WORKER_NODE = "devel10"
 def PRODUCT = 'openfindorder'
 def BRANCH = BRANCH_NAME.replaceAll(/[\/._ ]/, "-")
 // def VERSION = '1.5'
 
 // Docker setup
-def DOCKER_HOST = 'tcp://dscrum-is:2375'
-def DOCKER_REPO = 'docker-dscrum.dbc.dk'
-def ARTIFACTORY_SERVER = Artifactory.server 'arty'
-def ARTIFACTORY_DOCKER = Artifactory.docker server: ARTIFACTORY_SERVER, host: env.DOCKER_HOST
-def IMAGENAME = 'docker-dscrum.dbc.dk/openfindorder-' + BRANCH + ':' + currentBuild.number
+//def DOCKER_HOST = 'tcp://dscrum-is:2375'
+//def DOCKER_REPO = 'docker-dscrum.dbc.dk'
+def DOCKER_REPO = 'docker-fbiscrum.artifacts.dbccloud.dk'
+//def ARTIFACTORY_SERVER = Artifactory.server 'arty'
+//def ARTIFACTORY_DOCKER = Artifactory.docker server: ARTIFACTORY_SERVER, host: env.DOCKER_HOST
+def DOCKER_IMAGENAME = '${DOCKER_REPO}/${PRODUCT}-' + BRANCH + ':' + BUILD_NUMBER
 
 // Artifactory setup
-def BUILDNAME = PRODUCT + ' :: ' + BRANCH
+//def BUILDNAME = PRODUCT + ' :: ' + BRANCH
 def NAMESPACE = (BRANCH == 'master') ? 'staging' : 'features'
 
 // Post stages
 def URL = 'http://' + PRODUCT  + '-' + BRANCH + '.' + "frontend-" + NAMESPACE + '.svc.cloud.dbc.dk' + '/'
 // def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk, nwi@dbc.dk'
 
+print "Parameter: PRODUCT = " + PRODUCT +
+      "\n           BRANCH_NAME = " + BRANCH_NAME +
+      "\n           DOCKER_REPO = " + DOCKER_REPO +
+      "\n           DOCKER_IMAGENAME = " + DOCKER_IMAGENAME +
+      "\n           NAMESPACE = " + NAMESPACE +
+      "\n           URL = " + URL +
+      "\n           BUILD_NUMBER = " + BUILD_NUMBER +
+      "\n           currentBuild.number = " + currentBuild.number
+
 pipeline {
   agent {
-    node { label 'devel10-head' }
+    node { label WORKER_NODE }
   }
   options {
     buildDiscarder(logRotator(artifactDaysToKeepStr: "", artifactNumToKeepStr: "", daysToKeepStr: "", numToKeepStr: "5"))
@@ -111,7 +122,7 @@ pipeline {
       steps {
         dir('docker/install') {
           script {
-            def image = docker.build(IMAGENAME)
+            def image = docker.build(DOCKER_IMAGENAME)
           }
         }
       }
@@ -120,16 +131,16 @@ pipeline {
     stage('Push to artifactory ') {
       steps {
         script {
-          def buildInfo  = Artifactory.newBuildInfo()
+          docker.image("${DOCKER_IMAGENAME}").push("${BUILD_NUMBER}")
 
-          buildInfo.name = BUILDNAME
-          buildInfo = ARTIFACTORY_DOCKER.push(IMAGENAME, 'docker-dscrum', buildInfo)
+          //def buildInfo  = Artifactory.newBuildInfo()
 
-          ARTIFACTORY_SERVER.publishBuildInfo buildInfo
+          //buildInfo.name = BUILDNAME
+          //buildInfo = ARTIFACTORY_DOCKER.push(DOCKER_IMAGENAME, 'docker-dscrum', buildInfo)
 
-          sh """
-            docker rmi ${IMAGENAME}
-          """
+          //ARTIFACTORY_SERVER.publishBuildInfo buildInfo
+
+          sh "docker rmi ${DOCKER_IMAGENAME}"
         }
       }
     }
@@ -141,7 +152,7 @@ pipeline {
           if (BRANCH_NAME == 'master') {
             build job: 'PHP Webservices/OpenFindOrder/openfindorder-deploy/staging', parameters: [
               string(name: 'Branch', value: 'master'),
-              string(name: 'BuildId', value: currentBuild.number.toString()),
+              string(name: 'BuildId', value: BUILD_NUMBER.toString()),
               string(name: 'Namespace', value: 'staging'),
             ]
           }
@@ -149,7 +160,7 @@ pipeline {
           else {
             build job: 'PHP Webservices/OpenFindOrder/openfindorder-deploy/features', parameters: [
               string(name: 'Branch', value: BRANCH_NAME),
-              string(name: 'BuildId', value: currentBuild.number.toString()),
+              string(name: 'BuildId', value: BUILD_NUMBER.toString()),
               string(name: 'Namespace', value: 'features'),
             ]
           }
@@ -161,16 +172,15 @@ pipeline {
   post {
     success {
       script {
-				echo URL
-        def BUILD = DOCKER_REPO + '/' + PRODUCT + ':' +  currentBuild.number.toString()
-        echo BUILD
+		echo URL
+        echo DOCKER_IMAGENAME
       }
     }
     failure {
       // @TODO do something meaningfull
       echo 'FAIL'
     }
-		always {
+	always {
       echo 'Clean up workspace.'
       deleteDir()
       cleanWs()
