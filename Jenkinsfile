@@ -12,7 +12,7 @@ def BRANCH = BRANCH_NAME.replaceAll(/[\/._ ]/, "-")
 def DOCKER_REPO = 'docker-fbiscrum.artifacts.dbccloud.dk'
 //def ARTIFACTORY_SERVER = Artifactory.server 'arty'
 //def ARTIFACTORY_DOCKER = Artifactory.docker server: ARTIFACTORY_SERVER, host: env.DOCKER_HOST
-def DOCKER_IMAGENAME = '${DOCKER_REPO}/${PRODUCT}-' + BRANCH + ':' + BUILD_NUMBER
+def DOCKER_IMAGENAME = "${DOCKER_REPO}/${PRODUCT}-${BRANCH}:${BUILD_NUMBER}"
 
 // Artifactory setup
 //def BUILDNAME = PRODUCT + ' :: ' + BRANCH
