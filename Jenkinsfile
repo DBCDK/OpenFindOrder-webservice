@@ -4,23 +4,16 @@
 def WORKER_NODE = "devel10"
 def PRODUCT = 'openfindorder'
 def BRANCH = BRANCH_NAME.replaceAll(/[\/._ ]/, "-")
-// def VERSION = '1.5'
 
 // Docker setup
-//def DOCKER_HOST = 'tcp://dscrum-is:2375'
-//def DOCKER_REPO = 'docker-dscrum.dbc.dk'
 def DOCKER_REPO = 'docker-fbiscrum.artifacts.dbccloud.dk'
-//def ARTIFACTORY_SERVER = Artifactory.server 'arty'
-//def ARTIFACTORY_DOCKER = Artifactory.docker server: ARTIFACTORY_SERVER, host: env.DOCKER_HOST
 def DOCKER_IMAGENAME = "${DOCKER_REPO}/${PRODUCT}-${BRANCH}:${BUILD_NUMBER}"
 
 // Artifactory setup
-//def BUILDNAME = PRODUCT + ' :: ' + BRANCH
 def NAMESPACE = (BRANCH == 'master') ? 'staging' : 'features'
 
 // Post stages
 def URL = 'http://' + PRODUCT  + '-' + BRANCH + '.' + "frontend-" + NAMESPACE + '.svc.cloud.dbc.dk' + '/'
-// def MAIL_RECIPIENTS = 'lkh@dbc.dk, pjo@dbc.dk, jgn@dbc.dk, nwi@dbc.dk'
 
 print "Parameter: PRODUCT = " + PRODUCT +
       "\n           BRANCH_NAME = " + BRANCH_NAME +
@@ -29,7 +22,7 @@ print "Parameter: PRODUCT = " + PRODUCT +
       "\n           NAMESPACE = " + NAMESPACE +
       "\n           URL = " + URL +
       "\n           BUILD_NUMBER = " + BUILD_NUMBER +
-      "\n           currentBuild.number = " + currentBuild.number
+      "\n           WORKER_NODE = " + WORKER_NODE
 
 pipeline {
   agent {
@@ -132,14 +125,6 @@ pipeline {
       steps {
         script {
           docker.image("${DOCKER_IMAGENAME}").push("${BUILD_NUMBER}")
-
-          //def buildInfo  = Artifactory.newBuildInfo()
-
-          //buildInfo.name = BUILDNAME
-          //buildInfo = ARTIFACTORY_DOCKER.push(DOCKER_IMAGENAME, 'docker-dscrum', buildInfo)
-
-          //ARTIFACTORY_SERVER.publishBuildInfo buildInfo
-
           sh "docker rmi ${DOCKER_IMAGENAME}"
         }
       }
