@@ -8,11 +8,7 @@ def BRANCH = BRANCH_NAME.replaceAll(/[\/._ ]/, "-")
 // Docker setup
 def DOCKER_REPO = 'docker-fbiscrum.artifacts.dbccloud.dk'
 def DOCKER_IMAGENAME = "${DOCKER_REPO}/${PRODUCT}-${BRANCH}:${BUILD_NUMBER}"
-
-// Artifactory setup
 def NAMESPACE = (BRANCH == 'master') ? 'staging' : 'features'
-
-// Post stages
 def URL = 'http://' + PRODUCT  + '-' + BRANCH + '.' + "frontend-" + NAMESPACE + '.svc.cloud.dbc.dk' + '/'
 
 print "Parameter: PRODUCT = " + PRODUCT +
