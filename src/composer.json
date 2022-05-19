@@ -25,7 +25,8 @@
   ],
   "require": {
     "dbc/php-vipcore": "dev-master",
-    "dbc/audittrail": "dev-master"
+    "dbc/audittrail": "dev-master",
+    "symfony/cache": "^5.4"
   },
   "require-dev": {
   }
