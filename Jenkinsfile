@@ -11,14 +11,18 @@ def DOCKER_IMAGENAME = "${DOCKER_REPO}/${PRODUCT}-${BRANCH}:${BUILD_NUMBER}"
 def NAMESPACE = (BRANCH == 'master') ? 'staging' : 'features'
 def URL = 'http://' + PRODUCT  + '-' + BRANCH + '.' + "frontend-" + NAMESPACE + '.svc.cloud.dbc.dk' + '/'
 
+//slack
+def SLACK_CHANNEL_SUCCESS = "fe-jenkins"
+def SLACK_CHANNEL_ERROR = "fe-fbi"
+
 print "Parameter: PRODUCT = " + PRODUCT +
-      "\n           BRANCH_NAME = " + BRANCH_NAME +
-      "\n           DOCKER_REPO = " + DOCKER_REPO +
-      "\n           DOCKER_IMAGENAME = " + DOCKER_IMAGENAME +
-      "\n           NAMESPACE = " + NAMESPACE +
-      "\n           URL = " + URL +
-      "\n           BUILD_NUMBER = " + BUILD_NUMBER +
-      "\n           WORKER_NODE = " + WORKER_NODE
+    "\n           BRANCH_NAME = " + BRANCH_NAME +
+    "\n           DOCKER_REPO = " + DOCKER_REPO +
+    "\n           DOCKER_IMAGENAME = " + DOCKER_IMAGENAME +
+    "\n           NAMESPACE = " + NAMESPACE +
+    "\n           URL = " + URL +
+    "\n           BUILD_NUMBER = " + BUILD_NUMBER +
+    "\n           WORKER_NODE = " + WORKER_NODE
 
 pipeline {
   agent {
@@ -155,11 +159,20 @@ pipeline {
       script {
 		echo URL
         echo DOCKER_IMAGENAME
+        slackSend(channel: SLACK_CHANNEL_SUCCESS,
+          color: 'good',
+          message: "${JOB_NAME} #${BUILD_NUMBER} completed, and pushed ${DOCKER_IMAGENAME} to artifactory.",
+          tokenCredentialId: 'slack-global-integration-token')
       }
     }
     failure {
-      // @TODO do something meaningfull
-      echo 'FAIL'
+      script {
+        slackSend(channel: SLACK_CHANNEL_ERROR,
+          color: 'warning',
+          message: "${JOB_NAME} #${BUILD_NUMBER} failed and needs attention: ${BUILD_URL}",
+          tokenCredentialId: 'slack-global-integration-token')
+        echo 'FAIL'
+      }
     }
 	always {
       echo 'Clean up workspace.'
