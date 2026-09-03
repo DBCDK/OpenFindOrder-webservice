@@ -518,7 +518,7 @@ class orsClass {
     // List (string).
     if (isset($param->responderAgencyId->_value)) {
       $ret['responderId'] = array($param->responderAgencyId->_value);
-    } else if (is_array($param->responderAgencyId)) {
+    } else if (isset($param->responderAgencyId) && is_array($param->responderAgencyId)) {
       foreach ($param->responderAgencyId as $responder) {
         $ret['responderId'][] = $responder->_value;
       }

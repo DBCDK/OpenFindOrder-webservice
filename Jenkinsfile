@@ -53,15 +53,6 @@ pipeline {
         }
       }
     }
-    stage('SVN: checkout OLS_class_lib') {
-			steps {
-				dir('src') {
-					sh """
-						svn co https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/ OLS_class_lib
-					"""
-				}
-			}
-		}
 
     stage("SVN: checkout OpenVersionWrapper") {
 			steps {
