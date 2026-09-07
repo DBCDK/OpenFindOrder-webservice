@@ -1,7 +1,7 @@
 #!groovy
 @Library('frontend-dscrum')
 
-def WORKER_NODE = "devel10"
+def WORKER_NODE = "devel12"
 def PRODUCT = 'openfindorder'
 def BRANCH = BRANCH_NAME.replaceAll(/[\/._ ]/, "-")
 
