@@ -133,6 +133,7 @@ pipeline {
             ]
           }
           // Deploy to Kubernetes frontend-features namespace.
+          /* for test
           else {
             build job: 'PHP Webservices/OpenFindOrder/openfindorder-deploy/features', parameters: [
               string(name: 'Branch', value: BRANCH_NAME),
@@ -140,6 +141,7 @@ pipeline {
               string(name: 'Namespace', value: 'features'),
             ]
           }
+          */
         }
       }
     }
