@@ -4,7 +4,7 @@ MAINTAINER D-scrum <d-scrum@dbc.dk>
 
 # RUN apt-get update && apt-get -q -y install php-mbstring ca-certificates php-memcached
 
-RUN rm -r /var/www
+# RUN rm -r /var/www
 ADD www /var/www/html
 RUN chown -R www-data:www-data /var/www/html
 
