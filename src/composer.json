@@ -24,9 +24,11 @@
   }
   ],
   "require": {
+    "php": ">=8.1",
     "dbc/php-vipcore": "dev-master",
     "dbc/audittrail": "dev-master",
-    "symfony/cache": "^5.4"
+    "symfony/cache": "^5.4",
+    "ext-curl": "*"
   },
   "require-dev": {
   }

@@ -34,14 +34,16 @@ return '
   </style>';
 }
 function mega($num) {
-  return round((real) $num/(1024*1024), 4);
+  return round((float) $num/(1024*1024), 4);
 }
 function tr_me($txt, $val) {
   printf('<tr><td>%s</td><td>%s</td></tr>', $txt, $val);
 }
 function cache_info($status){
-  $percCacheHit = sprintf(' (%s%%)', round(((real) $status['get_hits'] / (real) $status['cmd_get'] * 100), 2));
-  $percCacheMiss = sprintf(' (%s%%)', round(((real) $status['get_misses'] / (real) $status['cmd_get'] * 100), 2));
+  if ($status['cmd_get']) {
+    $percCacheHit = sprintf(' (%s%%)', round(((float) $status['get_hits'] / (float) $status['cmd_get'] * 100), 2));
+    $percCacheMiss = sprintf(' (%s%%)', round(((float) $status['get_misses'] / (float) $status['cmd_get'] * 100), 2));
+  }
 
   printf('<html><head>%s</head><body><table>', style());
   tr_me('Memcache Server version: ', $status ['version']);

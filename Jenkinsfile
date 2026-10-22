@@ -1,7 +1,7 @@
 #!groovy
 @Library('frontend-dscrum')
 
-def WORKER_NODE = "devel10"
+def WORKER_NODE = "devel13"
 def PRODUCT = 'openfindorder'
 def BRANCH = BRANCH_NAME.replaceAll(/[\/._ ]/, "-")
 
@@ -53,15 +53,6 @@ pipeline {
         }
       }
     }
-    stage('SVN: checkout OLS_class_lib') {
-			steps {
-				dir('src') {
-					sh """
-						svn co https://svn.dbc.dk/repos/php/OpenLibrary/class_lib/trunk/ OLS_class_lib
-					"""
-				}
-			}
-		}
 
     stage("SVN: checkout OpenVersionWrapper") {
 			steps {
@@ -142,6 +133,7 @@ pipeline {
             ]
           }
           // Deploy to Kubernetes frontend-features namespace.
+          /* for test
           else {
             build job: 'PHP Webservices/OpenFindOrder/openfindorder-deploy/features', parameters: [
               string(name: 'Branch', value: BRANCH_NAME),
@@ -149,6 +141,7 @@ pipeline {
               string(name: 'Namespace', value: 'features'),
             ]
           }
+          */
         }
       }
     }

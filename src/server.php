@@ -21,8 +21,8 @@
 
 define('DEBUG', FALSE);
 
-require_once('OLS_class_lib/webServiceServer_class.php');
-require_once('OLS_class_lib/aaa_class.php');
+require_once('class_lib/webServiceServer_class.php');
+require_once('class_lib/aaa_class.php');
 require_once "orsClass.php";
 require_once "OfoAaa.php";
 require_once "OfoAuthentication.php";

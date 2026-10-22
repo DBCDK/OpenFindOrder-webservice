@@ -279,10 +279,6 @@ class OpenFindOrder extends webServiceServer
     $debug_info = $ors->getQuery();
     $status = $ors->getStatus();
 
-    $response = new stdClass();
-    $response->findOrdersResponse = new stdClass();
-    $response->findOrdersResponse->_namespace = THIS_NAMESPACE;
-
     if ($status == 'ERROR') {
       // See: openfindorder.xsd -> errorType
       return $this->send_error('open find order service not available', 'findOrdersResponse', $debug_info);
@@ -303,16 +299,16 @@ class OpenFindOrder extends webServiceServer
       return $this->send_error('Error decoding json string', 'findOrdersResponse', $debug_info);
     }
 
-    $result = &$response->findOrdersResponse->_value->result;
-    $result = new stdClass();
-    $result->_namespace = THIS_NAMESPACE;
-    $result->_value = new stdClass();
-    $result->_value->numberOfOrders = new stdClass();
-    $result->_value->numberOfOrders->_namespace = THIS_NAMESPACE;
-    $result->_value->numberOfOrders->_value = $total;
-    $result->_value->order = $orders;
-    $result->_value->debugInfo = new stdClass();
-    $result->_value->debugInfo->_value = $debug_info;
+    $response = new stdClass();
+    $response->findOrdersResponse = new stdClass();
+    $response->findOrdersResponse->_namespace = THIS_NAMESPACE;
+    $response->findOrdersResponse->_value = new stdClass();
+    $response->findOrdersResponse->_value->numberOfOrders = new stdClass();
+    $response->findOrdersResponse->_value->numberOfOrders->_namespace = THIS_NAMESPACE;
+    $response->findOrdersResponse->_value->numberOfOrders->_value = $total;
+    $response->findOrdersResponse->_value->order = $orders;
+    $response->findOrdersResponse->_value->debugInfo = new stdClass();
+    $response->findOrdersResponse->_value->debugInfo->_value = $debug_info;
 
     return $response;
   }
@@ -324,8 +320,6 @@ class OpenFindOrder extends webServiceServer
    */
   private function getReceiptsResponse($receipts, $number_of_receipts = 0, $debug_info = '') {
 
-    $response = new stdClass();
-    $response->getReceiptsResponse->_namespace = THIS_NAMESPACE;
 
     if ($receipts === FALSE) {
       return $this->send_error('no orders found', 'getReceiptsResponse');
@@ -336,20 +330,24 @@ class OpenFindOrder extends webServiceServer
       return $this->send_error('no orders found', 'getReceiptsResponse');
     }
 
-    $result = &$response->getReceiptsResponse;
-    $result->_namespace = THIS_NAMESPACE;
-    $result->_value->numberOfReceipts->_namespace = THIS_NAMESPACE;
-    $result->_value->numberOfReceipts->_value = $number_of_receipts;
+    $response = new stdClass();
+    $response->getReceiptsResponse = new stdClass();
+    $response->getReceiptsResponse->_namespace = THIS_NAMESPACE;
+    $response->getReceiptsResponse->_value = new stdClass();
+    $response->getReceiptsResponse->_value->numberOfReceipts = new stdClass();
+    $response->getReceiptsResponse->_value->numberOfReceipts->_namespace = THIS_NAMESPACE;
+    $response->getReceiptsResponse->_value->numberOfReceipts->_value = $number_of_receipts;
 
     if ($receipts->error) {
       $receipts->error->_namespace = THIS_NAMESPACE;
-      $result->_value = $receipts;
+      $response->getReceiptsResponse->_value = $receipts;
     }
     else {
-      $result->_value->receipt = $receipts;
+      $response->getReceiptsResponse->_value->receipt = $receipts;
     }
 
-    $result->_value->debugInfo->_value = $debug_info;
+    $response->getReceiptsResponse->_value->debugInfo = new stdClass();
+    $response->getReceiptsResponse->_value->debugInfo->_value = $debug_info;
     return $response;
   }
 
@@ -421,7 +419,7 @@ class OpenFindOrder extends webServiceServer
       try {
         \DBC\AT\AuditTrail::log(
             $user == '::' ? 'no-user-specified' : $user,
-            [$_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER['REMOTE_ADDR']],
+            @ [$_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER['REMOTE_ADDR']],
             'openFindOrder' . '::' . $this->soap_action,
             'read',
             json_encode(self::cleanBadgerfish($param->requesterAgencyId)),

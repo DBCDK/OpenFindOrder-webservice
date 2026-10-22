@@ -1,3 +1,5 @@
-src/OLS_class_lib/
+src/class_lib/
 src/openfindorder.ini
 src/openfindorder.wsdl
+
+/vendor/
