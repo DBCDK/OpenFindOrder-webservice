@@ -11,6 +11,7 @@ RUN ls -la /var/www
 RUN ls -la /var/www/html
 RUN ls -la /var/www/html/2.6
 RUN ls -la /var/www/html/app
+RUN php -v
 
 EXPOSE 80
 
