@@ -7,6 +7,8 @@ MAINTAINER D-scrum <d-scrum@dbc.dk>
 # RUN rm -r /var/www
 ADD www /var/www/html
 # RUN chown -R www-data:www-data /var/www/html
+RUN ls -l /var/www
+RUN ls -l /var/www/html
 
 EXPOSE 80
 
