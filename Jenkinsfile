@@ -84,6 +84,7 @@ pipeline {
             ln -s server.php docker/install/www/2.6/index.php
             ln -s server.php docker/install/www/test_2.6/index.php
             ln -s server.php docker/install/www/next_2.6/index.php
+            chown -R sideejer:sideejer docker/install/www
           """
         }
       }
