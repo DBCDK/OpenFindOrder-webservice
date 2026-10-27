@@ -571,7 +571,7 @@ class orsClass {
    * @param $par
    * @param $params
    */
-  private function add_string($key = null, $par = null, &$params) {
+  private function add_string($key, $par, &$params) {
     if (empty($par) || empty($par->_value) || empty($key) || !is_array($params)) {
       return;
     }
@@ -585,7 +585,7 @@ class orsClass {
    * @param $par
    * @param $params
    */
-  private function add_list($key = null, $par = null, &$params) {
+  private function add_list($key, $par, &$params) {
     $ret = array();
     if (empty($par) || empty($key) || !is_array($params)) {
       return;
