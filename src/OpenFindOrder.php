@@ -8,7 +8,7 @@ class OpenFindOrder extends webServiceServer
    * constructor; start watch; call parent's constructor
    */
   public function __construct() {
-    $inifile = rtrim($APACHE_ROOT, DIRECTORY_SEPARATOR) . '/openfindorder.ini';
+    $inifile = rtrim(getenv('APACHE_ROOT'), DIRECTORY_SEPARATOR) . '/openfindorder.ini';
     var_dump($inifile);
     parent::__construct($inifile);
 
