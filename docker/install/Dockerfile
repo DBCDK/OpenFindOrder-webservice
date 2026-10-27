@@ -6,7 +6,9 @@ MAINTAINER D-scrum <d-scrum@dbc.dk>
 
 # RUN rm -r /var/www
 ENV VERSION="2.6"
-COPY --chown=sideejer:sideejer ./ "${DBC_PHP_INSTALL_DIR}/${VERSION}"
+COPY --chown=sideejer:sideejer ./www/2.6 "${DBC_PHP_INSTALL_DIR}/${VERSION}"
+COPY --chown=sideejer:sideejer ./www/next_2.6 "${DBC_PHP_INSTALL_DIR}/next_${VERSION}"
+COPY --chown=sideejer:sideejer ./www/test_2.6 "${DBC_PHP_INSTALL_DIR}/test_${VERSION}"
 # ADD www /var/www/html
 # RUN chown -R www-data:www-data /var/www/html
 RUN ls -la /var/www

@@ -3,7 +3,7 @@
 versions=(2.6)
 for u in "${versions[@]}"
 do
-    DIR=$APACHE_ROOT/$u
+    DIR=$APACHE_ROOT/app/$u
     INI=$DIR/openfindorder.ini
     INSTALL=$INI"_INSTALL"
     cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
@@ -32,7 +32,7 @@ done
 versions=(next_2.6)
 for u in "${versions[@]}"
 do
-    DIR=$APACHE_ROOT/$u
+    DIR=$APACHE_ROOT/app/$u
     INI=$DIR/openfindorder.ini
     INSTALL=$INI"_INSTALL"
     cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
@@ -59,7 +59,7 @@ done
 versions=(test_2.6)
 for u in "${versions[@]}"
 do
-    DIR=$APACHE_ROOT/$u
+    DIR=$APACHE_ROOT/app/$u
     INI=$DIR/openfindorder.ini
     INSTALL=$INI"_INSTALL"
     cp $DIR/openfindorder.wsdl_INSTALL $DIR/openfindorder.wsdl
