@@ -19,7 +19,7 @@ RUN php -v
 
 EXPOSE 8080
 
-COPY apache_security.conf /etc/apache2/conf-enabled/
-COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
+# COPY apache_security.conf /etc/apache2/conf-enabled/
+# COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 COPY --chown=sideejer:sideejer config.sh "${DBC_PHP_INSTALL_DIR}/${VERSION}"
 COPY config.sh /
