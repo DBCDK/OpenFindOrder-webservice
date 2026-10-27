@@ -16,7 +16,7 @@ class OpenFindOrder extends webServiceServer
 
     $this->aaa = new OfoAaa($this->config->get_section('aaa'));
     $this->aaa->setOpenagencyList($this->config->get_section('setup'));
-    show_info();
+    $this->show_info();
   }
 
   /** \brief
