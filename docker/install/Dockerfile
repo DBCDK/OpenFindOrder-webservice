@@ -11,7 +11,6 @@ COPY --chown=sideejer:sideejer ./ "${DBC_PHP_INSTALL_DIR}/${VERSION}"
 # RUN chown -R www-data:www-data /var/www/html
 RUN ls -la /var/www
 RUN ls -la /var/www/html
-RUN ls -la /var/www/html/2.6
 RUN ls -la /var/www/html/app
 RUN ls -la /var/www/html/app/2.6
 RUN php -v
