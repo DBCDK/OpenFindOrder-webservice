@@ -18,7 +18,7 @@ RUN ls -la /var/www/html/ini_files
 RUN ls -la /var/www/html/app/2.6
 RUN cp /var/www/html/app/2.6/openfindorder.ini_INSTALL /var/www/html/ini_files/openfindorder.ini
 RUN cp /var/www/html/app/2.6/openfindorder.wsdl_INSTALL /var/www/html/ini_files/openfindorder.wsdl
-RUN ln -sf /var/www/html/ini_files/openfindorder.ini /var/www/html/app/2.6/
+# RUN ln -sf /var/www/html/ini_files/openfindorder.ini /var/www/html/app/2.6/
 # RUN cp ${DBC_INSTALL_DIR}/2.6/openfindorder.ini_INSTALL ${APACHE_ROOT}/ini_files/openfindorder.ini
 # RUN cp ${DBC_INSTALL_DIR}/2.6/openfindorder.wsdl_INSTALL ${APACHE_ROOT}/ini_files/openfindorder.wsdl
 # RUN ln -sf ${APACHE_ROOT}/ini_files/openfindorder.ini ${DBC_INSTALL_DIR}/2.6/

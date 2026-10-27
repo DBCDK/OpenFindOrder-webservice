@@ -8,7 +8,8 @@ class OpenFindOrder extends webServiceServer
    * constructor; start watch; call parent's constructor
    */
   public function __construct() {
-    parent::__construct('openfindorder.ini');
+    $inifile = rtrim($APACHE_ROOT, DIRECTORY_SEPARATOR) . '/openfindorder.ini';
+    parent::__construct($inifile);
 
     define('THIS_NAMESPACE', $this->xmlns['ofo']);
     $this->watch->start('openfindorderWS');
