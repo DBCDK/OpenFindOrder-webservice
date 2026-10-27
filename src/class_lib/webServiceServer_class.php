@@ -146,7 +146,7 @@ abstract class webServiceServer {
       }
       self::rest_request();
     }
-    elseif (self::in_house()
+    elseif (true || self::in_house()
       || $this->config->get_value('show_samples', 'setup')
       || ip_func::ip_in_interval(self::get_client_ip(), $this->config->get_value('show_samples_ip_list', 'setup'))
     ) {

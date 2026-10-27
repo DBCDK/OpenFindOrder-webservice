@@ -607,7 +607,7 @@ class orsClass {
    * @param $par
    * @param $params
    */
-  private function add_orderType($par = NULL, &$params, $default = NULL) {
+  private function add_orderType($par, &$params, $default = NULL) {
 
     if (!is_array($params)) {
       return;
