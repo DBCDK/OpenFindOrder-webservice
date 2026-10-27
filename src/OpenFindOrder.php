@@ -10,13 +10,13 @@ class OpenFindOrder extends webServiceServer
   public function __construct() {
     $inifile = rtrim(getenv('APACHE_ROOT'), DIRECTORY_SEPARATOR) . '/ini_files/openfindorder.ini';
     parent::__construct($inifile);
-    var_dump($inifile);
 
     define('THIS_NAMESPACE', $this->xmlns['ofo']);
     $this->watch->start('openfindorderWS');
 
     $this->aaa = new OfoAaa($this->config->get_section('aaa'));
     $this->aaa->setOpenagencyList($this->config->get_section('setup'));
+    show_info();
   }
 
   /** \brief
