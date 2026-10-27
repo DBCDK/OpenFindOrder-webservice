@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -xv
 
 versions=(2.6)
 for u in "${versions[@]}"
@@ -10,8 +10,6 @@ do
     cp $DIR/openfindorder.wsdl_INSTALL $INI_DIR/openfindorder.wsdl
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
-        ln -sf $INI_DIR/openfindorder.wsdl $DIR/openfindorder.wsdl
-        ln -sf $INI_DIR/openfindorder.ini $DIR/openfindorder.ini
         sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_PROD#g" $INI
         sed -i "s#@ORS2_URL@#$ORS2_URL_PROD#g" $INI
         sed -i "s#@MY_DOMAIN@#$MY_DOMAIN#g" $INI
@@ -42,8 +40,6 @@ do
     cp $DIR/openfindorder.wsdl_INSTALL $INI_DIR/openfindorder.wsdl
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
-        ln -sf $INI_DIR/openfindorder.wsdl $DIR
-        ln -sf $INI_DIR/openfindorder.ini $DIR
         sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_STAGING#g" $INI
         sed -i "s#@ORS2_URL@#$ORS2_URL_NEXT#g" $INI
         sed -i "s#@CACHE_SETTINGS@#$CACHE_SETTINGS#g" $INI
@@ -72,8 +68,6 @@ do
     cp $DIR/openfindorder.wsdl_INSTALL $INI_DIR/openfindorder.wsdl
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
-        ln -sf $INI_DIR/openfindorder.wsdl $DIR/
-        ln -sf $INI_DIR/openfindorder.ini $DIR/
         sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_PROD#g" $INI
         sed -i "s#@ORS2_URL@#$ORS2_URL_TEST#g" $INI
         sed -i "s#@CACHE_SETTINGS@#$CACHE_SETTINGS#g" $INI
