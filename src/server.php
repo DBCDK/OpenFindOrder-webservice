@@ -19,9 +19,9 @@
  * along with Open Library System.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
+//ini_set('display_startup_errors', '1');
 
 define('DEBUG', FALSE);
 
