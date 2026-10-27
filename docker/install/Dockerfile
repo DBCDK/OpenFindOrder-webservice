@@ -15,6 +15,10 @@ RUN ls -la /var/www
 RUN ls -la /var/www/html
 RUN ls -la /var/www/html/app
 RUN ls -la /var/www/html/app/2.6
+RUN cp ${DBC_INSTALL_DIR}/2.6/openfindorder.ini_INSTALL ${APACHE_ROOT}/ini_files/openfindorder.ini
+RUN cp ${DBC_INSTALL_DIR}/2.6/openfindorder.wsdl_INSTALL ${APACHE_ROOT}/ini_files/openfindorder.wsdl
+RUN ln -sf ${APACHE_ROOT}/ini_files/openfindorder.ini ${DBC_INSTALL_DIR}/2.6/
+RUN ln -sf ${APACHE_ROOT}/ini_files/openfindorder.wsdl ${DBC_INSTALL_DIR}/2.6/
 RUN php -v
 
 EXPOSE 8080
