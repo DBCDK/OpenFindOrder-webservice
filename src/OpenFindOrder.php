@@ -9,6 +9,12 @@ class OpenFindOrder extends webServiceServer
    */
   public function __construct() {
     $inifile = rtrim(getenv('APACHE_ROOT'), DIRECTORY_SEPARATOR) . '/ini_files/openfindorder.ini';
+    if (!file_exists($inifile)) {
+      $inifile = 'openfindorder.ini';
+    }
+    if (!file_exists($inifile)) {
+      die('Missing ini-file: ' . $inifile);
+    }
     parent::__construct($inifile);
 
     define('THIS_NAMESPACE', $this->xmlns['ofo']);

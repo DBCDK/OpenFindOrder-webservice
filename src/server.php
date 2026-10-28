@@ -19,7 +19,7 @@
  * along with Open Library System.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED & ~E_WARNING & ~E_USER_WARNING);
 ini_set('display_errors', '1');
 //ini_set('display_startup_errors', '1');
 
