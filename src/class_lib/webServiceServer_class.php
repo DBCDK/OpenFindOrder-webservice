@@ -303,16 +303,13 @@ abstract class webServiceServer {
   private function Wsdl() {
     if ($wsdl = $this->config->get_value('wsdl', 'setup')) {
       $wsdlLocation = rtrim(getenv('APACHE_ROOT'), DIRECTORY_SEPARATOR) . '/ini_files/';
-      $wsdlFile = $wsdlLocation . $wsdl;
-      if (($text = file_get_contents($wsdlFile)) !== FALSE) {
-        $location = $wsdlLocation;
+      if (($text = file_get_contents($wsdl)) !== FALSE) {
+        $location = $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . '/';
       } else {
-        $text = file_get_contents($wsdlFile);
+        $location = $wsdlLocation;
+        $text = file_get_contents($wsdlLocation . $wsdlFile);
       }
       if ($text) {
-        if (!$location = $this->config->get_value('service_location', 'setup')) {
-          $location = $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . '/';
-        }
         if (strpos($location, '://') < 1) {
           if (!empty($_SERVER['HTTPS']) ||
              (array_key_exists('HTTP_X_FORWARDED_PROTO', $_SERVER) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
