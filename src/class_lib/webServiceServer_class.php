@@ -313,13 +313,18 @@ abstract class webServiceServer {
           $protocol = 'http://';
         }
       }
+      $wsdlLocation = rtrim(getenv('APACHE_ROOT'), DIRECTORY_SEPARATOR) . '/ini_files/';
+      $wsdlFile = @wsdlLocation . $wsdl;
+      if (($text = file_get_contents($wsdlFile)) !== FALSE) {
+        header('Content-Type: text/xml; charset="utf-8"');
+        die(str_replace('__LOCATION__', $protocol . $wsdlLocation, $text));
+      }
       if (($text = file_get_contents($wsdl)) !== FALSE) {
         header('Content-Type: text/xml; charset="utf-8"');
         die(str_replace('__LOCATION__', $protocol . $location, $text));
       }
-      else {
-        die('ERROR: Cannot open the wsdl file - error in ini-file?');
-      }
+
+      die('ERROR: Cannot open the wsdl file - error in ini-file?');
     }
     else {
       die('ERROR: wsdl not defined in the ini-file');

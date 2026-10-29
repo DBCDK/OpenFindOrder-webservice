@@ -8,6 +8,7 @@ do
     INI=$APACHE_ROOT/ini_files/openfindorder.ini
     INSTALL=$DIR/openfindorder.ini_INSTALL
     cp $DIR/openfindorder.wsdl_INSTALL $INI_DIR/openfindorder.wsdl
+    cp $DIR/openfindorder.xsd $INI_DIR/openfindorder.xsd
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
         sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_PROD#g" $INI
@@ -38,6 +39,7 @@ do
     INI=$APACHE_ROOT/ini_files/openfindorder.ini
     INSTALL=$DIR/openfindorder.ini_INSTALL
     cp $DIR/openfindorder.wsdl_INSTALL $INI_DIR/openfindorder.wsdl
+    cp $DIR/openfindorder.xsd $INI_DIR/openfindorder.xsd
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
         sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_STAGING#g" $INI
@@ -66,6 +68,7 @@ do
     INI=$APACHE_ROOT/ini_files/openfindorder.ini
     INSTALL=$DIR/openfindorder.ini_INSTALL
     cp $DIR/openfindorder.wsdl_INSTALL $INI_DIR/openfindorder.wsdl
+    cp $DIR/openfindorder.xsd $INI_DIR/openfindorder.xsd
     if [ ! -f $INI ] ; then
         cp $INSTALL $INI
         sed -i "s#@OPENAGENCY_AGENCY_LIST@#$OPENAGENCY_AGENCY_LIST_PROD#g" $INI

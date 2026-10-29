@@ -389,6 +389,7 @@
           <xs:element ref="ofo:issue" minOccurs="0"/>
           <xs:element ref="ofo:kvik" minOccurs="0"/>
           <xs:element ref="ofo:language" minOccurs="0"/>
+          <xs:element ref="ofo:lastTaskStatus" minOccurs="0"/>
           <xs:element ref="ofo:lastModification" minOccurs="0"/>
           <xs:element ref="ofo:latestRequesterNote" minOccurs="0"/>
           <xs:element ref="ofo:localHoldingsId" minOccurs="0"/>
@@ -488,6 +489,7 @@
         <xs:element ref="ofo:itemId" minOccurs="0"/>
         <xs:element ref="ofo:kvik" minOccurs="0"/>
         <xs:element ref="ofo:language" minOccurs="0"/>
+        <xs:element ref="ofo:lastTaskStatus" minOccurs="0"/>
         <xs:element ref="ofo:lastModification" minOccurs="0"/>
         <xs:element ref="ofo:lastRenewalDate" minOccurs="0"/>
         <xs:element ref="ofo:latestProviderNote" minOccurs="0"/>
@@ -763,6 +765,11 @@
   <xs:element name="latestRequesterNote" type="xs:string">
     <xs:annotation>
       <xs:documentation xml:lang="en">Latest note received from requester.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="lastTaskStatus" type="xs:string">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Latest status.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="lastModification" type="xs:dateTime">
@@ -1237,6 +1244,7 @@
       <xs:enumeration value="bibliotekdk"/>
       <xs:enumeration value="læsekompasset"/>
       <xs:enumeration value="netpunkt"/>
+      <xs:enumeration value="netpunkt25"/>
       <xs:enumeration value="ors"/>
       <xs:enumeration value="pallesgavebod"/>
       <xs:enumeration value="sbserialssolutions"/>
