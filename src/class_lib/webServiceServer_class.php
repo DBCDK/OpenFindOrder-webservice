@@ -302,11 +302,12 @@ abstract class webServiceServer {
    */
   private function Wsdl() {
     if ($wsdl = $this->config->get_value('wsdl', 'setup')) {
+      $location = $this->config->get_value('service_location', 'setup');
       $wsdlLocation = rtrim(getenv('APACHE_ROOT'), DIRECTORY_SEPARATOR) . '/ini_files/';
       if (($text = file_get_contents($wsdl)) !== FALSE) {
-        $location = $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . '/';
+        $location = $location || $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . '/';
       } else {
-        $location = $wsdlLocation;
+        $location = $location || $wsdlLocation;
         $text = file_get_contents($wsdlLocation . $wsdlFile);
       }
       if ($text) {
