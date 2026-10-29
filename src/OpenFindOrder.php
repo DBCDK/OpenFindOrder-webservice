@@ -310,12 +310,15 @@ class OpenFindOrder extends webServiceServer
     $response->findOrdersResponse = new stdClass();
     $response->findOrdersResponse->_namespace = THIS_NAMESPACE;
     $response->findOrdersResponse->_value = new stdClass();
-    $response->findOrdersResponse->_value->numberOfOrders = new stdClass();
-    $response->findOrdersResponse->_value->numberOfOrders->_namespace = THIS_NAMESPACE;
-    $response->findOrdersResponse->_value->numberOfOrders->_value = $total;
-    $response->findOrdersResponse->_value->order = $orders;
-    $response->findOrdersResponse->_value->debugInfo = new stdClass();
-    $response->findOrdersResponse->_value->debugInfo->_value = $debug_info;
+    $response->findOrdersResponse->_value->result = new stdClass();
+    $response->findOrdersResponse->_value->result->_namespace = THIS_NAMESPACE;
+    $response->findOrdersResponse->_value->result->_value = new stdClass();
+    $response->findOrdersResponse->_value->result->_value->numberOfOrders = new stdClass();
+    $response->findOrdersResponse->_value->result->_value->numberOfOrders->_namespace = THIS_NAMESPACE;
+    $response->findOrdersResponse->_value->result->_value->numberOfOrders->_value = $total;
+    $response->findOrdersResponse->_value->result->_value->order = $orders;
+    $response->findOrdersResponse->_value->result->_value->debugInfo = new stdClass();
+    $response->findOrdersResponse->_value->result->_value->debugInfo->_value = $debug_info;
 
     return $response;
   }
@@ -341,20 +344,23 @@ class OpenFindOrder extends webServiceServer
     $response->getReceiptsResponse = new stdClass();
     $response->getReceiptsResponse->_namespace = THIS_NAMESPACE;
     $response->getReceiptsResponse->_value = new stdClass();
-    $response->getReceiptsResponse->_value->numberOfReceipts = new stdClass();
-    $response->getReceiptsResponse->_value->numberOfReceipts->_namespace = THIS_NAMESPACE;
-    $response->getReceiptsResponse->_value->numberOfReceipts->_value = $number_of_receipts;
+    $response->getReceiptsResponse->_value->result = new stdClass();
+    $response->getReceiptsResponse->_value->result->_namespace = THIS_NAMESPACE;
+    $response->getReceiptsResponse->_value->result->_value = new stdClass();
+    $response->getReceiptsResponse->_value->result->_value->numberOfReceipts = new stdClass();
+    $response->getReceiptsResponse->_value->result->_value->numberOfReceipts->_namespace = THIS_NAMESPACE;
+    $response->getReceiptsResponse->_value->result->_value->numberOfReceipts->_value = $number_of_receipts;
 
     if ($receipts->error) {
       $receipts->error->_namespace = THIS_NAMESPACE;
       $response->getReceiptsResponse->_value = $receipts;
     }
     else {
-      $response->getReceiptsResponse->_value->receipt = $receipts;
+      $response->getReceiptsResponse->_value->result->_value->receipt = $receipts;
     }
 
-    $response->getReceiptsResponse->_value->debugInfo = new stdClass();
-    $response->getReceiptsResponse->_value->debugInfo->_value = $debug_info;
+    $response->getReceiptsResponse->_value->result->_value->debugInfo = new stdClass();
+    $response->getReceiptsResponse->_value->result->_value->debugInfo->_value = $debug_info;
     return $response;
   }
 
