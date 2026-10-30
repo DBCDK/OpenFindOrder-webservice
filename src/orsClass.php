@@ -366,7 +366,7 @@ class orsClass {
             $buffer['lastModification'] = $datetime->format('Y-m-d\TH:i:s\Z');
             break;
           default:
-            $buffer[$key] = $orderItem;
+            $buffer[$key] = is_array($orderItem) ? implode(', ', $orderItem) : $orderItem;
         }
       }
       foreach ($resultObject['userData'] as $key => $orderItem) {
